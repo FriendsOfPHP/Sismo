@@ -94,6 +94,10 @@ $app['storage'] = $app->share(function () use ($app) {
 });
 
 $app['builder'] = $app->share(function () use ($app) {
+    if (!file_exists($app['git.path'])) {
+        throw new \RuntimeException(sprintf('The git binary cannot be found (%s).', $app['git.path']));
+    }
+
     return new Builder($app['build.path'], $app['git.path'], $app['git.cmds']);
 });
 
