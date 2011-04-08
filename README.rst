@@ -63,7 +63,7 @@ By default, Sismo reads its configuration from ``~/.sismo/config.php``::
     $sf2->setCommand('./vendors.sh; phpunit');
     $sf2->setSlug('symfony-local');
     $sf2->setUrlPattern('https://github.com/symfony/symfony/commit/%commit%');
-    $sf2->addNotifer($notifier);
+    $sf2->addNotifier($notifier);
     $projects[] = $sf2;
 
     return $projects;
