@@ -113,6 +113,7 @@ $classes = array(
     'Sismo\GithubProject',
     'Sismo\Notifier',
     'Sismo\GrowlNotifier',
+    'Sismo\BuildException',
     'Sismo\DBusNotifier',
     'Symfony\Component\Process\Process',
     'Sismo\Commit',
