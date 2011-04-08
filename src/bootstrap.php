@@ -19,6 +19,7 @@ use Sismo\Commit;
 use Sismo\Storage;
 use Sismo\Builder;
 use Symfony\Component\ClassLoader\UniversalClassLoader;
+use Symfony\Component\Process\Process;
 
 require_once __DIR__.'/../vendor/silex/autoload.php';
 
@@ -94,7 +95,8 @@ $app['storage'] = $app->share(function () use ($app) {
 });
 
 $app['builder'] = $app->share(function () use ($app) {
-    if (!file_exists($app['git.path'])) {
+    $process = new Process('git --version');
+    if ($process->run() > 0) {
         throw new \RuntimeException(sprintf('The git binary cannot be found (%s).', $app['git.path']));
     }
 
