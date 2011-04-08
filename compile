@@ -125,6 +125,7 @@ $classes = array(
     'Symfony\Component\HttpFoundation\Response',
     'Symfony\Component\HttpFoundation\ResponseHeaderBag',
     'Symfony\Component\HttpKernel\Event\FilterResponseEvent',
+    'Symfony\Component\HttpKernel\Util\Filesystem',
 );
 
 @unlink(__DIR__.'/build/sismo.php');
