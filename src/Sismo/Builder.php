@@ -12,7 +12,6 @@
 namespace Sismo;
 
 use Symfony\Component\Process\Process;
-use Symfony\Component\HttpKernel\Util\Filesystem;
 
 // @codeCoverageIgnoreStart
 /**
@@ -64,8 +63,7 @@ class Builder
     public function prepare($revision, $sync)
     {
         if (!file_exists($this->buildDir)) {
-            $filesystem = new Filesystem();
-            $filesystem->mkdir($this->buildDir);
+            mkdir($this->buildDir, 0777, true);
         }
 
         if (!file_exists($this->buildDir.'/.git')) {
