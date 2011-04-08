@@ -90,6 +90,7 @@ $classes = array(
     'Symfony\Component\HttpKernel\HttpKernel',
     'Symfony\Component\HttpKernel\Controller\ControllerResolver',
     'Symfony\Component\EventDispatcher\Event',
+    'Symfony\Component\HttpKernel\Util\Filesystem',
     'Symfony\Component\HttpKernel\Event\KernelEvent',
     'Symfony\Component\HttpKernel\Event\GetResponseEvent',
     'Symfony\Component\Routing\Matcher\UrlMatcher',
