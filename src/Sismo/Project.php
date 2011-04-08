@@ -146,6 +146,11 @@ class Project
         return $this->slug;
     }
 
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
     public function getRepository()
     {
         return $this->repository;
