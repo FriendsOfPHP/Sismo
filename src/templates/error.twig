@@ -1,0 +1,9 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Error' %}
+
+{% block content %}
+    <h1>Hmmm, looks like something went wrong</h1>
+
+    <p id="error">{{ error ? error|replace({"\n": '<br />' })|raw : 'An error occurred' }}</p>
+{% endblock %}

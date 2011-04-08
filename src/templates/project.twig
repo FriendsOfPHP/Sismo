@@ -1,0 +1,56 @@
+{% extends 'layout.twig' %}
+
+{% from _self import commit_block %}
+
+{% block title 'Project ' ~ project %}
+
+{% block content %}
+    <div id="back"><a href="{{ path('projects') }}">&laquo; Projects</a></div>
+
+    <h1>
+        <a href="{{ path('project', { 'slug': project.slug }) }}">
+            {{ project.shortname }}
+            {% if project.subname %}<small> &mdash; {{ project.subname }}</small>{% endif %}
+        </a>
+    </h1>
+
+    {% if not commit %}
+        <p id="error">Never built yet.</p>
+    {% else %}
+        <div class="clearfix {{ commit.statuscode }}" id="build">{{ commit_block(commit) }}</div>
+
+        {% if commit.isbuilt %}
+            <div id="output">
+                <pre>{{ commit.output ? commit.decoratedoutput|raw : 'No output' }}</pre>
+            </div>
+        {% endif %}
+
+        {% if commits is defined and commits %}
+            <h1>Builds History</h1>
+            <ul id="builds">
+                {% for commit in commits %}
+                    <li class="{{ commit.statuscode }}">{{ commit_block(commit) }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% macro commit_block(commit) %}
+    <div class="commit">{{ _self.commit_link(commit) }}</div>
+    <h2>
+        {{ commit.message }}
+        <span class="permalink"><a href="{{ path('commit', { 'slug': commit.project.slug, 'sha': commit.sha }) }}">¶</a></span>
+    </h2>
+    <div class="meta">
+        by <em>{{ commit.author }}</em> on <em>{{ commit.date|date('j M Y H:m') }}</em>
+    </div>
+{% endmacro %}
+
+{% macro commit_link(commit) %}
+    {% if not commit.project.urlpattern %}
+        #{{ commit.shortsha }} {{ commit.status }}
+    {% else %}
+        #<a href="{{ commit.project.urlpattern|replace({'%commit%': commit.sha }) }}">{{ commit.shortsha }}</a> {{ commit.status }}
+    {% endif %}
+{% endmacro %}

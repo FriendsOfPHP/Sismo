@@ -1,0 +1,208 @@
+#!/usr/bin/env php
+<?php
+
+// Compiles Simo into one big PHP file (images and CSS served by Silex directly)
+// Can be used on the web and the CLI
+
+use Symfony\Component\ClassLoader\UniversalClassLoader;
+use Symfony\Component\ClassLoader\ClassCollectionLoader;
+use Symfony\Component\Finder\Finder;
+
+require_once __DIR__.'/vendor/silex/autoload.php';
+
+$loader = new UniversalClassLoader();
+$loader->registerNamespaces(array(
+    'Sismo'   => __DIR__.'/src',
+    'Symfony' => __DIR__.'/vendor',
+));
+$loader->registerPrefixes(array(
+    'Twig_' => __DIR__.'/vendor/silex/vendor/twig/lib',
+));
+$loader->register();
+
+@mkdir(__DIR__.'/build', 0777, true);
+@unlink(__DIR__.'/build/sismo.php');
+
+$classes = array(
+    'Symfony\Component\ClassLoader\UniversalClassLoader',
+
+    'Symfony\Component\HttpKernel\HttpKernelInterface',
+    'Symfony\Component\EventDispatcher\EventSubscriberInterface',
+    'Silex\ExtensionInterface',
+    'Symfony\Component\EventDispatcher\EventDispatcherInterface',
+    'Symfony\Component\HttpKernel\Controller\ControllerResolverInterface',
+    'Symfony\Component\Routing\Matcher\UrlMatcherInterface',
+    'Symfony\Component\Routing\RouteCompilerInterface',
+    'Twig_LoaderInterface',
+    'Twig_ExtensionInterface',
+    'Symfony\Component\Routing\Generator\UrlGeneratorInterface',
+    'Twig_TemplateInterface',
+
+    'Symfony\Component\Console\Helper\HelperInterface',
+    'Symfony\Component\Console\Input\InputInterface',
+    'Symfony\Component\Console\Output\OutputInterface',
+    'Symfony\Component\Console\Formatter\OutputFormatterInterface',
+    'Symfony\Component\Console\Formatter\OutputFormatterStyleInterface',
+
+    'Symfony\Component\Console\Application',
+    'Symfony\Component\Console\Helper\HelperSet',
+    'Symfony\Component\Console\Helper\Helper',
+    'Symfony\Component\Console\Helper\FormatterHelper',
+    'Symfony\Component\Console\Helper\DialogHelper',
+    'Symfony\Component\Console\Command\Command',
+    'Symfony\Component\Console\Command\HelpCommand',
+    'Symfony\Component\Console\Input\InputDefinition',
+    'Symfony\Component\Console\Input\InputArgument',
+    'Symfony\Component\Console\Input\InputOption',
+    'Symfony\Component\Console\Command\ListCommand',
+    'Symfony\Component\Console\Input\Input',
+    'Symfony\Component\Console\Input\ArgvInput',
+    'Symfony\Component\Console\Output\Output',
+    'Symfony\Component\Console\Output\StreamOutput',
+    'Symfony\Component\Console\Output\ConsoleOutput',
+    'Symfony\Component\Console\Formatter\OutputFormatter',
+    'Symfony\Component\Console\Formatter\OutputFormatterStyle',
+    'Symfony\Component\Console\Input\ArrayInput',
+
+    'Symfony\Component\HttpKernel\Exception\HttpExceptionInterface',
+    'Symfony\Component\HttpKernel\Exception\HttpException',
+    'Symfony\Component\HttpKernel\Exception\NotFoundHttpException',
+    'Symfony\Component\Routing\Matcher\Exception\Exception',
+    'Symfony\Component\Routing\Matcher\Exception\NotFoundException',
+    'Symfony\Component\Routing\Matcher\Exception\MethodNotAllowedException',
+    'Pimple',
+    'Silex\Application',
+    'Silex\Extension\SymfonyBridgesExtension',
+    'Silex\Extension\UrlGeneratorExtension',
+    'Silex\Extension\TwigExtension',
+    'Symfony\Component\EventDispatcher\EventDispatcher',
+    'Symfony\Component\HttpKernel\Events',
+    'Silex\Events',
+    'Symfony\Component\Routing\Route',
+    'Silex\Controller',
+    'Silex\ControllerCollection',
+    'Symfony\Component\Routing\RouteCollection',
+    'Symfony\Component\HttpFoundation\Request',
+    'Symfony\Component\HttpFoundation\ParameterBag',
+    'Symfony\Component\HttpFoundation\FileBag',
+    'Symfony\Component\HttpFoundation\ServerBag',
+    'Symfony\Component\HttpFoundation\HeaderBag',
+    'Symfony\Component\HttpKernel\HttpKernel',
+    'Symfony\Component\HttpKernel\Controller\ControllerResolver',
+    'Symfony\Component\EventDispatcher\Event',
+    'Symfony\Component\HttpKernel\Event\KernelEvent',
+    'Symfony\Component\HttpKernel\Event\GetResponseEvent',
+    'Symfony\Component\Routing\Matcher\UrlMatcher',
+    'Symfony\Component\Routing\RouteCompiler',
+    'Symfony\Component\Routing\CompiledRoute',
+    'Symfony\Component\HttpKernel\Event\FilterControllerEvent',
+    'Symfony\Component\Routing\Matcher\RedirectableUrlMatcherInterface',
+    'Silex\RedirectableUrlMatcher',
+    'Twig_Environment',
+    'Twig_Markup',
+    'Twig_Extension',
+    'Twig_Extension_Core',
+    'Twig_Extension_Escaper',
+    'Twig_Extension_Optimizer',
+    'Symfony\Bridge\Twig\Extension\RoutingExtension',
+    'Symfony\Component\Routing\Generator\UrlGenerator',
+    'Sismo\Sismo',
+    'Sismo\Storage',
+    'Sismo\Builder',
+    'Sismo\Project',
+    'Sismo\GithubProject',
+    'Sismo\Notifier',
+    'Sismo\GrowlNotifier',
+    'Sismo\DBusNotifier',
+    'Symfony\Component\Process\Process',
+    'Sismo\Commit',
+    'Sismo\AnsiEscapeSequencesConverter',
+    'Twig_Template',
+    'Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent',
+    'Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent',
+    'Silex\GetResponseForErrorEvent',
+    'Silex\StringResponseConverter',
+    'Symfony\Component\HttpFoundation\Response',
+    'Symfony\Component\HttpFoundation\ResponseHeaderBag',
+    'Symfony\Component\HttpKernel\Event\FilterResponseEvent',
+);
+
+@unlink(__DIR__.'/build/sismo.php');
+$ccl = new ClassCollectionLoader();
+$ccl->load($classes, __DIR__.'/build', 'sismo', false);
+
+$classes = str_replace('<?php', '', file_get_contents(__DIR__.'/build/sismo.php'));
+
+$bootstrap = 'namespace {'.str_replace('<?php', '', file_get_contents(__DIR__.'/src/bootstrap.php')).'}';
+$bootstrap = str_replace('return $app;', '', $bootstrap);
+
+$base = __DIR__.'/src/templates';
+$bootstrap .= <<<EOF
+namespace {
+    class FakeTwigLoader implements Twig_LoaderInterface
+    {
+        public function getSource(\$name) {}
+        public function getCacheKey(\$name)
+        {
+            static \$templates = array(
+                'ccmonitor.twig.xml' => '$base/ccmonitor.twig.xml',
+                'error.twig' => '$base/error.twig',
+                'layout.twig' => '$base/layout.twig',
+                'project.twig' => '$base/project.twig',
+                'projects.twig' => '$base/projects.twig',
+            );
+
+            return \$templates[\$name];
+        }
+        public function isFresh(\$name, \$time) { return true; }
+    }
+
+    \$app['twig.loader'] = \$app->share(function () { return new FakeTwigLoader(); });
+}
+EOF;
+
+$templates = '';
+$twig = new Twig_Environment(new Twig_Loader_Filesystem(__DIR__.'/src/templates'), array('cache' => sys_get_temp_dir()));
+$twig->addExtension(new Symfony\Bridge\Twig\Extension\RoutingExtension(new Symfony\Component\Routing\Generator\UrlGenerator(new Symfony\Component\Routing\RouteCollection())));
+foreach (array('ccmonitor.twig.xml', 'error.twig', 'layout.twig', 'project.twig', 'projects.twig') as $name) {
+    $templates .= str_replace('<?php', '', $twig->compileSource($twig->getLoader()->getSource($name), $name));
+}
+$templates = 'namespace {'.str_replace('basepath', 'baseurl', $templates).'}';
+
+$cli = 'namespace {'.str_replace('<?php', '', file_get_contents(__DIR__.'/src/console.php')).'}';
+$cli = str_replace('return $console;', '', $cli);
+
+$app = 'namespace {'.str_replace('<?php', '', file_get_contents(__DIR__.'/src/app.php')).'}';
+$app = str_replace('return $app;', '', $app);
+
+$assets = sprintf('$app->get(\'/css/sismo.css\', function() { return new Response(\'%s\', 200, array(\'Content-Type\' => \'text/css\')); });', str_replace("'", "\\'", file_get_contents(__DIR__.'/web/css/sismo.css')));
+foreach (array('failed.png', 'header.png', 'hr.png', 'nobuild.png', 'success.png', 'sensio-labs-product.png') as $image) {
+    $assets .= sprintf('$app->get(\'/images/%s\', function() { return new Response(base64_decode(\'%s\'), 200, array(\'Content-Type\' => \'image/png\')); });', $image, base64_encode(file_get_contents(__DIR__.'/web/images/'.$image)));
+}
+$assets = 'namespace { use Symfony\Component\HttpFoundation\Response; '.$assets.'}';
+
+$content = "<?php
+$classes
+$bootstrap
+$templates
+$cli
+$app
+$assets
+
+namespace {
+    if ('cli' === php_sapi_name()) {
+        \$console->run();
+    } else {
+        \$app->run();
+    }
+}
+";
+
+// remove require_once calls
+$content = preg_replace('#require_once[^;]+?;#', '', $content);
+
+file_put_contents(__DIR__.'/build/sismo.php', $content);
+file_put_contents(__DIR__.'/build/sismo.php', 
+    "<?php \n/*".file_get_contents(__DIR__.'/LICENSE')."\n*/\n".
+    str_replace('<?php', '', php_strip_whitespace(__DIR__.'/build/sismo.php'))
+);

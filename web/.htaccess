@@ -1,0 +1,7 @@
+#SetEnv SISMO_DATA_PATH "/path/to/data"
+#SetEnv SISMO_CONFIG_PATH "/path/to/config"
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php [QSA,L]

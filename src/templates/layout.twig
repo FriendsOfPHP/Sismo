@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title '' %} | Sismo</title>
+        <link href="{{ app.request.basepath }}/css/sismo.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div id="content">
+            {% block content '' %}
+        </div>
+        <footer>
+            <span>Powered by <strong><a href="http://sismo-project.org/">Sismo</a></strong> {{ constant('Sismo\\Sismo::VERSION') }}, your Personal Continuous Testing Server</span>
+            <a href="http://www.sensiolabs.com/"><img class="png_fix" src="{{ app.request.basepath }}/images/sensio-labs-product.png" alt="a Sensio Labs product" /></a>
+        </footer>
+    </body>
+</html>

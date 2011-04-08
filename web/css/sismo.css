@@ -1,0 +1,233 @@
+/*
+Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.7.0
+*/
+html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var,optgroup{font-style:inherit;font-weight:inherit;}del,ins{text-decoration:none;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:baseline;}sub{vertical-align:baseline;}legend{color:#000;}input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;}input,button,textarea,select{*font-size:100%;}
+
+/* Sismo CSS */
+html {
+    background-color: #182d33;
+}
+
+body {
+    font-family: Georgia, serif;
+    color: #fff;
+    font-size: 16px;
+}
+
+em {
+    font-style: italic;
+}
+
+strong {
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 30px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+h1 a {
+    color: #fff;
+}
+
+h2 {
+    font-size: 26px;
+}
+
+#builds h2 {
+    font-size: 21px;
+}
+
+#content, footer {
+    width: 780px;
+    margin: 0 auto;
+    background: #274751;
+    padding: 15px 24px;
+}
+
+#content {
+    padding-top: 160px;
+    background: #274751 url(../images/header.png) no-repeat right top;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.success {
+    background: url(../images/success.png) repeat-y !important;
+}
+
+.failed {
+  background: url(../images/failed.png) repeat-y !important;
+}
+
+.success a, .failed a {
+    color: #fff !important;
+}
+
+#projects {
+    margin: 15px 0;
+    margin-top: 30px;
+}
+
+#projects li {
+    position: relative;
+    padding: 12px;
+    margin-bottom: 5px;
+    font-size: 30px;
+    vertical-align: bottom;
+    border: 3px solid #ccc;
+    background: #898989 url(../images/shadow.png) repeat-y;
+}
+
+#projects li a {
+    color: #555;
+}
+
+#build {
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border: 3px solid #ccc;
+    background: url(../images/nobuild.png) repeat-y;
+}
+
+#build a {
+    color: #555;
+}
+
+#output {
+    margin-bottom: 15px;
+}
+
+#output pre {
+    background: #111;
+    color: #fff;
+    padding: 8px;
+    overflow: auto;
+    max-height: 300px;
+    width: 764px;
+    font-size: 14px;
+}
+
+.meta {
+    font-size: 13px;
+    font-family: Georgia, serif;
+}
+
+#builds li {
+    padding: 8px 12px;
+    margin-bottom: 5px;
+    border: 3px solid #ccc;
+    background: url(../images/nobuild.png) repeat-y;
+}
+
+#builds li a {
+    color: #fff;
+}
+
+#builds .meta {
+    font-size: 14px;
+}
+
+.commit {
+    float: right;
+    padding-left: 15px;
+    padding-bottom: 15px;
+    color: #333 !important;
+}
+
+.commit a {
+    color: #333 !important;
+}
+
+.status {
+    float: right;
+    padding-left: 15px;
+    padding-bottom: 15px;
+    color: #333 !important;
+    font-size: 15px;
+}
+
+footer {
+    text-align: center;
+    font-size: 12px;
+    font-family: Arial;
+    background: #274751 url(../images/hr.png) no-repeat;
+}
+
+footer span {
+    margin-right: 40px;
+}
+
+footer img {
+    margin: 0 4px;
+    vertical-align: middle;
+}
+
+footer a {
+    color: #fff;
+}
+
+.clearfix:after { content: "\0020"; display: block; height: 0; clear: both; visibility: hidden; overflow: hidden; }
+.clearfix { display: inline-block; }
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+
+#project_command_test {
+    width: 100%;
+    height: 150px;
+}
+
+.permalink {
+    font-size: 60%;
+}
+
+.permalink a {
+    color: #eee !important;
+}
+
+#back {
+    float: right;
+}
+
+#back a {
+    color: #ddd;
+}
+
+#error {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    position: relative;
+    padding: 12px;
+    font-size: 22px;
+    vertical-align: bottom;
+    border: 3px solid #ccc;
+    background: #898989 url(../images/shadow.png) repeat-y;
+}
+
+.ansi_color_fg_black   { color: black; }
+.ansi_color_fg_red     { color: red; }
+.ansi_color_fg_green   { color: green; }
+.ansi_color_fg_yellow  { color: yellow; }
+.ansi_color_fg_blue    { color: blue; }
+.ansi_color_fg_magenta {  color: magenta; }
+.ansi_color_fg_cyan    { color: cyan; }
+.ansi_color_fg_white   { color: white; }
+.ansi_color_bg_black   { background-color: black; }
+.ansi_color_bg_red     { background-color: red; }
+.ansi_color_bg_green   { background-color: green; }
+.ansi_color_bg_yellow  { background-color: yellow; }
+.ansi_color_bg_blue    { background-color: blue; }
+.ansi_color_bg_magenta { background-color: magenta; }
+.ansi_color_bg_cyan    { background-color: cyan; }
+.ansi_color_bg_white   { background-color: white; }

@@ -1,0 +1,21 @@
+{% extends 'layout.twig' %}
+
+{% block title 'Projects' %}
+
+{% block content %}
+    {% if not projects %}
+        <p>No project yet.</p>
+    {% else %}
+        <ul id="projects">
+            {% for i, project in projects %}
+                <li class="{{ project.statuscode }}">
+                    <div class="status">{{ project.status }}</div>
+                    <a href="{{ path('project', { 'slug': project.slug }) }}">
+                        {{ project.shortname }}
+                        {% if project.subname %}<small> &mdash; {{ project.subname }}</small>{% endif %}
+                    </a>
+               </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
