@@ -124,6 +124,7 @@ $classes = array(
     'Silex\GetResponseForErrorEvent',
     'Silex\StringResponseConverter',
     'Symfony\Component\HttpFoundation\Response',
+    'Symfony\Component\HttpFoundation\RedirectResponse',
     'Symfony\Component\HttpFoundation\ResponseHeaderBag',
     'Symfony\Component\HttpKernel\Event\FilterResponseEvent',
 );
