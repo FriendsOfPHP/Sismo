@@ -163,6 +163,7 @@ footer {
     font-size: 12px;
     font-family: Arial;
     background: #274751 url(../images/hr.png) no-repeat;
+    display: block;
 }
 
 footer span {
