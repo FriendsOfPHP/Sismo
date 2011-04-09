@@ -21,7 +21,7 @@ class AppTest extends WebTestCase
     {
         $app = require __DIR__.'/../src/bootstrap.php';
 
-        $this->baseDir = sys_get_temp_dir().'/sismo';
+        $this->baseDir = realpath(sys_get_temp_dir()).'/sismo';
         $fs = new Filesystem();
         $fs->mkdir($this->baseDir);
         $fs->mkdir($this->baseDir.'/config');
@@ -39,6 +39,8 @@ class AppTest extends WebTestCase
     public function tearDown()
     {
         parent::tearDown();
+
+        $this->app['storage']->close();
 
         $fs = new Filesystem();
         $fs->remove($this->baseDir);

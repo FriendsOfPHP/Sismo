@@ -63,7 +63,7 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
         $tester = new ApplicationTester($this->console);
 
         $this->assertEquals(0, $tester->run(array('command' => 'build')));
-        $this->assertEquals("Building Project \"Twig\" (into \"d41d8c\")\n\nBuilding Project \"Silex\" (into \"d41d8c\")", trim($tester->getDisplay()));
+        $this->assertEquals('Building Project "Twig" (into "d41d8c")'.PHP_EOL.PHP_EOL.'Building Project "Silex" (into "d41d8c")', trim($tester->getDisplay()));
     }
 
     public function testVerboseBuildForProject()
