@@ -95,7 +95,7 @@ $app['storage'] = $app->share(function () use ($app) {
 });
 
 $app['builder'] = $app->share(function () use ($app) {
-    $process = new Process('git --version');
+    $process = new Process(sprintf('%s --version', $app['git.path']));
     if ($process->run() > 0) {
         throw new \RuntimeException(sprintf('The git binary cannot be found (%s).', $app['git.path']));
     }
