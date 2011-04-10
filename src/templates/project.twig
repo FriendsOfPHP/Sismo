@@ -43,7 +43,7 @@
         <span class="permalink"><a href="{{ path('commit', { 'slug': commit.project.slug, 'sha': commit.sha }) }}">¶</a></span>
     </h2>
     <div class="meta">
-        by <em>{{ commit.author }}</em> on <em>{{ commit.date|date('j M Y H:m') }}</em>
+        by <em>{{ commit.author }}</em> on <em>{{ commit.date|date('j M Y H:i') }}</em>
     </div>
 {% endmacro %}
 
