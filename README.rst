@@ -83,8 +83,13 @@ Build all configured projects by running the ``build`` command:
 
     $ php sismo.php build --verbose
 
-If a build fails, Sismo will send notifications. You can also check the build
-output from the web interface:
+If a build fails, Sismo will send notifications. Use the ``output`` command to
+see the latest build output of a project:
+
+    $ php sismo.php output twig
+
+If you have configured Sismo to be accessible from the web interface, you can
+also check the build outputs there:
 
 .. image:: http://sismo-project.org/images/sismo-project.png
 

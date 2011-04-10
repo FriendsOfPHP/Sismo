@@ -19,6 +19,39 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 $console = new Application('Sismo', Sismo::VERSION);
 $console
+    ->register('output')
+    ->setDefinition(array(
+        new InputArgument('slug', InputArgument::REQUIRED, 'Project slug'),
+    ))
+    ->setDescription('Displays the latest output for a project')
+    ->setHelp(<<<EOF
+The <info>output</info> command displays the latest output for a project:
+
+    <info>./sismo output twig</info>
+EOF
+    )
+    ->setCode(function (InputInterface $input, OutputInterface $output) use ($app) {
+        $sismo = $app['sismo'];
+        $slug = $input->getArgument('slug');
+        if (!$sismo->hasProject($slug)) {
+            $output->writeln(sprintf('<error>Project "%s" does not exist.</error>', $slug));
+
+            return 1;
+        }
+
+        $project = $sismo->getProject($slug);
+
+        if (!$project->getLatestCommit()) {
+            $output->writeln(sprintf('<error>Project "%s" has never been built yet.</error>', $slug));
+
+            return 2;
+        }
+
+        $output->write($project->getLatestCommit()->getOutput());
+    })
+;
+
+$console
     ->register('build')
     ->setDefinition(array(
         new InputArgument('slug', InputArgument::OPTIONAL, 'Project slug'),
