@@ -88,6 +88,13 @@ output from the web interface:
 
 .. image:: http://sismo-project.org/images/sismo-project.png
 
+If your web server runs under a different user than the one you use on the
+CLI, you will need to set some environment variables in your virtual host
+configuration:
+
+    SetEnv SISMO_DATA_PATH "/path/to/sismo/data"
+    SetEnv SISMO_CONFIG_PATH "/path/to/sismo/config"
+
 The ``build`` command is quite powerful and has many options. Learn more by
 appending ``--help``:
 
