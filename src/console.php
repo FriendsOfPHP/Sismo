@@ -176,7 +176,7 @@ EOF
 
         foreach ($projects as $project) {
             // out of time?
-            if ($input->getOption('timeout') && time() - $begin > $input->getOption('timeout')) {
+            if ($input->getOption('timeout') && time() - $start > $input->getOption('timeout')) {
                 break;
             }
 
