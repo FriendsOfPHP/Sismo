@@ -144,4 +144,14 @@ class Storage
 
         return $commit;
     }
+
+    public function close()
+    {
+        $this->db->close();
+    }
+
+    public function __destruct()
+    {
+        $this->close();
+    }
 }
