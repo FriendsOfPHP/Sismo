@@ -21,15 +21,16 @@ use Symfony\Component\Process\Process;
  */
 class DBusNotifier extends Notifier
 {
-    public function __construct($format = "[%STATUS%]\n%message%\n%author%", $port = 9887)
+    public function __construct($display = "", $format = "[%STATUS%]\n%message%\n%author%")
     {
-        $this->format = $format;
+        $this->display = $display;
+        $this->format  = $format;
     }
 
     public function notify(Commit $commit)
     {
         // first, try with the notify-send program
-        $process = new Process(sprintf('notify-send "%s" "%s"', $commit->getProject()->getName(), $this->format($this->format, $commit)));
+        $process = new Process(sprintf('%s notify-send "%s" "%s"', $this->display, $commit->getProject()->getName(), $this->format($this->format, $commit)));
         $process->setTimeout(2);
         $process->run();
         if ($process->getExitCode() <= 0) {
