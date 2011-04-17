@@ -33,7 +33,7 @@ Installing Sismo is as easy as downloading the `sismo.php`_ file and put it
 somewhere under your web root directory. That's it, the CLI tool and the web
 interface is packed into a single PHP file.
 
-Note that Sismo needs at least PHP 5.3.2 to run.
+Note that Sismo needs at least PHP 5.3.3 to run.
 
 Configuration
 -------------
