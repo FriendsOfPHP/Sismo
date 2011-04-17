@@ -17,7 +17,7 @@ class AppTest extends WebTestCase
 {
     protected $baseDir;
 
-    public function createApp()
+    public function createApplication()
     {
         $app = require __DIR__.'/../src/bootstrap.php';
 
