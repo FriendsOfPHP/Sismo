@@ -56,6 +56,9 @@ By default, Sismo reads its configuration from ``~/.sismo/config.php``::
     // add a remote Github repository
     $projects[] = new Sismo\GithubProject('Twig', 'fabpot/Twig', $notifier);
 
+    // add a repository accessible via SSH
+    $projects[] = new Sismo\Project('Twig' 'git@github.com:fabpot/Twig.git');
+
     // add a project with custom settings
     $sf2 = new Sismo\Project('Symfony');
     $sf2->setRepository('https://github.com/symfony/symfony.git');

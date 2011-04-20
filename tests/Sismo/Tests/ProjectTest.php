@@ -32,8 +32,8 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('master', $project->getBranch());
 
         $project = new Project('Twig Local', 'repo@feat');
-        $this->assertEquals('repo', $project->getRepository());
-        $this->assertEquals('feat', $project->getBranch());
+        $this->assertEquals('repo@feat', $project->getRepository());
+        $this->assertEquals('master', $project->getBranch());
 
         $project = new Project('Twig Local', 'repo', array(
             $notifier1 = $this->getMock('Sismo\Notifier'),
@@ -170,8 +170,8 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('https://github.com/fabpot/Twig.git', $project->getRepository());
 
         $project->setRepository('https://github.com/fabpot/Twig.git@feat');
-        $this->assertEquals('https://github.com/fabpot/Twig.git', $project->getRepository());
-        $this->assertEquals('feat', $project->getBranch());
+        $this->assertEquals('https://github.com/fabpot/Twig.git@feat', $project->getRepository());
+        $this->assertEquals('master', $project->getBranch());
     }
 
     public function testCommand()
