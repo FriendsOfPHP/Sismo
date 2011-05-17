@@ -67,9 +67,11 @@ $classes = array(
     'Symfony\Component\HttpKernel\Exception\HttpExceptionInterface',
     'Symfony\Component\HttpKernel\Exception\HttpException',
     'Symfony\Component\HttpKernel\Exception\NotFoundHttpException',
-    'Symfony\Component\Routing\Matcher\Exception\Exception',
-    'Symfony\Component\Routing\Matcher\Exception\NotFoundException',
-    'Symfony\Component\Routing\Matcher\Exception\MethodNotAllowedException',
+    'Symfony\Component\Routing\Exception\ExceptionInterface',
+    'Symfony\Component\Routing\Exception\ResourceNotFoundException',
+    'Symfony\Component\Routing\Exception\MethodNotAllowedException',
+    'Symfony\Component\Routing\RequestContextAwareInterface',
+    'Symfony\Component\Routing\RequestContext',
     'Pimple',
     'Silex\Application',
     'Silex\Extension\SymfonyBridgesExtension',
@@ -97,6 +99,7 @@ $classes = array(
     'Symfony\Component\Routing\CompiledRoute',
     'Symfony\Component\HttpKernel\Event\FilterControllerEvent',
     'Symfony\Component\Routing\Matcher\RedirectableUrlMatcherInterface',
+    'Symfony\Component\Routing\Matcher\RedirectableUrlMatcher',
     'Silex\RedirectableUrlMatcher',
     'Twig_Environment',
     'Twig_Markup',
@@ -165,7 +168,7 @@ EOF;
 
 $templates = '';
 $twig = new Twig_Environment(new Twig_Loader_Filesystem(__DIR__.'/src/templates'), array('cache' => sys_get_temp_dir()));
-$twig->addExtension(new Symfony\Bridge\Twig\Extension\RoutingExtension(new Symfony\Component\Routing\Generator\UrlGenerator(new Symfony\Component\Routing\RouteCollection())));
+$twig->addExtension(new Symfony\Bridge\Twig\Extension\RoutingExtension(new Symfony\Component\Routing\Generator\UrlGenerator(new Symfony\Component\Routing\RouteCollection(), new Symfony\Component\Routing\RequestContext())));
 foreach (array('ccmonitor.twig.xml', 'error.twig', 'layout.twig', 'project.twig', 'projects.twig') as $name) {
     $templates .= str_replace('<?php', '', $twig->compileSource($twig->getLoader()->getSource($name), $name));
 }

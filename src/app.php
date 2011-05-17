@@ -46,6 +46,12 @@ $app->get('/{slug}', function($slug) use ($app) {
     ));
 })->bind('project');
 
+$app->get('/dashboard/cctray.xml', function() use ($app) {
+    $content = $app['twig']->render('ccmonitor.twig.xml', array('projects' => $app['sismo']->getProjects()));
+
+    return new Response($content, 200, array('content-type' => 'text/xml'));
+})->bind('ccmonitor');
+
 $app->get('/{slug}/{sha}', function($slug, $sha) use ($app) {
     if (!$app['sismo']->hasProject($slug)) {
         throw new NotFoundHttpException(sprintf('Project "%s" not found.', $slug));
@@ -62,11 +68,5 @@ $app->get('/{slug}/{sha}', function($slug, $sha) use ($app) {
         'commit'  => $commit,
     ));
 })->bind('commit');
-
-$app->get('/dashboard/cctray.xml', function() use ($app) {
-    $content = $app['twig']->render('ccmonitor.twig.xml', array('projects' => $app['sismo']->getProjects()));
-
-    return new Response($content, 200, array('content-type' => 'text/xml'));
-})->bind('ccmonitor');
 
 return $app;
