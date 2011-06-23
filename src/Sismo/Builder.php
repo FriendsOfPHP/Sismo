@@ -111,7 +111,7 @@ class Builder
         $process = new Process($command, $this->buildDir);
         $process->setTimeout(3600);
         $process->run($this->callback);
-        if ($process->getExitCode() > 0) {
+        if (!$process->isSuccessful()) {
             throw new BuildException($message);
         }
 

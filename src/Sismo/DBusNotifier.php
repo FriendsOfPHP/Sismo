@@ -32,7 +32,7 @@ class DBusNotifier extends Notifier
         $process = new Process(sprintf('notify-send "%s" "%s"', $commit->getProject()->getName(), $this->format($this->format, $commit)));
         $process->setTimeout(2);
         $process->run();
-        if ($process->getExitCode() <= 0) {
+        if ($process->isSuccessful()) {
             return;
         }
 
@@ -40,7 +40,7 @@ class DBusNotifier extends Notifier
         $process = new Process(sprintf('dbus-send --print-reply --dest=org.freedesktop.Notifications /org/freedesktop/Notifications org.freedesktop.Notifications.Notify string:"sismo" int32:0 string:"" string:"%s" string:"%s" array:string:"" dict:string:"" int32:-1', $commit->getProject()->getName(), $this->format($this->format, $commit)));
         $process->setTimeout(2);
         $process->run();
-        if ($process->getExitCode() <= 0) {
+        if ($process->isSuccessful()) {
             return;
         }
     }
