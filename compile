@@ -191,8 +191,8 @@ $classes
 $bootstrap
 $templates
 $cli
-$app
 $assets
+$app
 
 namespace {
     if ('cli' === php_sapi_name()) {
