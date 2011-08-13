@@ -158,11 +158,6 @@ class Project
 
     public function setRepository($url)
     {
-        if (false !== strpos($url, '@')) {
-            list($url, $branch) = explode('@', $url);
-            $this->branch = $branch;
-        }
-
         $this->repository = $url;
     }
 

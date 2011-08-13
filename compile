@@ -113,6 +113,7 @@ $classes = array(
     'Sismo\Storage',
     'Sismo\Builder',
     'Sismo\Project',
+    'Sismo\HTTPProject',
     'Sismo\GithubProject',
     'Sismo\Notifier',
     'Sismo\GrowlNotifier',

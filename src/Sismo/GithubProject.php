@@ -18,7 +18,7 @@ use Symfony\Component\Process\Process;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class GithubProject extends Project
+class GithubProject extends HTTPProject
 {
     public function setRepository($url)
     {
