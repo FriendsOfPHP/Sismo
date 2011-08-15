@@ -33,7 +33,7 @@ class Builder
         $this->baseBuildDir = $buildDir;
         $this->gitPath = $gitPath;
         $this->gitCmds = array_replace(array(
-            'clone'    => 'clone --progress --recursive "%repo%" "%dir%"',
+            'clone'    => 'clone --progress --recursive %repo% %dir%',
             'fetch'    => 'fetch origin',
             'prepare'  => 'submodule update --init --recursive',
             'checkout' => 'checkout origin/%branch%',
@@ -67,7 +67,7 @@ class Builder
         }
 
         if (!file_exists($this->buildDir.'/.git')) {
-            $this->execute(strtr($this->gitPath.' '.$this->gitCmds['clone'], array('%repo%' => $this->project->getRepository(), '%dir%' => $this->buildDir)), sprintf('Unable to clone repository for project "%s".', $this->project));
+            $this->execute(strtr($this->gitPath.' '.$this->gitCmds['clone'], array('%repo%' => escapeshellarg($this->project->getRepository()), '%dir%' => escapeshellarg($this->buildDir))), sprintf('Unable to clone repository for project "%s".', $this->project));
         }
 
         if ($sync) {
