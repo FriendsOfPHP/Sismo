@@ -75,7 +75,7 @@ class Builder
             $this->execute($this->gitPath.' '.$this->gitCmds['prepare'], sprintf('Unable to update submodules for project "%s".', $this->project));
         }
 
-        $this->execute(strtr($this->gitPath.' '.$this->gitCmds['checkout'], array('%branch%' => $this->project->getBranch())), sprintf('Unable to checkout branch "%s" for project "%s".', $this->project->getBranch(), $this->project));
+        $this->execute(strtr($this->gitPath.' '.$this->gitCmds['checkout'], array('%branch%' => escapeshellarg($this->project->getBranch()))), sprintf('Unable to checkout branch "%s" for project "%s".', $this->project->getBranch(), $this->project));
 
         if (null === $revision || 'HEAD' === $revision) {
             $revision = null;
@@ -95,10 +95,10 @@ class Builder
             }
         }
 
-        $this->execute(strtr($this->gitPath.' '.$this->gitCmds['reset'], array('%revision%' => $revision)), sprintf('Revision "%s" for project "%s" does not exist.', $revision, $this->project));
+        $this->execute(strtr($this->gitPath.' '.$this->gitCmds['reset'], array('%revision%' => escapeshellarg($revision))), sprintf('Revision "%s" for project "%s" does not exist.', $revision, $this->project));
 
         $format = '%H%n%an%n%ci%n%s%n';
-        $process = $this->execute(strtr($this->gitPath.' '.$this->gitCmds['show'], array('%format%' => $format, '%revision%' => $revision)), sprintf('Unable to get logs for project "%s".', $this->project));
+        $process = $this->execute(strtr($this->gitPath.' '.$this->gitCmds['show'], array('%format%' => escapeshellarg($format), '%revision%' => escapeshellarg($revision))), sprintf('Unable to get logs for project "%s".', $this->project));
 
         return explode("\n", trim($process->getOutput()), 4);
     }
