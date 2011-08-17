@@ -98,7 +98,7 @@ CLI, you will need to set some environment variables in your virtual host
 configuration:
 
     SetEnv SISMO_DATA_PATH "/path/to/sismo/data"
-    SetEnv SISMO_CONFIG_PATH "/path/to/sismo/config"
+    SetEnv SISMO_CONFIG_PATH "/path/to/sismo/config.php"
 
 The ``build`` command is quite powerful and has many options. Learn more by
 appending ``--help``:
@@ -144,12 +144,12 @@ by Sismo::
     # in a .htaccess or httpd.conf Apache configuration file
 
     SetEnv SISMO_DATA_PATH "/path/to/sismo/data"
-    SetEnv SISMO_CONFIG_PATH "/path/to/sismo/config"
+    SetEnv SISMO_CONFIG_PATH "/path/to/sismo/config.php"
 
     # for the CLI tool
 
     export SISMO_DATA_PATH=/path/to/sismo/data/
-    export SISMO_CONFIG_PATH=/path/to/sismo/config/
+    export SISMO_CONFIG_PATH=/path/to/sismo/config.php
 
 Tracking multiple Branches
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
