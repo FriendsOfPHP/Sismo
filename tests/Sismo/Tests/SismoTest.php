@@ -172,7 +172,7 @@ class SismoTest extends \PHPUnit_Framework_TestCase
     {
         // build is a success
         $process = $this->getProcess();
-        $process->expects($this->once())->method('getExitCode')->will($this->returnValue(0));
+        $process->expects($this->once())->method('isSuccessful')->will($this->returnValue(true));
         $process->expects($this->once())->method('getOutput')->will($this->returnValue('foo'));
 
         // build is triggered as commit does not exist
@@ -198,7 +198,7 @@ class SismoTest extends \PHPUnit_Framework_TestCase
     {
         // build is a fail
         $process = $this->getProcess();
-        $process->expects($this->once())->method('getExitCode')->will($this->returnValue(1));
+        $process->expects($this->once())->method('isSuccessful')->will($this->returnValue(false));
         $process->expects($this->once())->method('getOutput')->will($this->returnValue('foo'));
         $process->expects($this->once())->method('getErrorOutput')->will($this->returnValue('bar'));
 
