@@ -25,7 +25,7 @@ require_once __DIR__.'/../vendor/silex/autoload.php';
 
 $loader = new UniversalClassLoader();
 $loader->registerNamespaces(array(
-    'Sismo'   => __DIR__,
+    'Sismo'   => array(__DIR__, __DIR__.'/../contrib'),
     'Symfony' => __DIR__.'/../vendor',
 ));
 $loader->registerPrefixes(array(
