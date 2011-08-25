@@ -38,7 +38,6 @@ $app->register(new SymfonyBridgesExtension());
 $app->register(new UrlGeneratorExtension());
 $app->register(new TwigExtension(), array(
     'twig.path'      => __DIR__.'/templates',
-    'twig.options'   => array('debug' => true, 'strict_variables' => true),
     'twig.configure' => $app->protect(function ($twig) use ($app) {
         $twig->setCache($app['twig.cache.path']);
     }),
