@@ -74,6 +74,7 @@ $classes = array(
     'Symfony\Component\Routing\RequestContext',
     'Pimple',
     'Silex\Application',
+    'Silex\ExceptionHandler',
     'Silex\Extension\SymfonyBridgesExtension',
     'Silex\Extension\UrlGeneratorExtension',
     'Silex\Extension\TwigExtension',
@@ -91,6 +92,7 @@ $classes = array(
     'Symfony\Component\HttpFoundation\HeaderBag',
     'Symfony\Component\HttpKernel\HttpKernel',
     'Symfony\Component\HttpKernel\Controller\ControllerResolver',
+    'Symfony\Component\HttpKernel\EventListener\ResponseListener',
     'Symfony\Component\EventDispatcher\Event',
     'Symfony\Component\HttpKernel\Event\KernelEvent',
     'Symfony\Component\HttpKernel\Event\GetResponseEvent',
@@ -101,6 +103,7 @@ $classes = array(
     'Symfony\Component\Routing\Matcher\RedirectableUrlMatcherInterface',
     'Symfony\Component\Routing\Matcher\RedirectableUrlMatcher',
     'Silex\RedirectableUrlMatcher',
+    'Silex\ControllerResolver',
     'Twig_Environment',
     'Twig_Markup',
     'Twig_Extension',
@@ -138,11 +141,11 @@ $ccl->load($classes, __DIR__.'/build', 'sismo', false);
 
 $classes = str_replace('<?php', '', file_get_contents(__DIR__.'/build/sismo.php'));
 
-$bootstrap = 'namespace {'.str_replace('<?php', '', file_get_contents(__DIR__.'/src/bootstrap.php')).'}';
-$bootstrap = str_replace('return $app;', '', $bootstrap);
+$app = 'namespace {'.str_replace('<?php', '', file_get_contents(__DIR__.'/src/app.php')).'}';
+$app = str_replace('return $app;', '', $app);
 
 $base = __DIR__.'/src/templates';
-$bootstrap .= <<<EOF
+$app .= <<<EOF
 namespace {
     class FakeTwigLoader implements Twig_LoaderInterface
     {
@@ -177,8 +180,8 @@ $templates = 'namespace {'.str_replace('basepath', 'baseurl', $templates).'}';
 $cli = 'namespace {'.str_replace('<?php', '', file_get_contents(__DIR__.'/src/console.php')).'}';
 $cli = str_replace('return $console;', '', $cli);
 
-$app = 'namespace {'.str_replace('<?php', '', file_get_contents(__DIR__.'/src/app.php')).'}';
-$app = str_replace('return $app;', '', $app);
+$controllers = 'namespace {'.str_replace('<?php', '', file_get_contents(__DIR__.'/src/controllers.php')).'}';
+$controllers = str_replace('return $app;', '', $controllers);
 
 $assets = sprintf('$app->get(\'/css/sismo.css\', function() { return new Response(\'%s\', 200, array(\'Content-Type\' => \'text/css\')); });', str_replace("'", "\\'", file_get_contents(__DIR__.'/web/css/sismo.css')));
 foreach (array('failed.png', 'header.png', 'hr.png', 'nobuild.png', 'success.png', 'sensio-labs-product.png') as $image) {
@@ -188,11 +191,11 @@ $assets = 'namespace { use Symfony\Component\HttpFoundation\Response; '.$assets.
 
 $content = "<?php
 $classes
-$bootstrap
+$app
 $templates
 $cli
 $assets
-$app
+$controllers
 
 namespace {
     if ('cli' === php_sapi_name()) {
