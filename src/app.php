@@ -10,9 +10,112 @@
  */
 
 use Silex\Application;
+use Silex\Extension\TwigExtension;
+use Silex\Extension\UrlGeneratorExtension;
+use Silex\Extension\SymfonyBridgesExtension;
+use Sismo\Sismo;
+use Sismo\Project;
+use Sismo\Commit;
+use Sismo\Storage;
+use Sismo\Builder;
+use Symfony\Component\ClassLoader\UniversalClassLoader;
+use Symfony\Component\Process\Process;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+
+$app = new Application();
+$app->register(new SymfonyBridgesExtension());
+$app->register(new UrlGeneratorExtension());
+$app->register(new TwigExtension(), array(
+    'twig.path'      => __DIR__.'/templates',
+    'twig.configure' => $app->protect(function ($twig) use ($app) {
+        $twig->setCache($app['twig.cache.path']);
+    }),
+));
+
+$app['data.path']   = getenv('SISMO_DATA_PATH') ?: getenv('HOME').'/.sismo/data';
+$app['config.file'] = getenv('SISMO_CONFIG_PATH') ?: getenv('HOME').'/.sismo/config.php';
+$app['build.path']  = $app->share(function ($app) { return $app['data.path'].'/build'; });
+$app['db.path']     = $app->share(function ($app) {
+    if (!is_dir($app['data.path'])) {
+        mkdir($app['data.path'], 0777, true);
+    }
+
+    return $app['data.path'].'/sismo.db';
+});
+$app['twig.cache.path'] = $app->share(function ($app) { return $app['data.path'].'/cache'; });
+$app['git.path']        = 'git';
+$app['git.cmds']        = array();
+$app['db.schema']       = <<<EOF
+CREATE TABLE IF NOT EXISTS project (
+    slug        TEXT,
+    name        TEXT,
+    repository  TEXT,
+    branch      TEXT,
+    command     BLOB,
+    url_pattern TEXT,
+    PRIMARY KEY (slug)
+);
+
+CREATE TABLE IF NOT EXISTS `commit` (
+    slug          TEXT,
+    sha           TEXT,
+    date          TEXT,
+    message       BLOB,
+    author        TEXT,
+    status        TEXT,
+    output        BLOB,
+    build_date    TEXT DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (slug, sha),
+    CONSTRAINT slug FOREIGN KEY (slug) REFERENCES project(slug) ON DELETE CASCADE
+);
+EOF;
+
+$app['db'] = $app->share(function () use ($app) {
+    $db = new \SQLite3($app['db.path']);
+    $db->busyTimeout(1000);
+    $db->exec($app['db.schema']);
+
+    return $db;
+});
+
+$app['storage'] = $app->share(function () use ($app) {
+    return new Storage($app['db']);
+});
+
+$app['builder'] = $app->share(function () use ($app) {
+    $process = new Process(sprintf('%s --version', $app['git.path']));
+    if ($process->run() > 0) {
+        throw new \RuntimeException(sprintf('The git binary cannot be found (%s).', $app['git.path']));
+    }
+
+    return new Builder($app['build.path'], $app['git.path'], $app['git.cmds']);
+});
+
+$app['sismo'] = $app->share(function () use ($app) {
+    $sismo = new Sismo($app['storage'], $app['builder']);
+    if (!is_file($app['config.file'])) {
+        throw new \RuntimeException(sprintf("Looks like you forgot to define your projects.\nSismo looked into \"%s\".", $app['config.file']));
+    }
+    $projects = require $app['config.file'];
+
+    if (null === $projects) {
+        throw new \RuntimeException(sprintf('The "%s" configuration file must return an array of Projects (returns null).', $app['config.file']));
+    }
+
+    if (!is_array($projects)) {
+        throw new \RuntimeException(sprintf('The "%s" configuration file must return an array of Projects (returns a non-array).', $app['config.file']));
+    }
+
+    foreach ($projects as $project) {
+        if (!$project instanceof Project) {
+            throw new \RuntimeException(sprintf('The "%s" configuration file must return an array of Project instances.', $app['config.file']));
+        }
+
+        $sismo->addProject($project);
+    }
+
+    return $sismo;
+});
 
 $app->error(function (\Exception $e, $code) use ($app) {
     if ($app['debug']) {
@@ -23,48 +126,5 @@ $app->error(function (\Exception $e, $code) use ($app) {
 
     return new Response($app['twig']->render('error.twig', array('error' => $error)), $code);
 });
-
-$app->get('/', function() use ($app) {
-    return $app['twig']->render('projects.twig', array('projects' => $app['sismo']->getProjects()));
-})->bind('projects');
-
-$app->get('/{slug}', function($slug) use ($app) {
-    if (!$app['sismo']->hasProject($slug)) {
-        throw new NotFoundHttpException(sprintf('Project "%s" not found.', $slug));
-    }
-
-    $project = $app['sismo']->getProject($slug);
-    $commits = $project->getCommits();
-    $latest = array_shift($commits);
-
-    return $app['twig']->render('project.twig', array(
-        'project' => $project,
-        'commit'  => $latest,
-        'commits' => $commits,
-    ));
-})->bind('project');
-
-$app->get('/dashboard/cctray.xml', function() use ($app) {
-    $content = $app['twig']->render('ccmonitor.twig.xml', array('projects' => $app['sismo']->getProjects()));
-
-    return new Response($content, 200, array('content-type' => 'text/xml'));
-})->bind('ccmonitor');
-
-$app->get('/{slug}/{sha}', function($slug, $sha) use ($app) {
-    if (!$app['sismo']->hasProject($slug)) {
-        throw new NotFoundHttpException(sprintf('Project "%s" not found.', $slug));
-    }
-
-    $project = $app['sismo']->getProject($slug);
-
-    if (!$commit = $app['storage']->getCommit($project, $sha)) {
-        throw new NotFoundHttpException(sprintf('Commit "%s" for project "%s" not found.', $sha, $slug));
-    }
-
-    return $app['twig']->render('project.twig', array(
-        'project' => $project,
-        'commit'  => $commit,
-    ));
-})->bind('commit');
 
 return $app;
