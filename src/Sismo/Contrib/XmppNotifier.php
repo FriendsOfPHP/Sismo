@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sismo;
+namespace Sismo\Contrib;
 
 // @codeCoverageIgnoreStart
 /**
