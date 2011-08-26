@@ -46,4 +46,40 @@ class AppTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Sismo\Builder', $this->app['builder']);
         $this->assertInstanceOf('Sismo\Sismo', $this->app['sismo']);
     }
+
+    public function testMissingGit()
+    {
+        $this->app['git.path'] = 'gitinvalidcommand';
+
+        $this->setExpectedException('\RuntimeException');
+        $builder = $this->app['builder'];
+    }
+
+    public function testMissingConfigFile()
+    {
+        $this->app['config.file'] = $this->baseDir.'/missing-config.php';
+
+        $this->setExpectedException('\RuntimeException');
+        $sismo = $this->app['sismo'];
+    }
+
+    public function invalidConfigProvider()
+    {
+        return array(
+            array('<?php return null;'),
+            array('<?php return "invalid project";'),
+            array('<?php return array("invalid project");'),
+        );
+    }
+
+    /**
+     * @dataProvider invalidConfigProvider
+     */
+    public function testInvalidConfig($config)
+    {
+        file_put_contents($this->app['config.file'], $config);
+
+        $this->setExpectedException('\RuntimeException');
+        $sismo = $this->app['sismo'];
+    }
 }
