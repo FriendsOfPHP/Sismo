@@ -25,6 +25,9 @@ class AppTest extends \PHPUnit_Framework_TestCase
         $this->app['data.path'] = $this->baseDir.'/db';
         $this->app['config.file'] = $this->baseDir.'/config.php';
 
+        // This file does not exist, so app will use default sqlite storage.
+        $app['config.storage.file'] = $this->baseDir.'/storage.php';
+
         @unlink($this->app['db.path']);
         file_put_contents($app['config.file'], '<?php return array();');
     }
@@ -42,7 +45,7 @@ class AppTest extends \PHPUnit_Framework_TestCase
     public function testServices()
     {
         $this->assertInstanceOf('SQLite3', $this->app['db']);
-        $this->assertInstanceOf('Sismo\Storage', $this->app['storage']);
+        $this->assertInstanceOf('Sismo\StorageInterface', $this->app['storage']);
         $this->assertInstanceOf('Sismo\Builder', $this->app['builder']);
         $this->assertInstanceOf('Sismo\Sismo', $this->app['sismo']);
     }

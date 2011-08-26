@@ -37,9 +37,28 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         @unlink($this->path);
     }
 
+    public function testInterfaceIsValid()
+    {
+        $project = $this->getProject();
+
+        $storage = $this->getStorage();
+
+        $commit = $storage->initCommit($project, '7d78d5', 'fabien', new \DateTime(), 'foo');
+        $this->assertInstanceOf('Sismo\Commit', $commit);
+
+        $commit->setMessage('foo, amended with stuff');
+        $this->assertInstanceOf('Sismo\StorageInterface', $storage->updateCommit($commit));
+
+        $commit = $storage->getCommit($project, '7d78d5');
+        $this->assertInstanceOf('Sismo\Commit', $commit);
+
+        $project->setSlug('different-slug');
+        $this->assertInstanceOf('Sismo\StorageInterface', $storage->updateProject($project));
+    }
+
     public function testGetCommitReturnsFalseIfNotInDatabase()
     {
-        $storage = new Storage($this->db);
+        $storage = $this->getStorage();
         $project = $this->getProject();
         $this->assertFalse($storage->getCommit($project, '7d78d5'));
     }
@@ -48,7 +67,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     {
         $project = $this->getProject();
 
-        $storage = new Storage($this->db);
+        $storage = $this->getStorage();
         $storage->initCommit($project, '7d78d5', 'fabien', new \DateTime(), 'foo');
 
         $commit = $storage->getCommit($project, '7d78d5');
@@ -60,7 +79,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     {
         $project = $this->getProject();
 
-        $storage = new Storage($this->db);
+        $storage = $this->getStorage();
         $storage->initCommit($project, '7d78d5', 'fabien', new \DateTime(), 'foo');
 
         $commit = new Commit($project, '7d78d5');
@@ -80,7 +99,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     {
         $project = new Project('Twig');
 
-        $storage = new Storage($this->db);
+        $storage = $this->getStorage();
 
         $storage->updateProject($project);
         $this->assertEquals(false, $project->isBuilding());
@@ -92,11 +111,16 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array($commit), $project->getCommits());
     }
 
-    private function getProject()
+    protected function getProject()
     {
         $project = $this->getMockBuilder('Sismo\Project')->disableOriginalConstructor()->getMock();
         $project->expects($this->any())->method('getSlug')->will($this->returnValue('twig'));
 
         return $project;
+    }
+
+    protected function getStorage()
+    {
+        return new Storage($this->db);
     }
 }

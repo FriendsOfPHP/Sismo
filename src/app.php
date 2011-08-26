@@ -34,6 +34,7 @@ $app->register(new TwigServiceProvider(), array(
 
 $app['data.path']   = getenv('SISMO_DATA_PATH') ?: getenv('HOME').'/.sismo/data';
 $app['config.file'] = getenv('SISMO_CONFIG_PATH') ?: getenv('HOME').'/.sismo/config.php';
+$app['config.storage.file'] = getenv('SISMO_STORAGE_PATH') ?: getenv('HOME').'/.sismo/storage.php';
 $app['build.path']  = $app->share(function ($app) { return $app['data.path'].'/build'; });
 $app['db.path']     = $app->share(function ($app) {
     if (!is_dir($app['data.path'])) {
@@ -79,7 +80,13 @@ $app['db'] = $app->share(function () use ($app) {
 });
 
 $app['storage'] = $app->share(function () use ($app) {
-    return new Storage($app['db']);
+    if (is_file($app['config.storage.file'])) {
+        $storage = require $app['config.storage.file'];
+    } else {
+        $storage = new Storage($app['db']);
+    }
+
+    return $storage;
 });
 
 $app['builder'] = $app->share(function () use ($app) {
