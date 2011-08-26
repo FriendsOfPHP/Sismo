@@ -42,6 +42,25 @@ class PdoStorageTest extends StorageTest
         $this->db->exec($app['db.schema']);
     }
 
+    public function testStaticCreate()
+    {
+        $this->assertInstanceOf('\Sismo\Contrib\PdoStorage', PdoStorage::create('sqlite::memory:'));
+    }
+
+    public function testInitExistingCommit()
+    {
+        $project = $this->getProject();
+
+        $storage = $this->getStorage();
+        $commit = $storage->initCommit($project, '7d78d5', 'fabien', new \DateTime(), 'foo');
+        $this->assertInstanceOf('\Sismo\Commit', $commit);
+
+        $commit2 = $storage->initCommit($project, '7d78d5', 'fabien', new \DateTime(), 'foo-amended');
+        $this->assertInstanceOf('\Sismo\Commit', $commit2);
+
+        $this->assertEquals('foo-amended', $storage->getCommit($project, '7d78d5')->getMessage());
+    }
+
     public function tearDown()
     {
         unset($this->db);

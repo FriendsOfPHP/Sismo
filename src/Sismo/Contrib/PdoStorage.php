@@ -258,4 +258,9 @@ class PdoStorage implements StorageInterface
 
         return $this;
     }
+
+    public function __destruct()
+    {
+        $this->close();
+    }
 }
