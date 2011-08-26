@@ -11,6 +11,9 @@
 
 namespace Sismo\Contrib;
 
+use Sismo\Notifier;
+use Sismo\Commit;
+
 // @codeCoverageIgnoreStart
 /**
  * Notifies builds via a XMPP server.
