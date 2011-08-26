@@ -40,6 +40,18 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
             $notifier2 = $this->getMock('Sismo\Notifier'),
         ));
         $this->assertSame(array($notifier1, $notifier2), $project->getNotifiers());
+
+        $project = new Project('Twig Local', 'repo', $notifier3 = $this->getMock('Sismo\Notifier'));
+        $this->assertSame(array($notifier3), $project->getNotifiers());
+    }
+
+    public function testSlug()
+    {
+        $project = new Project('Twig Local');
+        $this->assertEquals('twig-local', $project->getSlug());
+
+        $project->setSlug('twig-local-my-slug');
+        $this->assertEquals('twig-local-my-slug', $project->getSlug());
     }
 
     public function testToString()
