@@ -22,9 +22,8 @@ class AppTest extends \PHPUnit_Framework_TestCase
         $this->baseDir = sys_get_temp_dir().'/sismo';
         $fs = new Filesystem();
         $fs->mkdir($this->baseDir);
-        $fs->mkdir($this->baseDir.'/config');
-        $app['data.path'] = $this->baseDir.'/db';
-        $app['config.file'] = $this->baseDir.'/config.php';
+        $this->app['data.path'] = $this->baseDir.'/db';
+        $this->app['config.file'] = $this->baseDir.'/config.php';
 
         @unlink($this->app['db.path']);
         file_put_contents($app['config.file'], '<?php return array();');
@@ -46,5 +45,41 @@ class AppTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Sismo\Storage', $this->app['storage']);
         $this->assertInstanceOf('Sismo\Builder', $this->app['builder']);
         $this->assertInstanceOf('Sismo\Sismo', $this->app['sismo']);
+    }
+
+    public function testMissingGit()
+    {
+        $this->app['git.path'] = 'gitinvalidcommand';
+
+        $this->setExpectedException('\RuntimeException');
+        $builder = $this->app['builder'];
+    }
+
+    public function testMissingConfigFile()
+    {
+        $this->app['config.file'] = $this->baseDir.'/missing-config.php';
+
+        $this->setExpectedException('\RuntimeException');
+        $sismo = $this->app['sismo'];
+    }
+
+    public function invalidConfigProvider()
+    {
+        return array(
+            array('<?php return null;'),
+            array('<?php return "invalid project";'),
+            array('<?php return array("invalid project");'),
+        );
+    }
+
+    /**
+     * @dataProvider invalidConfigProvider
+     */
+    public function testInvalidConfig($config)
+    {
+        file_put_contents($this->app['config.file'], $config);
+
+        $this->setExpectedException('\RuntimeException');
+        $sismo = $this->app['sismo'];
     }
 }
