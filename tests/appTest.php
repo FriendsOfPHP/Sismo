@@ -22,9 +22,8 @@ class AppTest extends \PHPUnit_Framework_TestCase
         $this->baseDir = sys_get_temp_dir().'/sismo';
         $fs = new Filesystem();
         $fs->mkdir($this->baseDir);
-        $fs->mkdir($this->baseDir.'/config');
-        $app['data.path'] = $this->baseDir.'/db';
-        $app['config.file'] = $this->baseDir.'/config.php';
+        $this->app['data.path'] = $this->baseDir.'/db';
+        $this->app['config.file'] = $this->baseDir.'/config.php';
 
         @unlink($this->app['db.path']);
         file_put_contents($app['config.file'], '<?php return array();');
