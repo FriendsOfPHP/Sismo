@@ -38,7 +38,7 @@ class Builder
             'prepare'  => 'submodule update --init --recursive',
             'checkout' => 'checkout origin/%branch%',
             'reset'    => 'reset --hard %revision%',
-            'show'     => 'show -s --pretty=format:"%format%" %revision%',
+            'show'     => 'show -s --pretty=format:%format% %revision%',
         ), $gitCmds);
     }
 
