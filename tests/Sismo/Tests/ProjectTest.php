@@ -195,6 +195,20 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('/path/to/phpunit', $project->getCommand());
     }
 
+    public function testDefaultCommand()
+    {
+        $project = new Project('Twig Local');
+        $this->assertEquals('phpunit', $project->getCommand());
+
+        Project::setDefaultCommand('phpunit --colors --strict');
+        $project2 = new Project('Twig Local');
+        $this->assertEquals('phpunit', $project->getCommand());
+        $this->assertEquals('phpunit --colors --strict', $project2->getCommand());
+
+        $project2->setCommand('phpunit');
+        $this->assertEquals('phpunit', $project2->getCommand());
+    }
+
     public function testUrlPattern()
     {
         $project = new Project('Twig Local');
