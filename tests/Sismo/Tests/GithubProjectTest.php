@@ -30,14 +30,25 @@ class GithubProjectTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('https://github.com/fabpot/Twig/commit/%commit%', $project->getUrlPattern());
     }
 
-    public function testSetRepositoryLocal()
+    public function localRepositoryProvider()
+    {
+        return array(
+            array('https://github.com/fabpot/Twig.git'),
+            array('git@github.com:fabpot/Twig.git'),
+        );
+    }
+
+    /**
+     * @dataProvider localRepositoryProvider
+     */
+    public function testSetRepositoryLocal($url)
     {
         $fs = new Filesystem();
         $repository = sys_get_temp_dir().'/sismo/fabpot/Twig';
         $fs->remove($repository);
         $fs->mkdir($repository);
 
-        $process = new Process('git init && git remote add origin https://github.com/fabpot/Twig.git', $repository);
+        $process = new Process('git init && git remote add origin '.$url, $repository);
         $process->run();
 
         $project = new GithubProject('Twig', $repository);
