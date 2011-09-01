@@ -24,7 +24,7 @@ Sounds good? There is more. Sismo is insanely *easy to install* (there is only
 one PHP file to download), *easy to configure*, and it comes with a *gorgeous
 web interface*.
 
-.. image:: http://sismo-project.org/images/sismo-home.png
+.. image:: http://sismo.sensiolabs.org/images/sismo-home.png
 
 Installation
 ------------
@@ -91,7 +91,7 @@ see the latest build output of a project:
 If you have configured Sismo to be accessible from the web interface, you can
 also check the build outputs there:
 
-.. image:: http://sismo-project.org/images/sismo-project.png
+.. image:: http://sismo.sensiolabs.org/images/sismo-project.png
 
 If your web server runs under a different user than the one you use on the
 CLI, you will need to set some environment variables in your virtual host
@@ -179,8 +179,8 @@ The build history for a project in the web interface is different from the
 project history. It is sorted in the order of the builds so that the latest
 build output is always at your fingertips.
 
-.. _Sismo:     http://sismo-project.org/
-.. _sismo.php: http://sismo-project.org/get/sismo.php
+.. _Sismo:     http://sismo.sensiolabs.org/
+.. _sismo.php: http://sismo.sensiolabs.org/get/sismo.php
 .. _CCMenu:    http://ccmenu.sourceforge.net/
 .. _CCTray:    http://confluence.public.thoughtworks.org/display/CCNET/CCTray
 .. _CCMonitor: http://code.google.com/p/cc-monitor/
