@@ -122,7 +122,7 @@ $app->error(function (\Exception $e, $code) use ($app) {
         return;
     }
 
-    $error = 404 == $code ? $e->getMessage() : null;
+    $error = 404 != $code ? $e->getMessage() : null;
 
     return new Response($app['twig']->render('error.twig', array('error' => $error)), $code);
 });
