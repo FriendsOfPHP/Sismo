@@ -110,7 +110,7 @@ script:
 
     #!/bin/sh
 
-    php /path/to/sismo.php --quiet build symfony-local `git log -1 HEAD --pretty="%H"` &
+    php /path/to/sismo.php --quiet build symfony-local \`git log -1 HEAD --pretty="%H"\` &
 
 ``symfony-local`` is the slug of the project. You can also create a
 ``post-merge`` script if you want to run Sismo when you merge branches.
