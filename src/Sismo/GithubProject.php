@@ -29,7 +29,7 @@ class GithubProject extends Project
             $process->run();
             foreach (explode("\n", $process->getOutput()) as $line) {
                 $parts = explode("\t", $line);
-                if ('origin' == $parts[0] && preg_match('#(?:\:|/)(.*?)/(.*?)\.git#', $parts[1], $matches)) {
+                if ('origin' == $parts[0] && preg_match('#(?:\:|/|@)github.com(?:\:|/)(.*?)/(.*?)\.git#', $parts[1], $matches)) {
                     $this->setUrlPattern(sprintf('https://github.com/%s/%s/commit/%%commit%%', $matches[1], $matches[2]));
 
                     break;
