@@ -21,7 +21,7 @@ use Symfony\Component\Process\Process;
  */
 class DBusNotifier extends Notifier
 {
-    public function __construct($format = "[%STATUS%]\n%message%\n%author%", $port = 9887)
+    public function __construct($format = "[%STATUS%]\n%message%\n%author%")
     {
         $this->format = $format;
     }
