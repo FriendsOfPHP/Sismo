@@ -10,9 +10,9 @@
  */
 
 use Silex\Application;
-use Silex\Extension\TwigExtension;
-use Silex\Extension\UrlGeneratorExtension;
-use Silex\Extension\SymfonyBridgesExtension;
+use Silex\Provider\TwigServiceProvider;
+use Silex\Provider\UrlGeneratorServiceProvider;
+use Silex\Provider\SymfonyBridgesServiceProvider;
 use Sismo\Sismo;
 use Sismo\Project;
 use Sismo\Commit;
@@ -23,9 +23,9 @@ use Symfony\Component\Process\Process;
 use Symfony\Component\HttpFoundation\Response;
 
 $app = new Application();
-$app->register(new SymfonyBridgesExtension());
-$app->register(new UrlGeneratorExtension());
-$app->register(new TwigExtension(), array(
+$app->register(new SymfonyBridgesServiceProvider());
+$app->register(new UrlGeneratorServiceProvider());
+$app->register(new TwigServiceProvider(), array(
     'twig.path'      => __DIR__.'/templates',
     'twig.configure' => $app->protect(function ($twig) use ($app) {
         $twig->setCache($app['twig.cache.path']);

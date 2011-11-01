@@ -14,8 +14,8 @@ Sismo has been optimized to run *locally* on your computer for your *Git*
 projects. Even if it can test *remote* repositories, Sismo is better used as a
 local ``post-commit`` hook. Whenever you commit changes locally, Sismo runs
 the tests and give you *immediate* feedback *before* you actually push your
-modifications to the remote repository. So, Sismo is a nice complement to your
-Continuous Integration Server.
+modifications to the remote repository. So, Sismo is a nice *complement* to
+your Continuous Integration Server.
 
 Sismo is *language and tool agnostic*. Just give it a command that knows how
 to run your tests and returns a non-zero exit code when tests do not pass.
@@ -138,8 +138,8 @@ Tips and Recipes
 Change the default Location
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Set the following environment variables to customize the default locations use
-by Sismo::
+Set the following environment variables to customize the default locations
+used by Sismo::
 
     # in a .htaccess or httpd.conf Apache configuration file
 
