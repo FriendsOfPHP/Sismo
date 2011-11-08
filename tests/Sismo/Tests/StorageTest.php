@@ -17,6 +17,11 @@ use Sismo\Project;
 
 class StorageTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * A SQLite3 reference.
+     *
+     * @var \SQLite3
+     */
     private $db;
     private $path;
 
