@@ -43,7 +43,7 @@ $app['db.path']     = $app->share(function ($app) {
     return $app['data.path'].'/sismo.db';
 });
 $app['twig.cache.path'] = $app->share(function ($app) { return $app['data.path'].'/cache'; });
-$app['git.path']        = 'git';
+$app['git.path']        = getenv('SISMO_GIT_PATH') ?: 'git';
 $app['git.cmds']        = array();
 $app['db.schema']       = <<<EOF
 CREATE TABLE IF NOT EXISTS project (
