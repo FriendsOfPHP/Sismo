@@ -49,8 +49,6 @@ interface StorageInterface
      * If the project is already available, the information of the existing project will be updated.
      *
      * @param Project $project The project to create or update.
-     *
-     * @return StorageInterface $this
      */
     public function updateProject(Project $project);
 
@@ -60,15 +58,11 @@ interface StorageInterface
      * The commit is identified by its sha hash.
      *
      * @param Commit $commit
-     *
-     * @return StorageInterface $this
      */
     public function updateCommit(Commit $commit);
 
     /**
      * Shutdown the storage and all of its external resources.
-     *
-     * @return StorageInterface $this
      */
     public function close();
 }

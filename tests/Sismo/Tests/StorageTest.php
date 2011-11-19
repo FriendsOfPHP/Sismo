@@ -52,13 +52,10 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Sismo\Commit', $commit);
 
         $commit->setMessage('foo, amended with stuff');
-        $this->assertInstanceOf('Sismo\StorageInterface', $storage->updateCommit($commit));
+        $storage->updateCommit($commit);
 
         $commit = $storage->getCommit($project, '7d78d5');
         $this->assertInstanceOf('Sismo\Commit', $commit);
-
-        $project->setSlug('different-slug');
-        $this->assertInstanceOf('Sismo\StorageInterface', $storage->updateProject($project));
     }
 
     public function testGetCommitReturnsFalseIfNotInDatabase()

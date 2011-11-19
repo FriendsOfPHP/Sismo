@@ -201,8 +201,6 @@ class PdoStorage implements StorageInterface
         }
 
         $project->setBuilding($building);
-
-        return $this;
     }
 
     /**
@@ -228,8 +226,6 @@ class PdoStorage implements StorageInterface
             throw new \RuntimeException(sprintf('Unable to save build "%s@%s".', $commit->getProject()->getName(), $commit->getSha()));
             // @codeCoverageIgnoreEnd
         }
-
-        return $this;
     }
 
     private function createCommit($project, $result)
@@ -255,8 +251,6 @@ class PdoStorage implements StorageInterface
     public function close()
     {
         unset($this->db);
-
-        return $this;
     }
 
     public function __destruct()

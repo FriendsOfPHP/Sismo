@@ -113,8 +113,6 @@ class Storage implements StorageInterface
         }
 
         $project->setBuilding($building);
-
-        return $this;
     }
 
     public function updateCommit(Commit $commit)
@@ -130,8 +128,6 @@ class Storage implements StorageInterface
             throw new \RuntimeException(sprintf('Unable to save build "%s@%s".', $commit->getProject()->getName(), $commit->getSha()));
             // @codeCoverageIgnoreEnd
         }
-
-        return $this;
     }
 
     private function createCommit($project, $result)
@@ -152,8 +148,6 @@ class Storage implements StorageInterface
     public function close()
     {
         $this->db->close();
-
-        return $this;
     }
 
     public function __destruct()
