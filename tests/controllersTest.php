@@ -28,6 +28,9 @@ class ControllersTest extends WebTestCase
         $app['data.path'] = $this->baseDir.'/db';
         $app['config.file'] = $this->baseDir.'/config.php';
 
+        // This file does not exist, so app will use default sqlite storage.
+        $app['config.storage.file'] = $this->baseDir.'/storage.php';
+
         @unlink($this->app['db.path']);
         file_put_contents($app['config.file'], '<?php return array();');
 

@@ -16,7 +16,7 @@ namespace Sismo;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Storage
+class Storage implements StorageInterface
 {
     private $db;
 

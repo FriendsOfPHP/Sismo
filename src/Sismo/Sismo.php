@@ -28,7 +28,7 @@ class Sismo
     private $builder;
     private $projects = array();
 
-    public function __construct(Storage $storage, Builder $builder)
+    public function __construct(StorageInterface $storage, Builder $builder)
     {
         $this->storage = $storage;
         $this->builder = $builder;
