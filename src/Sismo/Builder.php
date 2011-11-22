@@ -36,7 +36,7 @@ class Builder
             'clone'    => 'clone --progress --recursive %repo% %dir%',
             'fetch'    => 'fetch origin',
             'prepare'  => 'submodule update --init --recursive',
-            'checkout' => 'checkout origin/%branch%',
+            'checkout' => 'checkout %branch%',
             'reset'    => 'reset --hard %revision%',
             'show'     => 'show -s --pretty=format:%format% %revision%',
         ), $gitCmds);
@@ -75,7 +75,7 @@ class Builder
             $this->execute($this->gitPath.' '.$this->gitCmds['prepare'], sprintf('Unable to update submodules for project "%s".', $this->project));
         }
 
-        $this->execute(strtr($this->gitPath.' '.$this->gitCmds['checkout'], array('%branch%' => escapeshellarg($this->project->getBranch()))), sprintf('Unable to checkout branch "%s" for project "%s".', $this->project->getBranch(), $this->project));
+        $this->execute(strtr($this->gitPath.' '.$this->gitCmds['checkout'], array('%branch%' => escapeshellarg('origin/'.$this->project->getBranch()))), sprintf('Unable to checkout branch "%s" for project "%s".', $this->project->getBranch(), $this->project));
 
         if (null === $revision || 'HEAD' === $revision) {
             $revision = null;
