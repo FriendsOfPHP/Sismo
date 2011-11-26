@@ -134,21 +134,4 @@ $app->error(function (\Exception $e, $code) use ($app) {
     return new Response($app['twig']->render('error.twig', array('error' => $error)), $code);
 });
 
-$app->post('{slug}/build/{token}', function($slug, $token) use ($app) {
-    if (!$server_token = getenv('SISMO_BUILD_TOKEN')) {
-        throw new NotFoundHttpException;
-    }
-    if ($token != $server_token) {
-        throw new NotFoundHttpException;
-    }
-    if (!$app['sismo']->hasProject($slug)) {
-        throw new NotFoundHttpException(sprintf('Project "%s" not found.', $slug));
-    }
-
-    $project = $app['sismo']->getProject($slug);
-    $app['sismo']->build($project);
-
-    return sprintf('Triggered build for project "%s".', $slug);
-})->bind('build');
-
 return $app;

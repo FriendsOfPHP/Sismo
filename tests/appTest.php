@@ -85,29 +85,4 @@ class AppTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('\RuntimeException');
         $sismo = $this->app['sismo'];
     }
-
-    public function testBuildTrigger()
-    {
-        $orig_token = getenv('SISMO_BUILD_TOKEN');
-        $token = md5(mt_rand());
-        putenv(sprintf('SISMO_BUILD_TOKEN=%s', $token));
-
-        $sismo = $this->app['sismo'];
-        $storage = $this->app['storage'];
-
-        $project = new Project('Twig');
-
-        $sismo->addProject($project);
-        $commit = $storage->initCommit($project, '7d78d5', 'fabien', new \DateTime(), 'foo');
-        $commit->setStatusCode('success');
-        $storage->updateCommit($commit);
-        $storage->updateProject($project);
-
-        $client = $this->createClient();
-        $crawler = $client->request('POST', sprintf('/twig/build/%s', urlencode($token)));
-
-        $this->assertEquals('Triggering build for project "twig".', $crawler->filter('p')->text());
-
-        putenv(sprintf('SISMO_BUILD_TOKEN=%s', $orig_token));
-    }
 }
