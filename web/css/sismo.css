@@ -87,7 +87,6 @@ a:hover {
     font-size: 30px;
     vertical-align: bottom;
     border: 3px solid #ccc;
-    background: #898989 url(../images/shadow.png) repeat-y;
 }
 
 #projects li a {
@@ -213,7 +212,6 @@ footer a {
     font-size: 22px;
     vertical-align: bottom;
     border: 3px solid #ccc;
-    background: #898989 url(../images/shadow.png) repeat-y;
 }
 
 .ansi_color_fg_black   { color: black; }

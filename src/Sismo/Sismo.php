@@ -18,7 +18,7 @@ namespace Sismo;
  */
 class Sismo
 {
-    const VERSION = '0.999';
+    const VERSION = '0.99999';
 
     const FORCE_BUILD  = 1;
     const LOCAL_BUILD  = 2;
@@ -28,7 +28,7 @@ class Sismo
     private $builder;
     private $projects = array();
 
-    public function __construct(Storage $storage, Builder $builder)
+    public function __construct(StorageInterface $storage, Builder $builder)
     {
         $this->storage = $storage;
         $this->builder = $builder;

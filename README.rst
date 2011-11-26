@@ -14,8 +14,8 @@ Sismo has been optimized to run *locally* on your computer for your *Git*
 projects. Even if it can test *remote* repositories, Sismo is better used as a
 local ``post-commit`` hook. Whenever you commit changes locally, Sismo runs
 the tests and give you *immediate* feedback *before* you actually push your
-modifications to the remote repository. So, Sismo is a nice complement to your
-Continuous Integration Server.
+modifications to the remote repository. So, Sismo is a nice *complement* to
+your Continuous Integration Server.
 
 Sismo is *language and tool agnostic*. Just give it a command that knows how
 to run your tests and returns a non-zero exit code when tests do not pass.
@@ -24,7 +24,7 @@ Sounds good? There is more. Sismo is insanely *easy to install* (there is only
 one PHP file to download), *easy to configure*, and it comes with a *gorgeous
 web interface*.
 
-.. image:: http://sismo-project.org/images/sismo-home.png
+.. image:: http://sismo.sensiolabs.org/images/sismo-home.png
 
 Installation
 ------------
@@ -91,14 +91,14 @@ see the latest build output of a project:
 If you have configured Sismo to be accessible from the web interface, you can
 also check the build outputs there:
 
-.. image:: http://sismo-project.org/images/sismo-project.png
+.. image:: http://sismo.sensiolabs.org/images/sismo-project.png
 
 If your web server runs under a different user than the one you use on the
 CLI, you will need to set some environment variables in your virtual host
 configuration:
 
     SetEnv SISMO_DATA_PATH "/path/to/sismo/data"
-    SetEnv SISMO_CONFIG_PATH "/path/to/sismo/config"
+    SetEnv SISMO_CONFIG_PATH "/path/to/sismo/config.php"
 
 The ``build`` command is quite powerful and has many options. Learn more by
 appending ``--help``:
@@ -110,7 +110,7 @@ script:
 
     #!/bin/sh
 
-    php /path/to/sismo.php --quiet build symfony-local `git log -1 HEAD --pretty="%H"` &
+    php /path/to/sismo.php --quiet build symfony-local \`git log -1 HEAD --pretty="%H"\` &
 
 ``symfony-local`` is the slug of the project. You can also create a
 ``post-merge`` script if you want to run Sismo when you merge branches.
@@ -138,18 +138,18 @@ Tips and Recipes
 Change the default Location
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Set the following environment variables to customize the default locations use
-by Sismo::
+Set the following environment variables to customize the default locations
+used by Sismo::
 
     # in a .htaccess or httpd.conf Apache configuration file
 
     SetEnv SISMO_DATA_PATH "/path/to/sismo/data"
-    SetEnv SISMO_CONFIG_PATH "/path/to/sismo/config"
+    SetEnv SISMO_CONFIG_PATH "/path/to/sismo/config.php"
 
     # for the CLI tool
 
     export SISMO_DATA_PATH=/path/to/sismo/data/
-    export SISMO_CONFIG_PATH=/path/to/sismo/config/
+    export SISMO_CONFIG_PATH=/path/to/sismo/config.php
 
 Tracking multiple Branches
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -193,8 +193,8 @@ The build history for a project in the web interface is different from the
 project history. It is sorted in the order of the builds so that the latest
 build output is always at your fingertips.
 
-.. _Sismo:     http://sismo-project.org/
-.. _sismo.php: http://sismo-project.org/get/sismo.php
+.. _Sismo:     http://sismo.sensiolabs.org/
+.. _sismo.php: http://sismo.sensiolabs.org/get/sismo.php
 .. _CCMenu:    http://ccmenu.sourceforge.net/
 .. _CCTray:    http://confluence.public.thoughtworks.org/display/CCNET/CCTray
 .. _CCMonitor: http://code.google.com/p/cc-monitor/

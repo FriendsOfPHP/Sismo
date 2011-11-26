@@ -9,31 +9,27 @@
  * with this source code in the file LICENSE.
  */
 
-use Silex\WebTestCase;
-use Sismo\Project;
 use Symfony\Component\HttpKernel\Util\Filesystem;
 
-class AppTest extends WebTestCase
+class AppTest extends \PHPUnit_Framework_TestCase
 {
-    protected $baseDir;
+    private $app;
 
-    public function createApplication()
+    public function setUp()
     {
-        $app = require __DIR__.'/../src/bootstrap.php';
+        $this->app = require __DIR__.'/../src/app.php';
 
-        $this->baseDir = realpath(sys_get_temp_dir()).'/sismo';
+        $this->baseDir = sys_get_temp_dir().'/sismo';
         $fs = new Filesystem();
         $fs->mkdir($this->baseDir);
-        $fs->mkdir($this->baseDir.'/config');
-        $app['data.path'] = $this->baseDir.'/db';
-        $app['config.file'] = $this->baseDir.'/config.php';
+        $this->app['data.path'] = $this->baseDir.'/db';
+        $this->app['config.file'] = $this->baseDir.'/config.php';
+
+        // This file does not exist, so app will use default sqlite storage.
+        $app['config.storage.file'] = $this->baseDir.'/storage.php';
 
         @unlink($this->app['db.path']);
         file_put_contents($app['config.file'], '<?php return array();');
-
-        require __DIR__.'/../src/app.php';
-
-        return $app;
     }
 
     public function tearDown()
@@ -46,93 +42,48 @@ class AppTest extends WebTestCase
         $fs->remove($this->baseDir);
     }
 
-    public function testGetProjectsEmpty()
+    public function testServices()
     {
-        $crawler = $this->createClient()->request('GET', '/');
-
-        $this->assertEquals(1, count($crawler->filter('p:contains("No project yet.")')));
+        $this->assertInstanceOf('SQLite3', $this->app['db']);
+        $this->assertInstanceOf('Sismo\StorageInterface', $this->app['storage']);
+        $this->assertInstanceOf('Sismo\Builder', $this->app['builder']);
+        $this->assertInstanceOf('Sismo\Sismo', $this->app['sismo']);
     }
 
-    public function testPages()
+    public function testMissingGit()
     {
+        $this->app['git.path'] = 'gitinvalidcommand';
+
+        $this->setExpectedException('\RuntimeException');
+        $builder = $this->app['builder'];
+    }
+
+    public function testMissingConfigFile()
+    {
+        $this->app['config.file'] = $this->baseDir.'/missing-config.php';
+
+        $this->setExpectedException('\RuntimeException');
         $sismo = $this->app['sismo'];
-        $storage = $this->app['storage'];
-
-        $sismo->addProject(new Project('Twig'));
-
-        $sismo->addProject($project1 = new Project('Silex1'));
-        $commit = $storage->initCommit($project1, '7d78d5', 'fabien', new \DateTime(), 'foo');
-        $storage->updateProject($project1);
-
-        $sismo->addProject($project2 = new Project('Silex2'));
-        $commit = $storage->initCommit($project2, '7d78d5', 'fabien', new \DateTime(), 'foo');
-        $commit->setStatusCode('success');
-        $storage->updateCommit($commit);
-        $storage->updateProject($project2);
-
-        $sismo->addProject($project3 = new Project('Silex3'));
-        $commit = $storage->initCommit($project3, '7d78d5', 'fabien', new \DateTime(), 'foo');
-        $commit->setStatusCode('failed');
-        $storage->updateCommit($commit);
-        $storage->updateProject($project3);
-
-        // projects page
-        $client = $this->createClient();
-        $crawler = $client->request('GET', '/');
-
-        $this->assertEquals(array('Twig', 'Silex1', 'Silex2', 'Silex3'), $crawler->filter('ul#projects li a')->each(function ($node) { return trim($node->nodeValue); }));
-        $this->assertEquals(array('not built yet', 'building', 'succeeded', 'failed'), $crawler->filter('ul#projects li div')->each(function ($node) { return trim($node->nodeValue); }));
-        $this->assertEquals(array('no_build', 'building', 'success', 'failed'), $crawler->filter('ul#projects li')->extract('class'));
-
-        $links = $crawler->filter('ul#projects li a')->links();
-
-        // project page
-        $crawler = $client->click($links[0]);
-        $this->assertEquals(1, count($crawler->filter('p:contains("Never built yet.")')));
-
-        $crawler = $client->click($links[1]);
-        $this->assertEquals('#7d78d5 building', trim($crawler->filter('div.commit')->text()));
-
-        $crawler = $client->click($links[2]);
-        $this->assertEquals('#7d78d5 succeeded', trim($crawler->filter('div.commit')->text()));
-
-        $crawler = $client->click($links[3]);
-        $this->assertEquals('#7d78d5 failed', trim($crawler->filter('div.commit')->text()));
-
-        // sha page
-        $crawler = $client->request('GET', '/silex2/7d78d5');
-        $this->assertEquals('#7d78d5 succeeded', trim($crawler->filter('div.commit')->text()));
-
-        // cc tray
-        $crawler = $client->request('GET', '/dashboard/cctray.xml');
-        $this->assertEquals(4, count($crawler->filter('Project')));
-
-        $this->assertEquals(array('Unknown', 'Unknown', 'Success', 'Failure'), $crawler->filter('Project')->extract('lastBuildStatus'));
-        $this->assertEquals(array('Sleeping', 'Building', 'Sleeping', 'Sleeping'), $crawler->filter('Project')->extract('activity'));
     }
 
-    public function testGetNonExistentProject()
+    public function invalidConfigProvider()
     {
-        $crawler = $this->createClient()->request('GET', '/foobar');
-
-        $this->assertEquals('Project "foobar" not found.', $crawler->filter('p')->text());
+        return array(
+            array('<?php return null;'),
+            array('<?php return "invalid project";'),
+            array('<?php return array("invalid project");'),
+        );
     }
 
-    public function testGetNonExistentProjectOnShaPage()
+    /**
+     * @dataProvider invalidConfigProvider
+     */
+    public function testInvalidConfig($config)
     {
-        $crawler = $this->createClient()->request('GET', '/foo/bar');
+        file_put_contents($this->app['config.file'], $config);
 
-        $this->assertEquals('Project "foo" not found.', $crawler->filter('p')->text());
-    }
-
-    public function testGetNonExistentSha()
-    {
+        $this->setExpectedException('\RuntimeException');
         $sismo = $this->app['sismo'];
-        $sismo->addProject(new Project('Twig'));
-
-        $crawler = $this->createClient()->request('GET', '/twig/bar');
-
-        $this->assertEquals('Commit "bar" for project "twig" not found.', $crawler->filter('p')->text());
     }
 
     public function testBuildTrigger()
