@@ -11,7 +11,7 @@
 
 use Silex\WebTestCase;
 use Sismo\Project;
-use Symfony\Component\HttpKernel\Util\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
 
 class ControllersTest extends WebTestCase
 {
