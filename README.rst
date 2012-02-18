@@ -184,7 +184,7 @@ Adding a Notifier
 
 Sismo comes with the most common notifiers but you can create new ones very
 easily: extend the `Sismo\Notifier` abstract class and implement the
-`notify()` method:
+`notify()` method::
 
     public function notify(Commit $commit)
     {
