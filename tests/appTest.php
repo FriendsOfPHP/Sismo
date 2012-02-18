@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-use Symfony\Component\HttpKernel\Util\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
 
 class AppTest extends \PHPUnit_Framework_TestCase
 {
