@@ -28,12 +28,26 @@ class Sismo
     private $builder;
     private $projects = array();
 
+    /**
+     * Constructor.
+     *
+     * @param StorageInterface $storage A StorageInterface instance
+     * @param Builder          $builder A Builder instance
+     */
     public function __construct(StorageInterface $storage, Builder $builder)
     {
         $this->storage = $storage;
         $this->builder = $builder;
     }
 
+    /**
+     * Builds a project.
+     *
+     * @param Project $project  A Project instance
+     * @param string  $revision The revision to build (or null for the latest revision)
+     * @param integer $flags    Flags (a combinaison of FORCE_BUILD, LOCAL_BUILD, and SILENT_BUILD)
+     * @param mixed   $callback A PHP callback
+     */
     public function build(Project $project, $revision = null, $flags = 0, $callback = null)
     {
         // project already has a running build
@@ -73,11 +87,21 @@ class Sismo
         }
     }
 
+    /**
+     * Checks if Sismo knows about a given project.
+     *
+     * @param string $slug A project slug
+     */
     public function hasProject($slug)
     {
         return isset($this->projects[$slug]);
     }
 
+    /**
+     * Gets a project.
+     *
+     * @param string $slug A project slug
+     */
     public function getProject($slug)
     {
         if (!isset($this->projects[$slug])) {
@@ -87,6 +111,11 @@ class Sismo
         return $this->projects[$slug];
     }
 
+    /**
+     * Adds a project.
+     *
+     * @param Project $project A Project instance
+     */
     public function addProject(Project $project)
     {
         $this->storage->updateProject($project);
@@ -94,6 +123,11 @@ class Sismo
         $this->projects[$project->getSlug()] = $project;
     }
 
+    /**
+     * Gets all projects.
+     *
+     * @return array An array of Project instances
+     */
     public function getProjects()
     {
         return $this->projects;

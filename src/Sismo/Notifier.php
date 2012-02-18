@@ -18,6 +18,11 @@ namespace Sismo;
  */
 abstract class Notifier
 {
+    /**
+     * Notifies a commit.
+     *
+     * @param Commit $commit A Commit instance
+     */
     abstract public function notify(Commit $commit);
 
     protected function format($format, Commit $commit)
