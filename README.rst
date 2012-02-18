@@ -115,6 +115,22 @@ script:
 ``symfony-local`` is the slug of the project. You can also create a
 ``post-merge`` script if you want to run Sismo when you merge branches.
 
+Adding a Notifier
+-----------------
+
+Sismo comes with the most common notifiers but you can create new ones very
+easily: extend the `Sismo\Notifier` abstract class and implement the
+`notify()` method:
+
+    public function notify(Commit $commit)
+    {
+        // do something with the commit
+    }
+
+The `Commit`_ object has many methods that gives you a lot of information
+about the commit and its build. You can also get general information about the
+project by calling `getProject()`_.
+
 Limitations
 -----------
 
@@ -179,9 +195,11 @@ The build history for a project in the web interface is different from the
 project history. It is sorted in the order of the builds so that the latest
 build output is always at your fingertips.
 
-.. _Sismo:     http://sismo.sensiolabs.org/
-.. _sismo.php: http://sismo.sensiolabs.org/get/sismo.php
-.. _CCMenu:    http://ccmenu.sourceforge.net/
-.. _CCTray:    http://confluence.public.thoughtworks.org/display/CCNET/CCTray
-.. _CCMonitor: http://code.google.com/p/cc-monitor/
-.. _JCCTray:   http://sourceforge.net/projects/jcctray/
+.. _Sismo:        http://sismo.sensiolabs.org/
+.. _sismo.php:    http://sismo.sensiolabs.org/get/sismo.php
+.. _CCMenu:       http://ccmenu.sourceforge.net/
+.. _CCTray:       http://confluence.public.thoughtworks.org/display/CCNET/CCTray
+.. _CCMonitor:    http://code.google.com/p/cc-monitor/
+.. _JCCTray:      http://sourceforge.net/projects/jcctray/
+.. _Commit:       http://sismo.sensiolabs.org/api/index.html?q=Sismo\Notifier
+.. _getProject(): http://sismo.sensiolabs.org/api/index.html?q=Sismo\Project
