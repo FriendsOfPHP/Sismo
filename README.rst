@@ -115,22 +115,6 @@ script:
 ``symfony-local`` is the slug of the project. You can also create a
 ``post-merge`` script if you want to run Sismo when you merge branches.
 
-Adding a Notifier
------------------
-
-Sismo comes with the most common notifiers but you can create new ones very
-easily: extend the `Sismo\Notifier` abstract class and implement the
-`notify()` method:
-
-    public function notify(Commit $commit)
-    {
-        // do something with the commit
-    }
-
-The `Commit`_ object has many methods that gives you a lot of information
-about the commit and its build. You can also get general information about the
-project by calling `getProject()`_.
-
 Limitations
 -----------
 
@@ -194,6 +178,22 @@ History in the Web Interface
 The build history for a project in the web interface is different from the
 project history. It is sorted in the order of the builds so that the latest
 build output is always at your fingertips.
+
+Adding a Notifier
+~~~~~~~~~~~~~~~~~
+
+Sismo comes with the most common notifiers but you can create new ones very
+easily: extend the `Sismo\Notifier` abstract class and implement the
+`notify()` method:
+
+    public function notify(Commit $commit)
+    {
+        // do something with the commit
+    }
+
+The `Commit`_ object has many methods that gives you a lot of information
+about the commit and its build. You can also get general information about the
+project by calling `getProject()`_.
 
 .. _Sismo:        http://sismo.sensiolabs.org/
 .. _sismo.php:    http://sismo.sensiolabs.org/get/sismo.php
