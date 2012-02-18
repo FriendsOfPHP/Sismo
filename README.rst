@@ -201,5 +201,5 @@ project by calling `getProject()`_.
 .. _CCTray:       http://confluence.public.thoughtworks.org/display/CCNET/CCTray
 .. _CCMonitor:    http://code.google.com/p/cc-monitor/
 .. _JCCTray:      http://sourceforge.net/projects/jcctray/
-.. _Commit:       http://sismo.sensiolabs.org/api/index.html?q=Sismo\Notifier
+.. _Commit:       http://sismo.sensiolabs.org/api/index.html?q=Sismo\Commit
 .. _getProject(): http://sismo.sensiolabs.org/api/index.html?q=Sismo\Project
