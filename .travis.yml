@@ -11,5 +11,5 @@ script: "phpunit"
 notifications:
   email:
     - cordoval@gmail.com
-  irc:
-    - "irc.freenode.org#symfony"
+  #irc:
+  #  - "irc.freenode.org#symfony"
