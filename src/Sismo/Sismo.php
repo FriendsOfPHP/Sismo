@@ -18,7 +18,7 @@ namespace Sismo;
  */
 class Sismo
 {
-    const VERSION = '0.99999';
+    const VERSION = '0.999999';
 
     const FORCE_BUILD  = 1;
     const LOCAL_BUILD  = 2;

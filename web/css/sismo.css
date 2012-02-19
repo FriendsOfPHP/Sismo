@@ -222,11 +222,11 @@ footer a {
 .ansi_color_fg_magenta {  color: magenta; }
 .ansi_color_fg_cyan    { color: cyan; }
 .ansi_color_fg_white   { color: white; }
-.ansi_color_bg_black   { background-color: black; }
-.ansi_color_bg_red     { background-color: red; }
-.ansi_color_bg_green   { background-color: green; }
-.ansi_color_bg_yellow  { background-color: yellow; }
-.ansi_color_bg_blue    { background-color: blue; }
-.ansi_color_bg_magenta { background-color: magenta; }
-.ansi_color_bg_cyan    { background-color: cyan; }
-.ansi_color_bg_white   { background-color: white; }
+.ansi_color_bg_black   { background-color: black; padding: 2px 0; }
+.ansi_color_bg_red     { background-color: red; padding: 2px 0; }
+.ansi_color_bg_green   { background-color: green; padding: 2px 0; }
+.ansi_color_bg_yellow  { background-color: yellow; padding: 2px 0; }
+.ansi_color_bg_blue    { background-color: blue; padding: 2px 0; }
+.ansi_color_bg_magenta { background-color: magenta; padding: 2px 0; }
+.ansi_color_bg_cyan    { background-color: cyan; padding: 2px 0; }
+.ansi_color_bg_white   { background-color: white; padding: 2px 0; }
