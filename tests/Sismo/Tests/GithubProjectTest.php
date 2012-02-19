@@ -12,7 +12,7 @@
 namespace Sismo\Tests;
 
 use Sismo\GithubProject;
-use Symfony\Component\HttpKernel\Util\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
 
 class GithubProjectTest extends \PHPUnit_Framework_TestCase

@@ -8,17 +8,7 @@ use Symfony\Component\ClassLoader\UniversalClassLoader;
 use Symfony\Component\ClassLoader\ClassCollectionLoader;
 use Symfony\Component\Finder\Finder;
 
-require_once __DIR__.'/vendor/silex/autoload.php';
-
-$loader = new UniversalClassLoader();
-$loader->registerNamespaces(array(
-    'Sismo'   => __DIR__.'/src',
-    'Symfony' => __DIR__.'/vendor',
-));
-$loader->registerPrefixes(array(
-    'Twig_' => __DIR__.'/vendor/silex/vendor/twig/lib',
-));
-$loader->register();
+require_once __DIR__.'/vendor/.composer/autoload.php';
 
 @mkdir(__DIR__.'/build', 0777, true);
 @unlink(__DIR__.'/build/sismo.php');

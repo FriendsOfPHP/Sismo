@@ -1,9 +1,0 @@
-[submodule "vendor/silex"]
-	path = vendor/silex
-	url = https://github.com/fabpot/Silex
-[submodule "vendor/Symfony/Bridge/Twig"]
-	path = vendor/Symfony/Bridge/Twig
-	url = https://github.com/symfony/TwigBridge
-[submodule "vendor/Symfony/Component/Console"]
-	path = vendor/Symfony/Component/Console
-	url = https://github.com/symfony/Console
