@@ -4,7 +4,6 @@
 // Compiles Simo into one big PHP file (images and CSS served by Silex directly)
 // Can be used on the web and the CLI
 
-use Symfony\Component\ClassLoader\UniversalClassLoader;
 use Symfony\Component\ClassLoader\ClassCollectionLoader;
 use Symfony\Component\Finder\Finder;
 
@@ -240,7 +239,6 @@ $classes = array (
     'Sismo\Storage',
 );
 
-@unlink(__DIR__.'/build/sismo.php');
 $ccl = new ClassCollectionLoader();
 $ccl->load($classes, __DIR__.'/build', 'sismo', false);
 

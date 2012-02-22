@@ -10,7 +10,6 @@
  */
 
 use Sismo\Project;
-use Symfony\Component\HttpKernel\Util\Filesystem;
 use Symfony\Component\Console\Tester\ApplicationTester;
 
 class ConsoleTest extends \PHPUnit_Framework_TestCase
