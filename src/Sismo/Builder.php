@@ -33,7 +33,7 @@ class Builder
         $this->baseBuildDir = $buildDir;
         $this->gitPath = $gitPath;
         $this->gitCmds = array_replace(array(
-            'clone'    => 'clone --progress --recursive %repo% %dir%',
+            'clone'    => 'clone --progress --recursive %repo% %dir% --branch %branch%',
             'fetch'    => 'fetch origin',
             'prepare'  => 'submodule update --init --recursive',
             'checkout' => 'checkout %branch%',
@@ -67,7 +67,7 @@ class Builder
         }
 
         if (!file_exists($this->buildDir.'/.git')) {
-            $this->execute(strtr($this->gitPath.' '.$this->gitCmds['clone'], array('%repo%' => escapeshellarg($this->project->getRepository()), '%dir%' => escapeshellarg($this->buildDir))), sprintf('Unable to clone repository for project "%s".', $this->project));
+            $this->execute($this->getGitCommand('clone'), sprintf('Unable to clone repository for project "%s".', $this->project));
         }
 
         if ($sync) {
@@ -75,7 +75,7 @@ class Builder
             $this->execute($this->gitPath.' '.$this->gitCmds['prepare'], sprintf('Unable to update submodules for project "%s".', $this->project));
         }
 
-        $this->execute(strtr($this->gitPath.' '.$this->gitCmds['checkout'], array('%branch%' => escapeshellarg('origin/'.$this->project->getBranch()))), sprintf('Unable to checkout branch "%s" for project "%s".', $this->project->getBranch(), $this->project));
+        $this->execute($this->getGitCommand('checkout'), sprintf('Unable to checkout branch "%s" for project "%s".', $this->project->getBranch(), $this->project));
 
         if (null === $revision || 'HEAD' === $revision) {
             $revision = null;
@@ -95,12 +95,23 @@ class Builder
             }
         }
 
-        $this->execute(strtr($this->gitPath.' '.$this->gitCmds['reset'], array('%revision%' => escapeshellarg($revision))), sprintf('Revision "%s" for project "%s" does not exist.', $revision, $this->project));
+        $this->execute($this->getGitCommand('reset', array('%revision%' => escapeshellarg($revision))), sprintf('Revision "%s" for project "%s" does not exist.', $revision, $this->project));
 
-        $format = '%H%n%an%n%ci%n%s%n';
-        $process = $this->execute(strtr($this->gitPath.' '.$this->gitCmds['show'], array('%format%' => escapeshellarg($format), '%revision%' => escapeshellarg($revision))), sprintf('Unable to get logs for project "%s".', $this->project));
+        $process = $this->execute($this->getGitCommand('show', array('%revision%' => escapeshellarg($revision))), sprintf('Unable to get logs for project "%s".', $this->project));
 
         return explode("\n", trim($process->getOutput()), 4);
+    }
+
+    protected function getGitCommand($command, array $replace = array())
+    {
+        $replace = array_merge(array(
+            '%repo%'   => $this->project->getRepository(),
+            '%dir%'    => escapeshellarg($this->buildDir),
+            '%branch%' => escapeshellarg($this->project->getBranch()),
+            '%format%' => escapeshellarg('%H%n%an%n%ci%n%s%n'),
+        ), $replace);
+
+        return strtr($this->gitPath.' '.$this->gitCmds[$command], $replace);
     }
 
     private function execute($command, $message)
