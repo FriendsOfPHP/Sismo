@@ -33,10 +33,10 @@ class Builder
         $this->baseBuildDir = $buildDir;
         $this->gitPath = $gitPath;
         $this->gitCmds = array_replace(array(
-            'clone'    => 'clone --progress --recursive %repo% %dir% --branch %branch%',
+            'clone'    => 'clone --progress --recursive %repo% %dir% --branch %localbranch%',
             'fetch'    => 'fetch origin',
             'prepare'  => 'submodule update --init --recursive',
-            'checkout' => 'checkout origin/%branch%',
+            'checkout' => 'checkout %branch%',
             'reset'    => 'reset --hard %revision%',
             'show'     => 'show -s --pretty=format:%format% %revision%',
         ), $gitCmds);
@@ -110,10 +110,11 @@ class Builder
     protected function getGitCommand($command, array $replace = array())
     {
         $replace = array_merge(array(
-            '%repo%'   => $this->project->getRepository(),
-            '%dir%'    => escapeshellarg($this->buildDir),
-            '%branch%' => escapeshellarg($this->project->getBranch()),
-            '%format%' => escapeshellarg('%H%n%an%n%ci%n%s%n'),
+            '%repo%'        => $this->project->getRepository(),
+            '%dir%'         => escapeshellarg($this->buildDir),
+            '%branch%'      => escapeshellarg('origin/'.$this->project->getBranch()),
+            '%localbranch%' => escapeshellarg($this->project->getBranch()),
+            '%format%'      => escapeshellarg('%H%n%an%n%ci%n%s%n'),
         ), $replace);
 
         return strtr($this->gitPath.' '.$this->gitCmds[$command], $replace);
