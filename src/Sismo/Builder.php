@@ -46,7 +46,7 @@ class Builder
     {
         $this->project  = $project;
         $this->callback = $callback;
-        $this->buildDir = $this->baseBuildDir.'/'.substr(md5($project->getRepository()), 0, 6);
+        $this->buildDir = $this->baseBuildDir.'/'.$this->getBuildDir($project);
     }
 
     public function build()
@@ -58,6 +58,11 @@ class Builder
         $process->run($this->callback);
 
         return $process;
+    }
+
+    public function getBuildDir(Project $project)
+    {
+        return substr(md5($project->getRepository().$project->getBranch()), 0, 6);
     }
 
     public function prepare($revision, $sync)

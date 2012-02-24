@@ -191,7 +191,7 @@ EOF
             }
 
             try {
-                $output->writeln(sprintf('<info>Building Project "%s" (into "%s")</info>', $project, substr(md5($project->getRepository()), 0, 6)));
+                $output->writeln(sprintf('<info>Building Project "%s" (into "%s")</info>', $project, $app['builder']->getBuildDir($project)));
                 $sismo->build($project, $input->getArgument('sha'), $flags, $callback);
 
                 $output->writeln('');
