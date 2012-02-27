@@ -44,6 +44,7 @@ abstract class Notifier
             '%short_sha%'   => $commit->getShortSha(),
             '%author%'      => $commit->getAuthor(),
             '%message%'     => $commit->getMessage(),
+            '%output%'      => $commit->getOutput(),
         );
     }
 }
