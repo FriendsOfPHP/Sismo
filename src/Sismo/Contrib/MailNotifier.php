@@ -18,6 +18,24 @@ use Sismo\Commit;
 /**
  * A base email notifier using the native mail() function.
  *
+ * Here is a usage example:
+ *
+ * $subject = '[%status_code%] %name% (%short_sha%)';
+ * $message = <<<MESSAGE
+ *   Build status changed to %STATUS%.
+ *
+ *     commit: %sha%
+ *     Author: %author%
+ *
+ *     %message%
+ *
+ *     Sismo reports:
+ *
+ *     %output%
+ * MESSAGE;
+ *
+ * $emailNotifier = new Sismo\Contrib\MailNotifier('some@example.com', $subject, $message);
+ *
  * @author Toni Uebernickel <tuebernickel@gmail.com>
  */
 class MailNotifier extends Notifier
