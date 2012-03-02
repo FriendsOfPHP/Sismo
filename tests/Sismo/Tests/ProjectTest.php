@@ -36,12 +36,12 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('feat', $project->getBranch());
 
         $project = new Project('Twig Local', 'repo', array(
-            $notifier1 = $this->getMock('Sismo\Notifier'),
-            $notifier2 = $this->getMock('Sismo\Notifier'),
+            $notifier1 = $this->getMock('Sismo\Notifier\Notifier'),
+            $notifier2 = $this->getMock('Sismo\Notifier\Notifier'),
         ));
         $this->assertSame(array($notifier1, $notifier2), $project->getNotifiers());
 
-        $project = new Project('Twig Local', 'repo', $notifier3 = $this->getMock('Sismo\Notifier'));
+        $project = new Project('Twig Local', 'repo', $notifier3 = $this->getMock('Sismo\Notifier\Notifier'));
         $this->assertSame(array($notifier3), $project->getNotifiers());
     }
 
@@ -80,10 +80,10 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
         $project = new Project('Twig Local');
         $this->assertEquals(array(), $project->getNotifiers());
 
-        $project->addNotifier($notifier1 = $this->getMock('Sismo\Notifier'));
+        $project->addNotifier($notifier1 = $this->getMock('Sismo\Notifier\Notifier'));
         $this->assertSame(array($notifier1), $project->getNotifiers());
 
-        $project->addNotifier($notifier2 = $this->getMock('Sismo\Notifier'));
+        $project->addNotifier($notifier2 = $this->getMock('Sismo\Notifier\Notifier'));
         $this->assertSame(array($notifier1, $notifier2), $project->getNotifiers());
     }
 

@@ -9,9 +9,8 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sismo\Contrib;
+namespace Sismo\Notifier;
 
-use Sismo\Notifier;
 use Sismo\Commit;
 
 // @codeCoverageIgnoreStart
@@ -34,7 +33,7 @@ use Sismo\Commit;
  *     %output%
  * MESSAGE;
  *
- * $emailNotifier = new Sismo\Contrib\MailNotifier('some@example.com', $subject, $message);
+ * $emailNotifier = new Sismo\Notifier\MailNotifier('some@example.com', $subject, $message);
  *
  * @author Toni Uebernickel <tuebernickel@gmail.com>
  */

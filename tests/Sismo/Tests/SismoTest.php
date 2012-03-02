@@ -228,7 +228,7 @@ class SismoTest extends \PHPUnit_Framework_TestCase
 
     private function getNotifier()
     {
-        return $this->getMockBuilder('Sismo\Notifier')->disableOriginalConstructor()->getMock();
+        return $this->getMockBuilder('Sismo\Notifier\Notifier')->disableOriginalConstructor()->getMock();
     }
 
     private function getProject()
@@ -251,7 +251,7 @@ class SismoTest extends \PHPUnit_Framework_TestCase
 
     private function getStorage($commit = null)
     {
-        $storage = $this->getMockBuilder('Sismo\Storage')->disableOriginalConstructor()->getMock();
+        $storage = $this->getMockBuilder('Sismo\Storage\Storage')->disableOriginalConstructor()->getMock();
         if (null !== $commit) {
             $storage->expects($this->once())->method('getCommit')->will($this->returnValue($commit));
             $storage->expects($this->any())->method('initCommit')->will($this->returnValue($commit));

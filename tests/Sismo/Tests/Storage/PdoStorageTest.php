@@ -9,9 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sismo\Tests;
+namespace Sismo\Tests\Storage;
 
-use Sismo\Contrib\PdoStorage;
+use Sismo\Storage\PdoStorage;
 
 require_once __DIR__.'/StorageTest.php';
 
@@ -35,7 +35,7 @@ class PdoStorageTest extends StorageTest
             $this->run = true;
         }
 
-        $app = require __DIR__.'/../../../src/app.php';
+        $app = require __DIR__.'/../../../../src/app.php';
 
         // sqlite with file is tested by StorageTest, so we use memory here
         $this->db = new \PDO('sqlite::memory:');
@@ -44,7 +44,7 @@ class PdoStorageTest extends StorageTest
 
     public function testStaticCreate()
     {
-        $this->assertInstanceOf('\Sismo\Contrib\PdoStorage', PdoStorage::create('sqlite::memory:'));
+        $this->assertInstanceOf('\Sismo\Storage\PdoStorage', PdoStorage::create('sqlite::memory:'));
     }
 
     public function testInitExistingCommit()

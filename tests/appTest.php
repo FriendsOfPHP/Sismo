@@ -45,7 +45,7 @@ class AppTest extends \PHPUnit_Framework_TestCase
     public function testServices()
     {
         $this->assertInstanceOf('SQLite3', $this->app['db']);
-        $this->assertInstanceOf('Sismo\StorageInterface', $this->app['storage']);
+        $this->assertInstanceOf('Sismo\Storage\StorageInterface', $this->app['storage']);
         $this->assertInstanceOf('Sismo\Builder', $this->app['builder']);
         $this->assertInstanceOf('Sismo\Sismo', $this->app['sismo']);
     }

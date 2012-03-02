@@ -9,7 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sismo;
+namespace Sismo\Notifier;
+
+use Sismo\Commit;
 
 /**
  * Base class for notifiers.

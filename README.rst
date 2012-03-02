@@ -45,10 +45,10 @@ By default, Sismo reads its configuration from ``~/.sismo/config.php``::
     $projects = array();
 
     // create a Growl notifier (for MacOS X)
-    $notifier = new Sismo\GrowlNotifier('pa$$word');
+    $notifier = new Sismo\Notifier\GrowlNotifier('pa$$word');
 
     // create a DBus notifier (for Linux)
-    //$notifier = new Sismo\DBusNotifier();
+    //$notifier = new Sismo\Notifier\DBusNotifier();
 
     // add a local repository hosted on Github
     $projects[] = new Sismo\GithubProject('Twig (Local)', '/Users/fabien/Twig', $notifier);
@@ -183,7 +183,7 @@ Adding a Notifier
 ~~~~~~~~~~~~~~~~~
 
 Sismo comes with the most common notifiers but you can create new ones very
-easily: extend the `Sismo\Notifier` abstract class and implement the
+easily: extend the `Sismo\Notifier\Notifier` abstract class and implement the
 `notify()` method::
 
     public function notify(Commit $commit)

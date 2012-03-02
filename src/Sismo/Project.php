@@ -11,6 +11,8 @@
 
 namespace Sismo;
 
+use Sismo\Notifier\Notifier;
+
 /**
  * Represents a project.
  *

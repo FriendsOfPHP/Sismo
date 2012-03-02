@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sismo\Tests;
+namespace Sismo\Tests\Storage;
 
 use Sismo\Storage;
 use Sismo\Commit;
@@ -27,7 +27,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $app = require __DIR__.'/../../../src/app.php';
+        $app = require __DIR__.'/../../../../src/app.php';
 
         $this->path = sys_get_temp_dir().'/sismo.db';
         @unlink($this->path);

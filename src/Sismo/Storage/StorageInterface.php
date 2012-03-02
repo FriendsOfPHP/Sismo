@@ -9,7 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sismo;
+namespace Sismo\Storage;
+
+use Sismo\Project;
+use Sismo\Commit;
 
 /**
  * Stores projects and builds information.

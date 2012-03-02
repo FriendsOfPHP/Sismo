@@ -9,9 +9,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sismo;
+namespace Sismo\Notifier;
 
 use Symfony\Component\Process\Process;
+use Sismo\Commit;
 
 // @codeCoverageIgnoreStart
 /**

@@ -11,7 +11,7 @@
 
 namespace Sismo\Contrib;
 
-use Sismo\Notifier;
+use Sismo\Notifier\Notifier;
 use Sismo\Commit;
 
 // @codeCoverageIgnoreStart

@@ -9,9 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sismo\Tests;
+namespace Sismo\Tests\Notifier;
 
-use Sismo\Notifier;
+use Sismo\Notifier\Notifier;
 use Sismo\Commit;
 use Sismo\Project;
 
@@ -19,7 +19,7 @@ class NotifierTest extends \PHPUnit_Framework_TestCase
 {
     public function testFormat()
     {
-        $notifier = $this->getMock('Sismo\Notifier');
+        $notifier = $this->getMock('Sismo\Notifier\Notifier');
         $r = new \ReflectionObject($notifier);
         $m = $r->getMethod('format');
         $m->setAccessible(true);

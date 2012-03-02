@@ -15,7 +15,7 @@ use Silex\Provider\UrlGeneratorServiceProvider;
 use Silex\Provider\SymfonyBridgesServiceProvider;
 use Sismo\Sismo;
 use Sismo\Project;
-use Sismo\Storage;
+use Sismo\Storage\Storage;
 use Sismo\Builder;
 use Symfony\Component\Process\Process;
 use Symfony\Component\HttpFoundation\Response;

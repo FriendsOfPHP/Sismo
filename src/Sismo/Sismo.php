@@ -11,6 +11,8 @@
 
 namespace Sismo;
 
+use Sismo\Storage\StorageInterface;
+
 /**
  * Main entry point for Sismo.
  *
