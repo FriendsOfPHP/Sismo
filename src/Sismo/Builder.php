@@ -110,7 +110,7 @@ class Builder
     protected function getGitCommand($command, array $replace = array())
     {
         $replace = array_merge(array(
-            '%repo%'        => $this->project->getRepository(),
+            '%repo%'        => escapeshellarg($this->project->getRepository()),
             '%dir%'         => escapeshellarg($this->buildDir),
             '%branch%'      => escapeshellarg('origin/'.$this->project->getBranch()),
             '%localbranch%' => escapeshellarg($this->project->getBranch()),
