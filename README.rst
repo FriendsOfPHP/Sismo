@@ -45,10 +45,10 @@ By default, Sismo reads its configuration from ``~/.sismo/config.php``::
     $projects = array();
 
     // create a Growl notifier (for MacOS X)
-    $notifier = new Sismo\Notifier\GrowlNotifier('pa$$word');
+    $notifier = new Sismo\GrowlNotifier('pa$$word');
 
     // create a DBus notifier (for Linux)
-    //$notifier = new Sismo\Notifier\DBusNotifier();
+    //$notifier = new Sismo\DBusNotifier();
 
     // add a local repository hosted on Github
     $projects[] = new Sismo\GithubProject('Twig (Local)', '/Users/fabien/Twig', $notifier);
