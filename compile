@@ -155,8 +155,8 @@ $classes = array (
     'Symfony\Component\HttpFoundation\Response',
     'Symfony\Component\HttpFoundation\ResponseHeaderBag',
     'Symfony\Component\HttpFoundation\ServerBag',
-    'Symfony\Component\HttpFoundation\Session',
-    'Symfony\Component\HttpFoundation\SessionStorage\SessionStorageInterface',
+    'Symfony\Component\HttpFoundation\Session\Session',
+    'Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface',
     'Symfony\Component\HttpKernel\Controller\ControllerResolverInterface',
     'Symfony\Component\HttpKernel\Controller\ControllerResolver',
     'Symfony\Component\HttpKernel\Debug\ExceptionHandler',
@@ -230,13 +230,13 @@ $classes = array (
     'Sismo\Commit',
     'Sismo\Contrib\XmppNotifier',
     'Sismo\Contrib\GoogleTalkNotifier',
-    'Sismo\DBusNotifier',
+    'Sismo\Notifier\DBusNotifier',
     'Sismo\GithubProject',
-    'Sismo\GrowlNotifier',
-    'Sismo\Notifier',
+    'Sismo\Notifier\GrowlNotifier',
+    'Sismo\Notifier\Notifier',
     'Sismo\Project',
     'Sismo\Sismo',
-    'Sismo\Storage',
+    'Sismo\Storage\Storage',
 );
 
 $ccl = new ClassCollectionLoader();
