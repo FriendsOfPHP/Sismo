@@ -125,6 +125,7 @@ $classes = array (
     'Symfony\Component\Console\Output\OutputInterface',
     'Symfony\Component\Console\Output\Output',
     'Symfony\Component\Console\Output\StreamOutput',
+    'Symfony\Component\Console\Output\ConsoleOutputInterface',
     'Symfony\Component\Console\Output\ConsoleOutput',
     'Symfony\Component\Console\Output\NullOutput',
     'Symfony\Component\Console\Shell',
@@ -155,8 +156,10 @@ $classes = array (
     'Symfony\Component\HttpFoundation\Response',
     'Symfony\Component\HttpFoundation\ResponseHeaderBag',
     'Symfony\Component\HttpFoundation\ServerBag',
+    'Symfony\Component\HttpFoundation\Session\SessionInterface',
     'Symfony\Component\HttpFoundation\Session\Session',
     'Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface',
+    'Symfony\Component\HttpKernel\TerminableInterface',
     'Symfony\Component\HttpKernel\Controller\ControllerResolverInterface',
     'Symfony\Component\HttpKernel\Controller\ControllerResolver',
     'Symfony\Component\HttpKernel\Debug\ExceptionHandler',
@@ -236,6 +239,7 @@ $classes = array (
     'Sismo\Notifier\Notifier',
     'Sismo\Project',
     'Sismo\Sismo',
+    'Sismo\Storage\StorageInterface',
     'Sismo\Storage\Storage',
 );
 
