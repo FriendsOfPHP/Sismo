@@ -17,13 +17,13 @@
     ],
     "require": {
         "php": ">=5.3.2",
-        "silex/silex": "dev-master",
-        "symfony/console": "dev-master",
-        "symfony/twig-bridge": "dev-master",
-        "symfony/process": "dev-master",
-        "symfony/http-foundation": "dev-master",
-        "symfony/filesystem": "dev-master",
-        "symfony/finder": "dev-master"
+        "silex/silex": ">=1.0.0-dev",
+        "symfony/console": "2.1.*",
+        "symfony/twig-bridge": "2.1.*",
+        "symfony/process": "2.1.*",
+        "symfony/http-foundation": "2.1.*",
+        "symfony/filesystem": "2.1.*",
+        "symfony/finder": "2.1.*"
     },
     "autoload": {
         "psr-0": { "Sismo": "src/" }
