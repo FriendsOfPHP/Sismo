@@ -55,9 +55,9 @@ class TwitterNotifier extends Notifier
 
     public function notify(Commit $commit)
     {
-		$conn = new \TwitterOAuth($this->consumerKey, $this->consumerSecret, $this->accessToken, $this->accessTokenSecret);
-		$content = $conn->get('account/verify_credentials');
-		$conn->post('statuses/update', array('status' => $this->format($this->messageFormat, $commit)));
+        $conn = new \TwitterOAuth($this->consumerKey, $this->consumerSecret, $this->accessToken, $this->accessTokenSecret);
+        $content = $conn->get('account/verify_credentials');
+        $conn->post('statuses/update', array('status' => $this->format($this->messageFormat, $commit)));
     }
 }
 // @codeCoverageIgnoreEnd
