@@ -56,7 +56,7 @@
         {
             "package": "symfony/finder",
             "version": "dev-master",
-            "source-reference": "b3adc8d5c29593db93c0abc4711a1e25fd3a6fa0",
+            "source-reference": "57ec7198a70e6c40e450ba66cc2f8ecab98746c8",
             "alias": "2.1.9999999.9999999-dev"
         },
         {
