@@ -68,7 +68,7 @@
         {
             "package": "symfony/http-kernel",
             "version": "dev-master",
-            "source-reference": "cf2bb8655a13fcb516b1d0b95ddf0c51db25b2a8",
+            "source-reference": "2048aa455abe5ca6089fab93fcb787742beb7e49",
             "alias": "2.1.9999999.9999999-dev"
         },
         {
