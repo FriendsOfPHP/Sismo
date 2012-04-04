@@ -56,7 +56,7 @@
         {
             "package": "symfony/finder",
             "version": "dev-master",
-            "source-reference": "b3adc8d5c29593db93c0abc4711a1e25fd3a6fa0",
+            "source-reference": "57ec7198a70e6c40e450ba66cc2f8ecab98746c8",
             "alias": "2.1.9999999.9999999-dev"
         },
         {
@@ -68,7 +68,7 @@
         {
             "package": "symfony/http-kernel",
             "version": "dev-master",
-            "source-reference": "cf2bb8655a13fcb516b1d0b95ddf0c51db25b2a8",
+            "source-reference": "2048aa455abe5ca6089fab93fcb787742beb7e49",
             "alias": "2.1.9999999.9999999-dev"
         },
         {
