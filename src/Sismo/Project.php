@@ -20,11 +20,13 @@ use Sismo\Notifier\Notifier;
  */
 class Project
 {
+    protected static $defaultCommand = 'phpunit';
+
     protected $name;
     protected $slug;
     protected $repository;
     protected $branch = 'master';
-    protected $command = 'phpunit';
+    protected $command;
     protected $urlPattern;
     protected $commits = array();
     protected $building = false;
@@ -42,6 +44,7 @@ class Project
     {
         $this->name = $name;
         $this->slug = $slug ?: $this->slugify($name);
+        $this->command = static::$defaultCommand;
 
         if (null !== $repository) {
             $this->setRepository($repository);
@@ -313,6 +316,11 @@ class Project
     public function setCommand($command)
     {
         $this->command = $command;
+    }
+
+    public static function setDefaultCommand($command)
+    {
+        self::$defaultCommand = $command;
     }
 
     /**
