@@ -20,15 +20,15 @@ use Sismo\Notifier\Notifier;
  */
 class Project
 {
-    private $name;
-    private $slug;
-    private $repository;
-    private $branch = 'master';
-    private $command = 'phpunit';
-    private $urlPattern;
-    private $commits = array();
-    private $building = false;
-    private $notifiers = array();
+    protected $name;
+    protected $slug;
+    protected $repository;
+    protected $branch = 'master';
+    protected $command = 'phpunit';
+    protected $urlPattern;
+    protected $commits = array();
+    protected $building = false;
+    protected $notifiers = array();
 
     /**
      * Constructor.
