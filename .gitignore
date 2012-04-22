@@ -1,2 +1,7 @@
 build
 vendor
+composer.lock
+vendor/*
+!vendor/vendors.php
+data
+sismoenv
