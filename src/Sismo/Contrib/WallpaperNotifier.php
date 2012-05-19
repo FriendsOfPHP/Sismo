@@ -40,17 +40,17 @@ class WallpaperNotifier extends Notifier
     {
         $slug   = $commit->getProject()->getSlug();
         $status = 'succeeded' == strtolower($commit->getStatus()) ? 'ok' : 'ko';
-        
+
         $data = unserialize(file_get_contents($this->log));
-        
+
         $data['last_update'] = date('Y-M-j H:i:s');
         $data['projects'][$slug][] = $status;
 
         // image will only show `max_number_bars` builds per project
         $data['projects'][$slug] = array_slice($data['projects'][$slug], -$this->get('max_number_bars'));
-        
+
         file_put_contents($this->log, serialize($data));
-        
+
         // if the last image was generated less than 15 seconds ago, don't generate
         //  another image. This prevents collisions when building a lot of projects
         if (null != $this->updatedAt && microtime(true) - $this->updatedAt < 15) {
@@ -62,16 +62,16 @@ class WallpaperNotifier extends Notifier
 
     /**
      * Generates a wallpaper with the latest data and updates desktop background
-     * 
-     * @param  array $data Array with the latest build history per project
+     *
+     * @param array $data Array with the latest build history per project
      */
     private function updateBackground($data)
     {
         $this->updatedAt = microtime(true);
 
         $this->image = imagecreatetruecolor($this->get('image_width'), $this->get('image_height'));
-        imageantialias($this->image, true);        
-        
+        imageantialias($this->image, true);
+
         $this->initializeColors();
         imagefill($this->image, 0, 0, $this->get('background_color'));
 
@@ -89,7 +89,7 @@ class WallpaperNotifier extends Notifier
                 $x1,
                 $this->get('vertical_padding') - 0.2 * $this->get('font_size')
             );
-            
+
             foreach ($builds as $i => $build) {
                 $y1 = $this->get('vertical_padding') + $this->get('font_size') + (($this->get('bar_height') + $this->get('vertical_gutter')) * $i);
                 $y2 = $y1 + $this->get('bar_height');
@@ -141,7 +141,7 @@ END
 
     /**
      * Convenience method to add text to a GD image.
-     * 
+     *
      * @param string $text The string to be plotted
      * @param int    $x    The x coordinate where the string will be plotted
      * @param int    $y    The y coordinate where the string will be plotted
@@ -153,7 +153,7 @@ END
 
     /**
      * Convenience method to get any image option.
-     * 
+     *
      * @param string $id The name of the option
      */
     private function get($id)
@@ -163,7 +163,7 @@ END
 
     /**
      * Convenience method to set the value of any image option.
-     * 
+     *
      * @param string $id    The name of the option
      * @param mixed  $value The new value of the option
      */
@@ -174,8 +174,8 @@ END
 
     /**
      * Initializes the options that control wallpaper design
-     * 
-     * @param  array $userOptions The options given by the user,
+     *
+     * @param array $userOptions The options given by the user,
      *                            which override default values
      */
     private function initializeImageOptions($userOptions)
@@ -195,7 +195,7 @@ END
             'failure_color'      => '#B30F00',
             'font_size'          => 10
         ), $userOptions);
-        
+
         $this->set('max_number_bars', ($this->get('image_height') - $this->get('vertical_padding') - (2 * $this->get('font_size')) - (2 * $this->get('vertical_gutter'))) / ($this->get('bar_height') + $this->get('vertical_gutter')));
 
         $this->set('max_number_letters', floor($this->get('bar_width') / (0.7 * $this->get('font_size'))));
@@ -210,7 +210,7 @@ END
     private function initializeTempDirectory()
     {
         $this->dir = __DIR__.'/.wallpaperNotifier';
-        
+
         if (!file_exists($this->dir)) {
             try {
                 mkdir($this->dir);
@@ -251,10 +251,10 @@ END
     /**
      * Checks if the needed font exists at the expected path.
      * If it doesn't exist, this method recreates it.
-     * 
+     *
      * PHP GD default fonts are ugly, so this notifier uses a custom and
      * free font called `instruction.ttf`.
-     * 
+     *
      * Downloaded from: http://www.pixelsagas.com/viewfont.php?fontid=101
      * Free License details: http://www.pixelsagas.com/freeware_license.php
      */
@@ -856,22 +856,22 @@ END
     {
         $rgb = $this->hex2rgb($this->get('background_color'));
         $this->set('background_color', imagecolorallocate($this->image, $rgb[0], $rgb[1], $rgb[2]));
-        
+
         $rgb = $this->hex2rgb($this->get('text_color'));
         $this->set('text_color', imagecolorallocate($this->image, $rgb[0], $rgb[1], $rgb[2]));
 
         $rgb = $this->hex2rgb($this->get('success_color'));
         $this->set('success_color', imagecolorallocate($this->image, $rgb[0], $rgb[1], $rgb[2]));
-        
+
         $rgb = $this->hex2rgb($this->get('failure_color'));
         $this->set('failure_color', imagecolorallocate($this->image, $rgb[0], $rgb[1], $rgb[2]));
     }
 
     /**
      * Convenience method to transform a color from hexadecimal to RGB.
-     * 
-     * @param  string $hex The color in hexadecimal format (full or shorthand)
-     * 
+     *
+     * @param string $hex The color in hexadecimal format (full or shorthand)
+     *
      * @return array The RGB color as an array with R, G and B components
      */
     private function hex2rgb($hex)

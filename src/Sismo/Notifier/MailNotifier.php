@@ -49,10 +49,10 @@ class MailNotifier extends Notifier
      * Constructor.
      *
      * @param array|string $recipients
-     * @param string $subjectFormat
-     * @param string $messageFormat
-     * @param string $headers Additional headers applied to the email.
-     * @param string $params Additional params to be used on mail()
+     * @param string       $subjectFormat
+     * @param string       $messageFormat
+     * @param string       $headers       Additional headers applied to the email.
+     * @param string       $params        Additional params to be used on mail()
      */
     public function __construct($recipients, $subjectFormat = '', $messageFormat = '', $headers = '', $params = '')
     {
@@ -75,10 +75,10 @@ class MailNotifier extends Notifier
      * Send the email.
      *
      * @param array|string $to
-     * @param string $subject
-     * @param string $message
-     * @param string $headers Additional headers to send.
-     * @param string $params Additional params for the mailer in use.
+     * @param string       $subject
+     * @param string       $message
+     * @param string       $headers Additional headers to send.
+     * @param string       $params  Additional params for the mailer in use.
      *
      * @return bool Whether the mail has been sent.
      */
