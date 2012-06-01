@@ -12,7 +12,6 @@
 use Silex\Application;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\UrlGeneratorServiceProvider;
-use Silex\Provider\SymfonyBridgesServiceProvider;
 use Sismo\Sismo;
 use Sismo\Project;
 use Sismo\Storage\Storage;
@@ -21,7 +20,6 @@ use Symfony\Component\Process\Process;
 use Symfony\Component\HttpFoundation\Response;
 
 $app = new Application();
-$app->register(new SymfonyBridgesServiceProvider());
 $app->register(new UrlGeneratorServiceProvider());
 $app->register(new TwigServiceProvider(), array(
     'twig.path'      => __DIR__.'/templates',
