@@ -26,6 +26,10 @@
         "symfony/finder": "2.1.*",
         "symfony/class-loader": "2.1.*"
     },
+    "require-dev": {
+        "symfony/browser-kit": "2.1.*",
+        "symfony/css-selector": "2.1.*"
+    },
     "autoload": {
         "psr-0": { "Sismo": "src/" }
     }

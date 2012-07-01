@@ -23,10 +23,12 @@ $app = new Application();
 $app->register(new UrlGeneratorServiceProvider());
 $app->register(new TwigServiceProvider(), array(
     'twig.path'      => __DIR__.'/templates',
-    'twig.configure' => $app->protect(function ($twig) use ($app) {
-        $twig->setCache($app['twig.cache.path']);
-    }),
 ));
+$app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
+    $twig->setCache($app['twig.cache.path']);
+
+    return $twig;
+}));
 
 $app['data.path']   = getenv('SISMO_DATA_PATH') ?: getenv('HOME').'/.sismo/data';
 $app['config.file'] = getenv('SISMO_CONFIG_PATH') ?: getenv('HOME').'/.sismo/config.php';
