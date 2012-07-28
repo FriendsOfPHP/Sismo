@@ -27,7 +27,7 @@ $console
     ->setHelp(<<<EOF
 The <info>%command.name%</info> command displays the latest output for a project:
 
-    <info>php %command.full_name% output twig</info>
+    <info>php %command.full_name% twig</info>
 EOF
     )
     ->setCode(function (InputInterface $input, OutputInterface $output) use ($app) {
@@ -78,44 +78,44 @@ $console
 Without any arguments, the <info>%command.name%</info> command builds the latest commit
 of all configured projects one after the other:
 
-    <info>php %command.full_name% build</info>
+    <info>php %command.full_name%</info>
 
 The command loads project configurations from
 <comment>~/.sismo/config.php</comment>. Change it with the
 <info>--config-file</info> option:
 
-    <info>php %command.full_name% build --config-file=/path/to/config.php</info>
+    <info>php %command.full_name% --config-file=/path/to/config.php</info>
 
 Data (repository, DB, ...) are stored in <comment>~/.sismo/data/</comment>.
 The <info>--data-path</info> option allows you to change the default:
 
-    <info>php %command.full_name% build --data-path=/path/to/data</info>
+    <info>php %command.full_name% --data-path=/path/to/data</info>
 
 Pass the project slug to build a specific project:
 
-    <info>php %command.full_name% build twig</info>
+    <info>php %command.full_name% twig</info>
 
 Force a specific commit to be built by passing the SHA:
 
-    <info>php %command.full_name% build twig a1ef34</info>
+    <info>php %command.full_name% twig a1ef34</info>
 
 Use <comment>--force</comment> to force the built even if it has already been
 built previously:
 
-    <info>php %command.full_name% build twig a1ef34 --force</info>
+    <info>php %command.full_name% twig a1ef34 --force</info>
 
 Disable notifications with <comment>--silent</comment>:
 
-    <info>php %command.full_name% build twig a1ef34 --silent</info>
+    <info>php %command.full_name% twig a1ef34 --silent</info>
 
 Disable repository synchonization with <comment>--local</comment>:
 
-    <info>php %command.full_name% build twig a1ef34 --local</info>
+    <info>php %command.full_name% twig a1ef34 --local</info>
 
 Limit the time (in seconds) spent by the command building projects by using
 the <comment>--timeout</comment> option:
 
-    <info>php %command.full_name% build twig --timeout 3600</info>
+    <info>php %command.full_name% twig --timeout 3600</info>
 
 When you use this command as a cron job, <comment>--timeout</comment> can avoid
 the command to be run concurrently. Be warned that this is a rough estimate as
