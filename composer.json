@@ -1,8 +1,8 @@
 {
     "name": "sismo/sismo",
-    "type": "silex application",
+    "type": "silex-application",
     "description": "Sismo is a personal continuous integration server.",
-    "keywords": ["sismo, continuous integration"],
+    "keywords": ["sismo", "continuous integration"],
     "homepage": "http://sismo.sensiolabs.org",
     "license": "MIT",
     "authors": [
