@@ -155,20 +155,20 @@ EOF
             $callback = function ($type, $buffer) use ($output, &$startedOut, &$startedErr) {
                 if ('err' === $type) {
                     if (!$startedErr) {
-                        $output->write("\nERR| ");
+                        $output->write("\n<bg=red;fg=white> ERR </> ");
                         $startedErr = true;
                         $startedOut = false;
                     }
 
-                    $output->write(str_replace("\n", "\nERR| ", $buffer));
+                    $output->write(str_replace("\n", "\n<bg=red;fg=white> ERR </> ", $buffer));
                 } else {
                     if (!$startedOut) {
-                        $output->write("\nOUT| ");
+                        $output->write("\n<bg=green;fg=white> OUT </> ");
                         $startedOut = true;
                         $startedErr = false;
                     }
 
-                    $output->write(str_replace("\n", "\nOUT| ", $buffer));
+                    $output->write(str_replace("\n", "\n<bg=green;fg=white> OUT </> ", $buffer));
                 }
             };
         }
