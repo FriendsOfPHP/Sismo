@@ -75,6 +75,7 @@ $classes = array (
     'Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent',
     'Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent',
     'Symfony\Component\HttpKernel\Event\KernelEvent',
+    'Symfony\Component\HttpKernel\Event\PostResponseEvent',
     'Symfony\Component\HttpKernel\Exception\HttpException',
     'Symfony\Component\HttpKernel\Exception\NotFoundHttpException',
     'Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException',
