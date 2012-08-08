@@ -36,7 +36,7 @@ class Builder
             'clone'    => 'clone --progress --recursive %repo% %dir% --branch %localbranch%',
             'fetch'    => 'fetch origin',
             'prepare'  => 'submodule update --init --recursive',
-            'checkout' => 'checkout %branch%',
+            'checkout' => 'checkout -q %branch%',
             'reset'    => 'reset --hard %revision%',
             'show'     => 'show -s --pretty=format:%format% %revision%',
         ), $gitCmds);
