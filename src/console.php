@@ -16,6 +16,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Process\ProcessBuilder;
 
 $console = new Application('Sismo', Sismo::VERSION);
 $console
@@ -201,6 +202,43 @@ EOF
                 return 1;
             }
         }
+    })
+;
+
+$console
+    ->register('run')
+    ->setDefinition(array(
+        new InputArgument('address', InputArgument::OPTIONAL, 'Address:port', 'localhost:9000')
+    ))
+    ->setDescription('Runs Sismo with PHP built-in web server')
+    ->setHelp(<<<EOF
+    The <info>%command.name%</info> runs sismo with PHP built-in web server:
+
+      <info>%command.full_name%</info>
+
+    To change default bind address and port use the <info>address</info> argument:
+
+      <info>%command.full_name% 127.0.0.1:8080</info>
+
+    See also: http://www.php.net/manual/en/features.commandline.webserver.php
+EOF
+    )
+    ->setCode(function (InputInterface $input, OutputInterface $output) use ($app) {
+
+        if (version_compare(PHP_VERSION, '5.4.0') < 0) {
+            throw new \Exception('This feature only runs with PHP 5.4.0 or higher');
+        }
+
+        $output->writeln(sprintf("Sismo running on <info>%s</info>\n", $input->getArgument('address')));
+
+        $builder = new ProcessBuilder(array(PHP_BINARY, '-S', $input->getArgument('address')));
+        $builder->setWorkingDirectory(getcwd());
+        $builder->setTimeout(null);
+        $builder->getProcess()->run(function ($type, $buffer) use ($output) {
+            if (OutputInterface::VERBOSITY_VERBOSE === $output->getVerbosity()) {
+                $output->write($buffer);
+            }
+        });
     })
 ;
 

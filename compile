@@ -81,6 +81,7 @@ $classes = array (
     'Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException',
     'Symfony\Component\HttpKernel\HttpKernel',
     'Symfony\Component\HttpKernel\KernelEvents',
+    'Symfony\Component\Process\ProcessBuilder',
     'Symfony\Component\Process\Process',
     'Symfony\Component\Routing\Exception\InvalidParameterException',
     'Symfony\Component\Routing\Exception\MethodNotAllowedException',
