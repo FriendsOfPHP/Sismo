@@ -234,7 +234,7 @@ EOF
         $builder = new ProcessBuilder(array(PHP_BINARY, '-S', $input->getArgument('address'), 'sismo.php'));
         $builder->setWorkingDirectory(getcwd());
         $builder->setTimeout(null);
-        $builder->getProcess()->run(function ($type, $buffer) use ($output, $builder) {
+        $builder->getProcess()->run(function ($type, $buffer) use ($output) {
             if (OutputInterface::VERBOSITY_VERBOSE === $output->getVerbosity()) {
                 $output->write($buffer);
             }
