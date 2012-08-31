@@ -124,7 +124,9 @@ party web server to run sismo. You can run sismo with
 
 And then open the browser and point it to
 
-    http://localhost:9000/sismo.php
+    http://localhost:9000
+
+By default sismo tries to run on the "localhost:9000" address and port.
 
 Limitations
 -----------
