@@ -1,9 +1,5 @@
 <?php
 /*
- * DO NOT USE THIS YET!!!!!!
- */
-
-/*
  * This file is part of the Sismo utility.
  *
  * (c) Fabien Potencier <fabien@symfony.com>
@@ -19,7 +15,8 @@ use Symfony\Component\Process\Process;
 /**
  * Describes a project hosted on BitBucket.
  *
- * @author Fabien Potencier <fabien@symfony.com>
+ * @author  Micah Breedlove <micah@blueshamrock.com>
+ * @author Fabien Potencier <fabien@symfony.com> 
  */
 class BitbucketProject extends Project
 {
@@ -33,25 +30,20 @@ class BitbucketProject extends Project
             foreach (explode("\n", $process->getOutput()) as $line) {
                 $parts = explode("\t", $line);
                 if ('origin' == $parts[0] && preg_match('#(?:\:|/|@)bitbucket.org(?:\:|/)(.*?)/(.*?)\.git#', $parts[1], $matches)) {
-                    $urlPattern = sprintf('https://%s@bitbucket.org/%s/%s/commit/%%commit%%', $matches[1], $matches[1], $matches[2]);
-                    var_dump("DruiD " . $urlPattern);
-                    $this->setUrlPattern($urlPattern);
+                    $this->setUrlPattern(sprintf('https://bitbucket.org/%s/%s/commit/%%commit%%', $matches[1], $matches[2]));
 
                     break;
                 }
             }
         } elseif (preg_match('#^[a-z0-9_-]+/[a-z0-9_-]+$#i', $this->getRepository())) {
             $repo = preg_split('/\//', $this->getRepository());
-            // $this->setUrlPattern(sprintf('https://github.com/%s/commit/%%commit%%', $this->getRepository()));
+
             $this->setUrlPattern(sprintf('https://bitbucket.org/%s/changeset/%%commit%%', $this->getRepository())); 
-            $repoUrl = sprintf('git@bitbucket.org:/%s.git', $this->getRepository());
-
-            $this->setBitBucketRepository($repoUrl);
+            $this->setBitBucketRepository( sprintf('git@bitbucket.org:/%s.git', $this->getRepository()) );
         } else {
-            throw new \InvalidArgumentException(sprintf('URL "%s" does not look like a Github repository.', $this->getRepository()));
+            throw new \InvalidArgumentException(sprintf('URL "%s" does not look like a BitBucket repository.', $this->getRepository()));
         }
-    }
-
+    } 
 
     public function setBitBucketRepository($url)
     {
