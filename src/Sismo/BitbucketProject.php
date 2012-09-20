@@ -30,7 +30,7 @@ class BitbucketProject extends Project
             foreach (explode("\n", $process->getOutput()) as $line) {
                 $parts = explode("\t", $line);
                 if ('origin' == $parts[0] && preg_match('#(?:\:|/|@)bitbucket.org(?:\:|/)(.*?)/(.*?)\.git#', $parts[1], $matches)) {
-                    $this->setUrlPattern(sprintf('https://bitbucket.org/%s/%s/commit/%%commit%%', $matches[1], $matches[2]));
+                    $this->setUrlPattern(sprintf('https://bitbucket.org/%s/%s/changeset/%%commit%%', $matches[1], $matches[2]));
 
                     break;
                 }
