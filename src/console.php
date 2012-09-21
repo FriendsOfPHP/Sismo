@@ -212,21 +212,18 @@ $console
     ))
     ->setDescription('Runs Sismo with PHP built-in web server')
     ->setHelp(<<<EOF
-    The <info>%command.name%</info> runs sismo with PHP built-in web server:
+The <info>%command.name%</info> command runs the embedded Sismo web server:
 
-      <info>%command.full_name%</info>
+    <info>%command.full_name%</info>
 
-    To change default bind address and port use the <info>address</info> argument:
+You can also customize the default address and port the web server listens to:
 
-      <info>%command.full_name% 127.0.0.1:8080</info>
-
-    See also: http://www.php.net/manual/en/features.commandline.webserver.php
+    <info>%command.full_name% 127.0.0.1:8080</info>
 EOF
     )
     ->setCode(function (InputInterface $input, OutputInterface $output) use ($app) {
-
         if (version_compare(PHP_VERSION, '5.4.0') < 0) {
-            throw new \Exception('This feature only runs with PHP 5.4.0 or higher');
+            throw new \Exception('This feature only runs with PHP 5.4.0 or higher.');
         }
 
         $output->writeln(sprintf("Sismo running on <info>%s</info>\n", $input->getArgument('address')));

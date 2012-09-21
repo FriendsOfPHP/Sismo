@@ -115,10 +115,10 @@ script:
 ``symfony-local`` is the slug of the project. You can also create a
 ``post-merge`` script if you want to run Sismo when you merge branches.
 
-### Run Sismo with the PHP built-in web server ###
+### Run Sismo with the built-in web server ###
 
-If you are running Sismo with PHP 5.4.0, there is no need to use Apache or any other third
-party web server to run sismo. You can run sismo with
+If you are running Sismo with PHP 5.4.0, you can use the Sismo build-in web
+server:
 
     php sismo.php run localhost:9000
 
