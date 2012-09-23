@@ -31,6 +31,5 @@
     },
     "autoload": {
         "psr-0": { "Sismo": "src/" }
-    },
-    "minimum-stability": "dev"
+    }
 }
