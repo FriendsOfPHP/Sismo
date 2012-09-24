@@ -201,6 +201,6 @@ $content = preg_replace('#require_once[^;]+?;#', '', $content);
 
 file_put_contents(__DIR__.'/build/sismo.php', $content);
 file_put_contents(__DIR__.'/build/sismo.php',
-    "<?php \n/*".file_get_contents(__DIR__.'/LICENSE')."\n*/\n".
+    "#!/usr/bin/env php\n<?php \n/*".file_get_contents(__DIR__.'/LICENSE')."\n*/\n".
     str_replace('<?php', '', php_strip_whitespace(__DIR__.'/build/sismo.php'))
 );
