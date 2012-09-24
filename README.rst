@@ -206,6 +206,15 @@ The `Commit`_ object has many methods that gives you a lot of information
 about the commit and its build. You can also get general information about the
 project by calling `getProject()`_.
 
+Use Sismo with composer
+~~~~~~~~~~~~~~~~~~~~~~~
+
+If a majority of yours projects use `composer`_, you can configure Sismo
+to install dependency before running `phpunit`. Add the following code
+to your config file::
+
+    Sismo\Project::setDefaultCommand('if [ -f composer.json ]; then composer install --dev; fi && phpunit');
+
 .. _Sismo:        http://sismo.sensiolabs.org/
 .. _sismo.php:    http://sismo.sensiolabs.org/get/sismo.php
 .. _CCMenu:       http://ccmenu.sourceforge.net/
@@ -214,3 +223,4 @@ project by calling `getProject()`_.
 .. _JCCTray:      http://sourceforge.net/projects/jcctray/
 .. _Commit:       http://sismo.sensiolabs.org/api/index.html?q=Sismo\Commit
 .. _getProject(): http://sismo.sensiolabs.org/api/index.html?q=Sismo\Project
+.. _composer:     https://getcomposer.org/doc/00-intro.md#globally
