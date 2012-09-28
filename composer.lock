@@ -1,5 +1,5 @@
 {
-    "hash": "8e1b86d10d6559ef2f833ad0a18c7385",
+    "hash": "74d29d902f99c903a3b7d7ce1c5d5a24",
     "packages": [
         {
             "name": "pimple/pimple",
@@ -18,7 +18,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-05-08 13:57:24",
+            "time": "2012-05-08 09:57:24",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -92,7 +92,6 @@
                 "symfony/css-selector": "2.1.*",
                 "symfony/dom-crawler": "2.1.*"
             },
-            "time": "1348229548",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -123,7 +122,8 @@
             "homepage": "http://silex.sensiolabs.org",
             "keywords": [
                 "microframework"
-            ]
+            ],
+            "time": "1348229548"
         },
         {
             "name": "symfony/class-loader",
@@ -146,7 +146,7 @@
             "require-dev": {
                 "symfony/finder": "2.1.*"
             },
-            "time": "2012-09-01 07:02:36",
+            "time": "2012-09-01 03:02:36",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -193,7 +193,7 @@
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2012-08-22 13:48:41",
+            "time": "2012-08-22 09:48:41",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -247,7 +247,7 @@
                 "symfony/dependency-injection": "2.1.*",
                 "symfony/http-kernel": "2.1.*"
             },
-            "time": "2012-09-10 10:53:42",
+            "time": "2012-09-10 06:53:42",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -294,7 +294,7 @@
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2012-08-22 13:48:41",
+            "time": "2012-08-22 09:48:41",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -341,7 +341,7 @@
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2012-08-22 13:48:41",
+            "time": "2012-08-22 09:48:41",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -388,7 +388,7 @@
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2012-09-18 16:09:52",
+            "time": "2012-09-18 12:09:52",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -456,7 +456,7 @@
                 "symfony/dependency-injection": "2.1.*",
                 "symfony/finder": "2.1.*"
             },
-            "time": "2012-09-20 07:13:00",
+            "time": "2012-09-20 03:13:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -487,30 +487,30 @@
         },
         {
             "name": "symfony/process",
-            "version": "v2.1.2",
+            "version": "2.1.x-dev",
             "target-dir": "Symfony/Component/Process",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Process",
-                "reference": "v2.1.2"
+                "reference": "f43a1238556d15486d73e5a5c741636eb8e52cff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Process/zipball/v2.1.2",
-                "reference": "v2.1.2",
+                "url": "https://github.com/symfony/Process/zipball/f43a1238556d15486d73e5a5c741636eb8e52cff",
+                "reference": "f43a1238556d15486d73e5a5c741636eb8e52cff",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2012-09-18 22:37:29",
+            "time": "1348580933",
             "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-master": "2.1-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-0": {
                     "Symfony\\Component\\Process": ""
@@ -561,7 +561,7 @@
                 "symfony/yaml": "2.1.*",
                 "doctrine/common": ">=2.2,<2.4-dev"
             },
-            "time": "2012-09-10 10:53:42",
+            "time": "2012-09-10 06:53:42",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -625,7 +625,7 @@
                 "symfony/yaml": "2.1.*",
                 "symfony/security": "2.1.*"
             },
-            "time": "2012-09-10 10:53:42",
+            "time": "2012-09-10 06:53:42",
             "type": "symfony-bridge",
             "extra": {
                 "branch-alias": {
@@ -671,7 +671,7 @@
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "2012-08-25 17:32:57",
+            "time": "2012-08-25 13:32:57",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -708,7 +708,7 @@
     "aliases": [
 
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "silex/silex": 20
     }
