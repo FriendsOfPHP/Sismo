@@ -63,6 +63,37 @@ EOF
 ;
 
 $console
+    ->register('projects')
+    ->setDescription('List available projects')
+    ->setHelp(<<<EOF
+The <info>%command.name%</info> command displays the available projects Sismo can build.
+EOF
+    )
+    ->setCode(function (InputInterface $input, OutputInterface $output) use ($app) {
+        $sismo = $app['sismo'];
+        $projectsObj = $sismo->getProjects();
+
+        $projects = array();
+        $width = 0;
+        foreach($projectsObj as $slug => $project)
+        {
+            $projects[$slug] = $project->getName();
+            $width = strlen($project->getName()) > $width ? strlen($project->getName()) : $width;
+        }
+        $width += 2;
+
+        $output->writeln('');
+        $output->writeln('<comment>Available projects:</comment>');
+        foreach($projects as $slug => $project)
+        {
+            $output->writeln(sprintf("  <info>%-${width}s</info> %s", $slug, $project));
+        }
+
+        $output->writeln('');
+    })
+;
+
+$console
     ->register('build')
     ->setDefinition(array(
         new InputArgument('slug', InputArgument::OPTIONAL, 'Project slug'),
