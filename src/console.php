@@ -71,12 +71,10 @@ EOF
     )
     ->setCode(function (InputInterface $input, OutputInterface $output) use ($app) {
         $sismo = $app['sismo'];
-        $projectsObj = $sismo->getProjects();
 
         $projects = array();
         $width = 0;
-        foreach($projectsObj as $slug => $project)
-        {
+        foreach ($sismo->getProjects() as $slug => $project) {
             $projects[$slug] = $project->getName();
             $width = strlen($project->getName()) > $width ? strlen($project->getName()) : $width;
         }
@@ -84,8 +82,7 @@ EOF
 
         $output->writeln('');
         $output->writeln('<comment>Available projects:</comment>');
-        foreach($projects as $slug => $project)
-        {
+        foreach ($projects as $slug => $project) {
             $output->writeln(sprintf("  <info>%-${width}s</info> %s", $slug, $project));
         }
 
