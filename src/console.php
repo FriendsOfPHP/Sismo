@@ -256,7 +256,7 @@ EOF
 
         $output->writeln(sprintf("Sismo running on <info>%s</info>\n", $input->getArgument('address')));
 
-        $builder = new ProcessBuilder(array(PHP_BINARY, '-S', $input->getArgument('address')));
+        $builder = new ProcessBuilder(array(PHP_BINARY, '-S', $input->getArgument('address'), 'sismo.php'));
         $builder->setWorkingDirectory(getcwd());
         $builder->setTimeout(null);
         $builder->getProcess()->run(function ($type, $buffer) use ($output) {
