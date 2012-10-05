@@ -191,6 +191,11 @@ You need to set an environment variable in your Apache configuration::
 
     SetEnv SISMO_BUILD_TOKEN "YOUR_TOKEN"
 
+You can also set an environment variable in your config file
+(``~/.sismo/config.php``)::
+
+    putenv('SISMO_BUILD_TOKEN=YOUR_TOKEN');
+
 Replace YOUR_TOKEN with something more secure, as anyone with this token
 could use it to trigger builds. Then set your post-receive URL appropriately.
 For example::

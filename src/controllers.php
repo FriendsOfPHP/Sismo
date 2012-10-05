@@ -57,6 +57,9 @@ $app->get('/{slug}/{sha}', function($slug, $sha) use ($app) {
 })->bind('commit');
 
 $app->post('/{slug}/build/{token}', function($slug, $token) use ($app) {
+    // Boot sismo
+    $app['sismo'];
+
     if (!$server_token = getenv('SISMO_BUILD_TOKEN')) {
         throw new NotFoundHttpException('Not found.');
     }
