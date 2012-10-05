@@ -18,7 +18,7 @@ namespace Sismo;
  */
 class AnsiEscapeSequencesConverter
 {
-    static public function convertToHtml($text)
+    public static function convertToHtml($text)
     {
         // remove cursor movement sequences
         $text = preg_replace('#\033\[(K|s|u|2J|2K|\d+(A|B|C|D|E|F|G|J|K|S|T)|\d+;\d+(H|f))#', '', $text);

@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Sismo\Notifier;
+namespace Sismo\Contrib;
 
 use Sismo\Commit;
 
@@ -85,13 +85,14 @@ class AndroidPushC2DMNotifier extends Notifier
         if (strtolower($responseArray[0]) == 'error') {
             return false;
         }
+
         return true;
     }
 
     public function getGoogleAuthCodeHelper($username, $password, $source='Company-AppName-Version', $service='ac2dm')
     {
         $ch = curl_init();
-        if(!$ch){
+        if (!$ch) {
             return false;
         }
 

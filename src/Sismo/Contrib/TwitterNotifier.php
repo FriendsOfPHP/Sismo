@@ -9,7 +9,6 @@
 
 namespace Sismo\Contrib;
 
-use Symfony\Component\Process\Process;
 use Sismo\Notifier\Notifier;
 use Sismo\Commit;
 

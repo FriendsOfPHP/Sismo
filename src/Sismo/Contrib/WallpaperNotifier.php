@@ -113,12 +113,10 @@ class WallpaperNotifier extends Notifier
         if (file_exists($this->evenBackgroundImagePath)) {
             $this->imagePath = $this->oddBackgroundImagePath;
             unlink($this->evenBackgroundImagePath);
-        }
-        elseif (file_exists($this->oddBackgroundImagePath)) {
+        } elseif (file_exists($this->oddBackgroundImagePath)) {
             $this->imagePath = $this->evenBackgroundImagePath;
             unlink($this->oddBackgroundImagePath);
-        }
-        else {
+        } else {
             $this->imagePath = $this->oddBackgroundImagePath;
         }
 

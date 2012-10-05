@@ -16,7 +16,7 @@ use Symfony\Component\Process\Process;
  * Describes a project hosted on BitBucket.
  *
  * @author  Micah Breedlove <micah@blueshamrock.com>
- * @author Fabien Potencier <fabien@symfony.com> 
+ * @author Fabien Potencier <fabien@symfony.com>
  */
 class BitbucketProject extends Project
 {
@@ -38,15 +38,15 @@ class BitbucketProject extends Project
         } elseif (preg_match('#^[a-z0-9_-]+/[a-z0-9_-]+$#i', $this->getRepository())) {
             $repo = preg_split('/\//', $this->getRepository());
 
-            $this->setUrlPattern(sprintf('https://bitbucket.org/%s/changeset/%%commit%%', $this->getRepository())); 
+            $this->setUrlPattern(sprintf('https://bitbucket.org/%s/changeset/%%commit%%', $this->getRepository()));
             $this->setBitBucketRepository( sprintf('git@bitbucket.org:/%s.git', $this->getRepository()) );
         } else {
             throw new \InvalidArgumentException(sprintf('URL "%s" does not look like a BitBucket repository.', $this->getRepository()));
         }
-    } 
+    }
 
     public function setBitBucketRepository($url)
     {
-        $this->repository = $url; 
+        $this->repository = $url;
     }
 }
