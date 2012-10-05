@@ -249,14 +249,22 @@ You can also customize the default address and port the web server listens to:
     <info>%command.full_name% 127.0.0.1:8080</info>
 EOF
     )
-    ->setCode(function (InputInterface $input, OutputInterface $output) use ($app) {
+    ->setCode(function (InputInterface $input, OutputInterface $output) use ($console) {
+
         if (version_compare(PHP_VERSION, '5.4.0') < 0) {
             throw new \Exception('This feature only runs with PHP 5.4.0 or higher.');
         }
 
+        $sismo = __DIR__ . '/sismo.php';
+        while (!file_exists($sismo)) {
+            $dialog = $console->getHelperSet()->get('dialog');
+            $sismo = $dialog->ask($output, sprintf('<comment>I cannot find "%s". What\'s the absoulte path of "sismo.php"?</comment> ', $sismo), __DIR__ . '/sismo.php');
+        }
+
         $output->writeln(sprintf("Sismo running on <info>%s</info>\n", $input->getArgument('address')));
 
-        $builder = new ProcessBuilder(array(PHP_BINARY, '-S', $input->getArgument('address')));
+        $builder = new ProcessBuilder(array(PHP_BINARY, '-S', $input->getArgument('address'), $sismo));
+
         $builder->setWorkingDirectory(getcwd());
         $builder->setTimeout(null);
         $builder->getProcess()->run(function ($type, $buffer) use ($output) {
