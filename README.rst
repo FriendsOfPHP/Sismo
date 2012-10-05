@@ -117,14 +117,14 @@ script:
 
 ### Run Sismo with the built-in web server ###
 
-If you are running Sismo with PHP 5.4.0, you can use the Sismo build-in web
-server:
+If you are running Sismo (with the single PHP file) with PHP 5.4.0,
+you can use the Sismo build-in web server:
 
     php sismo.php run localhost:9000
 
 And then open the browser and point it to
 
-    http://localhost:9000/sismo.php
+    http://localhost:9000
 
 Limitations
 -----------
