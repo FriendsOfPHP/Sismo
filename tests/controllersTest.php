@@ -137,4 +137,73 @@ class ControllersTest extends WebTestCase
 
         $this->assertEquals('Commit "bar" for project "twig" not found.', $crawler->filter('p')->text());
     }
+
+    public function testBuildPage()
+    {
+        $orig_token = getenv('SISMO_BUILD_TOKEN');
+        $token = md5(mt_rand());
+        putenv(sprintf('SISMO_BUILD_TOKEN=%s', $token));
+
+        $project = new Project('Twig');
+
+        $this->app['sismo'] = $this->getMockBuilder('Sismo\Sismo')->disableOriginalConstructor()->getMock();
+        $this->app['sismo']->expects($this->once())->method('hasProject')->will($this->returnValue(true));
+        $this->app['sismo']->expects($this->once())->method('getProject')->will($this->returnValue($project));
+        $this->app['sismo']->expects($this->once())->method('build');
+
+        $storage = $this->app['storage'];
+
+        $this->app['sismo']->addProject($project);
+        $commit = $storage->initCommit($project, '7d78d5', 'fabien', new \DateTime(), 'foo');
+        $commit->setStatusCode('success');
+        $storage->updateCommit($commit);
+        $storage->updateProject($project);
+
+        $client = $this->createClient();
+        $crawler = $client->request('POST', sprintf('/twig/build/%s', urlencode($token)));
+
+        $this->assertEquals('Triggered build for project "twig".', $crawler->filter('p')->text());
+
+        putenv(sprintf('SISMO_BUILD_TOKEN=%s', $orig_token));
+    }
+
+    public function testBuildPageTokenNotSet()
+    {
+        $orig_token = getenv('SISMO_BUILD_TOKEN');
+        putenv('SISMO_BUILD_TOKEN');
+
+        $client = $this->createClient();
+        $crawler = $client->request('POST', '/twig/build/foo');
+
+        $this->assertEquals('Not found.', $crawler->filter('p')->text());
+
+        putenv(sprintf('SISMO_BUILD_TOKEN=%s', $orig_token));
+    }
+
+    public function testBuildPageInvalidToken()
+    {
+        $orig_token = getenv('SISMO_BUILD_TOKEN');
+        putenv(sprintf('SISMO_BUILD_TOKEN=%s', md5(mt_rand())));
+
+        $client = $this->createClient();
+        $crawler = $client->request('POST', '/twig/build/foo');
+
+        $this->assertEquals('An error occurred', $crawler->filter('p')->text());
+
+        putenv(sprintf('SISMO_BUILD_TOKEN=%s', $orig_token));
+    }
+
+    public function testBuildPageNonExistentProject()
+    {
+        $orig_token = getenv('SISMO_BUILD_TOKEN');
+        $token = md5(mt_rand());
+        putenv(sprintf('SISMO_BUILD_TOKEN=%s', $token));
+
+        $client = $this->createClient();
+        $crawler = $client->request('POST', sprintf('/foobar/build/%s', urlencode($token)));
+
+        $this->assertEquals('Project "foobar" not found.', $crawler->filter('p')->text());
+
+        putenv(sprintf('SISMO_BUILD_TOKEN=%s', $orig_token));
+    }
 }
