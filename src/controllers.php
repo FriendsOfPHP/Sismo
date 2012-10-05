@@ -10,6 +10,7 @@
  */
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 $app->get('/', function() use ($app) {
@@ -54,3 +55,20 @@ $app->get('/{slug}/{sha}', function($slug, $sha) use ($app) {
         'commit'  => $commit,
     ));
 })->bind('commit');
+
+$app->post('/{slug}/build/{token}', function($slug, $token) use ($app) {
+    if (!$server_token = getenv('SISMO_BUILD_TOKEN')) {
+        throw new NotFoundHttpException('Not found.');
+    }
+    if ($token != $server_token) {
+        throw new AccessDeniedHttpException;
+    }
+    if (!$app['sismo']->hasProject($slug)) {
+        throw new NotFoundHttpException(sprintf('Project "%s" not found.', $slug));
+    }
+
+    $project = $app['sismo']->getProject($slug);
+    $app['sismo']->build($project);
+
+    return sprintf('Triggered build for project "%s".', $slug);
+})->bind('build');
