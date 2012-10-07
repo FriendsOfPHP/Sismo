@@ -15,6 +15,11 @@ use Sismo\Contrib\GithubIssueNotifier;
 use Sismo\Commit;
 use Sismo\GithubProject;
 
+/**
+ * Tests for the GithubIssueNotifier
+ *
+ * Javier Lopez <alcaraz1983@gmail.com>
+ */
 class GithubIssueNotifierTest extends \PHPUnit_Framework_TestCase
 {
     private $github_username = "your_username";
@@ -42,7 +47,5 @@ class GithubIssueNotifierTest extends \PHPUnit_Framework_TestCase
       $project  = new GithubProject('symfony-master', 'symfony/symfony');
       $this->assertEquals('symfony/symfony', $notifier->guessGithubRepository($project));
     }
-
-
     
 }

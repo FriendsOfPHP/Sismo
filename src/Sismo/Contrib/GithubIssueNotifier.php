@@ -8,7 +8,7 @@ use Sismo\Project;
 use Sismo\BuildException;
 
 /**
- * A notifier that ope a issue in Github.
+ * A notifier that opens a issue in Github notifying wether the build failed or success.
  *
  * @author Javier Lopez <alcaraz1983@gmail.com>
  */
@@ -18,6 +18,9 @@ class GithubIssueNotifier extends Notifier
   
   /**
    * Constructor
+   *
+   * Check tests/Sismo/Tests/Contrib/GithubIssueNotifierTest.php for some examples
+   * on how to use it notifier.
    * 
    * @param string $username Github username that will open the issue
    * @param string $password Github password
@@ -55,9 +58,12 @@ class GithubIssueNotifier extends Notifier
   }
 
   /*
-   * Guess the name of the Github repository to create the issue in case you haven't set it up
+   * Guess the name of the Github repository where the notifier will create the issue.
+   *
+   * In other words, if the name of the project is 'fabpot/Sismo.git', this function will
+   * return 'fabpot/Sismo'.
    * 
-   * @param \Sismo\Project $project The Sismo project
+   * @param Sismo\Project $project The Sismo project
    *
    * @return string The name of the Github project
    */
