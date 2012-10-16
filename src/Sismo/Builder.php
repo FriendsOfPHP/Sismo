@@ -51,19 +51,9 @@ class Builder
 
     public function build()
     {
-        if (defined('PHP_WINDOWS_VERSION_BUILD')) {
-            // on Windows platform
-            $shellScript = 'sismo-run-tests.bat';
-            $command     = 'cmd /C ' . $shellScript;
-        } else {
-            // other platforms
-            $shellScript = 'sismo-run-tests.sh';
-            $command     = 'sh' . $shellScript;
-        }
+        file_put_contents($this->buildDir.'/sismo-run-tests.sh', str_replace(array("\r\n", "\r"), "\n", $this->project->getCommand()));
 
-        file_put_contents($this->buildDir.'/'.$shellScript, str_replace(array("\r\n", "\r"), "\n", $this->project->getCommand()));
-
-        $process = new Process($command, $this->buildDir);
+        $process = new Process('sh sismo-run-tests.sh', $this->buildDir);
         $process->setTimeout(3600);
         $process->run($this->callback);
 
@@ -119,18 +109,12 @@ class Builder
 
     protected function getGitCommand($command, array $replace = array())
     {
-        $format = '%H%n%an%n%ci%n%s%n';
-
-        if (!defined('PHP_WINDOWS_VERSION_BUILD')) {
-            $format = escapeshellarg($format);
-        }
-
         $replace = array_merge(array(
             '%repo%'        => escapeshellarg($this->project->getRepository()),
             '%dir%'         => escapeshellarg($this->buildDir),
             '%branch%'      => escapeshellarg('origin/'.$this->project->getBranch()),
             '%localbranch%' => escapeshellarg($this->project->getBranch()),
-            '%format%'      => $format,
+            '%format%'      => escapeshellarg('%H%n%an%n%ci%n%s%n'),
         ), $replace);
 
         return strtr($this->gitPath.' '.$this->gitCmds[$command], $replace);
