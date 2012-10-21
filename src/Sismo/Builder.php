@@ -77,10 +77,13 @@ class Builder
 
         if ($sync) {
             $this->execute($this->gitPath.' '.$this->gitCmds['fetch'], sprintf('Unable to fetch repository for project "%s".', $this->project));
-            $this->execute($this->gitPath.' '.$this->gitCmds['prepare'], sprintf('Unable to update submodules for project "%s".', $this->project));
         }
 
         $this->execute($this->getGitCommand('checkout'), sprintf('Unable to checkout branch "%s" for project "%s".', $this->project->getBranch(), $this->project));
+
+        if ($sync) {
+            $this->execute($this->gitPath.' '.$this->gitCmds['prepare'], sprintf('Unable to update submodules for project "%s".', $this->project));
+        }
 
         if (null === $revision || 'HEAD' === $revision) {
             $revision = null;
