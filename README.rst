@@ -81,10 +81,14 @@ Using Sismo
 
 Build all configured projects by running the ``build`` command:
 
+.. code-block:: text
+
     $ php sismo.php build --verbose
 
 If a build fails, Sismo will send notifications. Use the ``output`` command to
 see the latest build output of a project:
+
+.. code-block:: text
 
     $ php sismo.php output twig
 
@@ -97,16 +101,22 @@ If your web server runs under a different user than the one you use on the
 CLI, you will need to set some environment variables in your virtual host
 configuration:
 
+.. code-block:: apache
+
     SetEnv SISMO_DATA_PATH "/path/to/sismo/data"
     SetEnv SISMO_CONFIG_PATH "/path/to/sismo/config.php"
 
 The ``build`` command is quite powerful and has many options. Learn more by
 appending ``--help``:
 
+.. code-block:: text
+
     $ php sismo.php build --help
 
 To make Sismo run whenever you commit some changes, use this ``post-commit``
 script:
+
+.. code-block:: bash
 
     #!/bin/sh
 
@@ -115,16 +125,14 @@ script:
 ``symfony-local`` is the slug of the project. You can also create a
 ``post-merge`` script if you want to run Sismo when you merge branches.
 
-### Run Sismo with the built-in web server ###
+If you are running Sismo (with the single PHP file) with PHP 5.4.0, you can
+use the Sismo build-in web server:
 
-If you are running Sismo (with the single PHP file) with PHP 5.4.0,
-you can use the Sismo build-in web server:
+.. code-block:: text
 
     php sismo.php run localhost:9000
 
-And then open the browser and point it to
-
-    http://localhost:9000
+And then open the browser and point it to http://localhost:9000/sismo.php
 
 Limitations
 -----------
@@ -150,7 +158,9 @@ Change the default Location
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Set the following environment variables to customize the default locations
-used by Sismo::
+used by Sismo:
+
+.. code-block:: apache
 
     # in a .htaccess or httpd.conf Apache configuration file
 
@@ -180,6 +190,8 @@ Running Sismo for Remote Repositories
 
 Using Sismo for remote repositories is as simple as adding the Sismo building
 tool in a crontab entry:
+
+.. code-block:: text
 
     0 12 * * * php /path/to/sismo.php --quiet
 
