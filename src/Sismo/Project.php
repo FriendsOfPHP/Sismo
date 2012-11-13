@@ -97,6 +97,8 @@ class Project
     public function addNotifier(Notifier $notifier)
     {
         $this->notifiers[] = $notifier;
+
+        return $this;
     }
 
     /**
@@ -117,6 +119,8 @@ class Project
     public function setBranch($branch)
     {
         $this->branch = $branch;
+
+        return $this;
     }
 
     /**
@@ -271,6 +275,8 @@ class Project
     public function setSlug($slug)
     {
         $this->slug = $slug;
+
+        return $this;
     }
 
     /**
@@ -296,6 +302,8 @@ class Project
         }
 
         $this->repository = $url;
+
+        return $this;
     }
 
     /**
@@ -316,6 +324,8 @@ class Project
     public function setCommand($command)
     {
         $this->command = $command;
+
+        return $this;
     }
 
     public static function setDefaultCommand($command)
@@ -344,6 +354,8 @@ class Project
     public function setUrlPattern($pattern)
     {
         $this->urlPattern = $pattern;
+
+        return $this;
     }
 
     // code derived from http://php.vrana.cz/vytvoreni-pratelskeho-url.php
