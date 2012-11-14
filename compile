@@ -119,6 +119,7 @@ $classes = array (
     'Sismo\Contrib\GoogleTalkNotifier',
     'Sismo\Notifier\DBusNotifier',
     'Sismo\Notifier\GrowlNotifier',
+    'Sismo\Notifier\MailNotifier',
     'Sismo\Notifier\Notifier',
     'Sismo\Project',
     'Sismo\GithubProject',
