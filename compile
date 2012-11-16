@@ -116,6 +116,7 @@ $classes = array (
     'Sismo\BuildException',
     'Sismo\Commit',
     'Sismo\Contrib\XmppNotifier',
+    'Sismo\Contrib\CrossFingerNotifier',
     'Sismo\Contrib\GoogleTalkNotifier',
     'Sismo\Notifier\DBusNotifier',
     'Sismo\Notifier\GrowlNotifier',
