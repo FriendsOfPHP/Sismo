@@ -16,7 +16,8 @@ use Sismo\Notifier\Notifier;
 
 /**
  * A cross finger notifier.
- * Notify only if necessary
+ * Launch notification on an array of Notifier instance
+ * only if the commit needs it.
  *
  * @author Tugdual Saunier <tugdual.saunier@gmail.com>
  */
@@ -24,6 +25,11 @@ class CrossFingerNotifier extends Notifier
 {
     protected $notifiers;
 
+    /**
+     * Constructor
+     *
+     * @param array $notifiers An array of Notifier instance
+     */
     public function __construct(array $notifiers = array())
     {
         foreach ($notifiers as $notifier) {
@@ -35,6 +41,12 @@ class CrossFingerNotifier extends Notifier
         }
     }
 
+    /**
+     * Notifies a commit.
+     *
+     * @param Commit $commit Then Commit instance
+     * @return Boolean whether notification has been sent or not
+     */
     public function notify(Commit $commit)
     {
         if ($this->commitNeedNotification($commit)) {
@@ -48,15 +60,22 @@ class CrossFingerNotifier extends Notifier
         return false;
     }
 
+    /**
+     * Determines if a build needs to be notify
+     * based on his status and his predecessor's one
+     *
+     * @param Commit $commit The commit to analyse
+     * @return Boolean whether the commit need notification or not
+     */
     protected function commitNeedNotification(Commit $commit)
     {
         if (!$commit->isSuccessful()) {
             return true;
         }
 
-        $commits = $commit->getProject() ? $commit->getProject()->getCommits() : array();
-        $previousCommit = isset($commits[1]) ? $commits[1] : false;
+        //getProject()->getLatestCommit() actually contains the previous build
+        $previousCommit = $commit->getProject()->getLatestCommit();
 
-        return $previousCommit && $previousCommit->getStatusCode() != $commit->getStatusCode();
+        return !$previousCommit || $previousCommit->getStatusCode() != $commit->getStatusCode();
     }
 }

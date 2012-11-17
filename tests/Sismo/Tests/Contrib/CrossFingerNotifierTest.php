@@ -26,31 +26,6 @@ class CrossFingerNotifierTest extends \PHPUnit_Framework_TestCase
         $notifier = new CrossFingerNotifier(array(new \stdClass()));
     }
 
-    public function testNotify()
-    {
-        $commitBuilder = $this->getMockBuilder('Sismo\Commit')->disableOriginalConstructor();
-        $failedCommit  = $commitBuilder->getMock();
-        $successCommit = $commitBuilder->getMock();
-        $baseNotifier  = $this->getMock('Sismo\Notifier\Notifier');
-
-        $failedCommit->expects($this->any())
-            ->method('isSuccessful')
-            ->will($this->returnValue(false));
-
-        $successCommit->expects($this->any())
-            ->method('isSuccessful')
-            ->will($this->returnValue(true));
-
-        $baseNotifier->expects($this->once())
-            ->method('notify')
-            ->will($this->returnValue('foo'));
-
-        $notifier = new CrossFingerNotifier(array($baseNotifier));
-
-        $this->assertTrue($notifier->notify($failedCommit));
-        $this->assertFalse($notifier->notify($successCommit));
-    }
-
     public function testCommitNeedNotification()
     {
         $notifier = $this->getMock('Sismo\Contrib\CrossFingerNotifier');
@@ -63,19 +38,59 @@ class CrossFingerNotifierTest extends \PHPUnit_Framework_TestCase
         $commit->setAuthor('Fabien');
         $commit->setMessage('Foo');
 
-
         $commit2 = new Commit($project, '123455');
         $commit2->setAuthor('Fabien');
         $commit2->setMessage('Bar');
         $commit2->setStatusCode('success');
 
+        $commit3 = clone $commit2;
+
+        //a failed commit should be notified
         $this->assertTrue($m->invoke($notifier, $commit));
+
+        //a successfull commit without predecessor should be notified
+        $this->assertTrue($m->invoke($notifier, $commit2));
+
+        $project->setCommits(array(
+            $commit3,
+        ));
+        //a successfull commit with a sucessfull predecessor should NOT be notified
         $this->assertFalse($m->invoke($notifier, $commit2));
 
         $project->setCommits(array(
-            $commit,
-            $commit2
+            $commit2,
+            $commit3
         ));
+        //a failed commit with a sucessfull predecessor should be notified
         $this->assertTrue($m->invoke($notifier, $commit));
+    }
+
+    public function testNotify()
+    {
+        $project = new Project('Twig');
+        $failedCommit = new Commit($project, '123456');
+        $failedCommit->setAuthor('Fabien');
+        $failedCommit->setMessage('Foo');
+
+        $successCommit = new Commit($project, '123455');
+        $successCommit->setAuthor('Fabien');
+        $successCommit->setMessage('Bar');
+        $successCommit->setStatusCode('success');
+
+        $baseNotifier  = $this->getMock('Sismo\Notifier\Notifier');
+        $baseNotifier->expects($this->once())
+            ->method('notify')
+            ->will($this->returnValue('foo'));
+
+        $notifier = new CrossFingerNotifier(array($baseNotifier));
+
+        //a failed commit should call notify on real notifier
+        $this->assertTrue($notifier->notify($failedCommit));
+
+        $project->setCommits(array(
+            $successCommit
+        ));
+        //a success commit should not call notify on real notifier
+        $this->assertFalse($notifier->notify($successCommit));
     }
 }
