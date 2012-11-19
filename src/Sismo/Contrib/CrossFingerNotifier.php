@@ -28,10 +28,14 @@ class CrossFingerNotifier extends Notifier
     /**
      * Constructor
      *
-     * @param array $notifiers An array of Notifier instance
+     * @param array|Notifier $notifiers An array or a single Notifier instance
      */
-    public function __construct(array $notifiers = array())
+    public function __construct($notifiers = array())
     {
+        if (!is_array($notifiers)) {
+            $notifiers = array($notifiers);
+        }
+
         foreach ($notifiers as $notifier) {
             if(!$notifier instanceof Notifier) {
                 throw new \InvalidArgumentException("Only Sismo\Notifier instance supported");

@@ -23,7 +23,7 @@ class CrossFingerNotifierTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstruct()
     {
-        $notifier = new CrossFingerNotifier(array(new \stdClass()));
+        $notifier = new CrossFingerNotifier(new \stdClass());
     }
 
     public function testCommitNeedNotification()
