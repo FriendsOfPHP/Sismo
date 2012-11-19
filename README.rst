@@ -50,6 +50,11 @@ By default, Sismo reads its configuration from ``~/.sismo/config.php``::
     // create a DBus notifier (for Linux)
     //$notifier = new Sismo\Notifier\DBusNotifier();
 
+    // create a CrossFinger notifier (notify on failed or recovering build)
+    //$notifier = new Sismo\Contrib\CrossFingerNotifier($notifier);
+    // or if you want to chain multiple notifiers
+    //$notifier = new Sismo\Contrib\CrossFingerNotifier(array($mailNotifier, $myAwesomeNotifier));
+
     // add a local repository hosted on Github
     $projects[] = new Sismo\GithubProject('Twig (Local)', '/Users/fabien/Twig', $notifier);
 
