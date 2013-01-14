@@ -19,6 +19,7 @@ $classes = array (
     'Twig_Error_Syntax',
     'Twig_Extension',
     'Twig_Extension_Core',
+    'Twig_Extension_Debug',
     'Twig_Extension_Escaper',
     'Twig_Extension_Optimizer',
     'Twig_Filter',
