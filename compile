@@ -125,6 +125,7 @@ $classes = array (
     'Sismo\Notifier\Notifier',
     'Sismo\Project',
     'Sismo\GithubProject',
+    'Sismo\BitbucketProject',
     'Sismo\SSHProject',
     'Sismo\Sismo',
     'Sismo\Storage\Storage',
