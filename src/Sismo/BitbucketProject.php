@@ -35,7 +35,7 @@ class BitbucketProject extends Project
                     break;
                 }
             }
-        } elseif (preg_match('#^[a-z0-9_-]+/[a-z0-9_-]+$#i', $this->getRepository())) {
+        } elseif (preg_match('#^[a-z0-9_.-]+/[a-z0-9_.-]+$#i', $this->getRepository())) {
             $repo = preg_split('/\//', $this->getRepository());
 
             $this->setUrlPattern(sprintf('https://bitbucket.org/%s/changeset/%%commit%%', $this->getRepository()));
