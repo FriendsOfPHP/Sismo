@@ -118,7 +118,8 @@ appending ``--help``:
 
     $ php sismo.php build --help
 
-To make Sismo run whenever you commit some changes, save this script in your project as ``.git/hooks/post-commit`` and make sure it's executable:
+To make Sismo run whenever you commit some changes, save this script in your
+project as ``.git/hooks/post-commit`` and make sure it's executable:
 
 .. code-block:: bash
 
