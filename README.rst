@@ -118,14 +118,14 @@ appending ``--help``:
 
     $ php sismo.php build --help
 
-To make Sismo run whenever you commit some changes, use this ``post-commit``
-script:
+To make Sismo run whenever you commit some changes, save this script in your
+project as ``.git/hooks/post-commit`` and make sure it's executable:
 
 .. code-block:: bash
 
     #!/bin/sh
 
-    php /path/to/sismo.php --quiet build symfony-local \`git log -1 HEAD --pretty="%H"\` &
+    nohup php /path/to/sismo.php --quiet --force build symfony-local `git log -1 HEAD --pretty="%H"` &>/dev/null &
 
 ``symfony-local`` is the slug of the project. You can also create a
 ``post-merge`` script if you want to run Sismo when you merge branches.
