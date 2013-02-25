@@ -117,7 +117,7 @@ class Builder
             '%dir%'         => escapeshellarg($this->buildDir),
             '%branch%'      => escapeshellarg('origin/'.$this->project->getBranch()),
             '%localbranch%' => escapeshellarg($this->project->getBranch()),
-            '%format%'      => escapeshellarg('%H%n%an%n%ci%n%s%n'),
+            '%format%'      => '"%H%n%an%n%ci%n%s%n"',
         ), $replace);
 
         return strtr($this->gitPath.' '.$this->gitCmds[$command], $replace);
