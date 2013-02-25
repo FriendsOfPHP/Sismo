@@ -1,6 +1,10 @@
 #!/usr/bin/env php
 <?php
 
+if (function_exists('twig_template_get_attributes')) {
+    die("You should disable twig extension to compile sismo.\n");
+}
+
 // Compiles Simo into one big PHP file (images and CSS served by Silex directly)
 // Can be used on the web and the CLI
 
