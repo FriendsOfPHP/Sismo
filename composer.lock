@@ -1,5 +1,5 @@
 {
-    "hash": "b167c76f2679b98bb6e29cde27272d31",
+    "hash": "c575e2401c556d8532822c129fba98d2",
     "packages": [
         {
             "name": "pimple/pimple",
@@ -953,9 +953,9 @@
 
     ],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ],
+    "stability-flags": {
+        "silex/silex": 20
+    },
     "platform": {
         "php": ">=5.3.3"
     },
