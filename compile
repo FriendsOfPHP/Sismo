@@ -2,7 +2,7 @@
 <?php
 
 if (function_exists('twig_template_get_attributes')) {
-    die("You should disable twig extension to compile sismo.\n");
+    die("You must disable the C Twig extension before compiling Sismo.\n");
 }
 
 // Compiles Simo into one big PHP file (images and CSS served by Silex directly)
