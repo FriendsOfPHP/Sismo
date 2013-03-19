@@ -20,7 +20,7 @@ use Sismo\Storage\StorageInterface;
  */
 class Sismo
 {
-    const VERSION = '0.999999';
+    const VERSION = '1.0.0';
 
     const FORCE_BUILD  = 1;
     const LOCAL_BUILD  = 2;
