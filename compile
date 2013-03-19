@@ -23,12 +23,6 @@ $classes = array (
     'Twig_Extension_Escaper',
     'Twig_Extension_Optimizer',
     'Twig_Extension_Staging',
-    'Twig_Filter',
-    'Twig_Filter_Function',
-    'Twig_Filter_Method',
-    'Twig_Function',
-    'Twig_Function_Function',
-    'Twig_Function_Method',
     'Twig_LoaderInterface',
     'Twig_Markup',
     'Twig_Template',
@@ -120,7 +114,6 @@ $classes = array (
     'Silex\Provider\UrlGeneratorServiceProvider',
     'Silex\RedirectableUrlMatcher',
     'Silex\Route',
-    'Sismo\AnsiEscapeSequencesConverter',
     'Sismo\Builder',
     'Sismo\BuildException',
     'Sismo\Commit',
@@ -137,6 +130,8 @@ $classes = array (
     'Sismo\SSHProject',
     'Sismo\Sismo',
     'Sismo\Storage\Storage',
+    'SensioLabs\AnsiConverter\AnsiToHtmlConverter',
+    'SensioLabs\AnsiConverter\Theme\Theme',
 );
 
 $ccl = new ClassCollectionLoader();

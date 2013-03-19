@@ -17,12 +17,13 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "silex/silex": ">=1.0.0-dev",
+        "silex/silex": "~1.0",
         "symfony/console": "~2.2",
         "symfony/twig-bridge": "~2.2",
         "symfony/process": "~2.2",
         "symfony/filesystem": "~2.2",
-        "symfony/finder": "~2.2"
+        "symfony/finder": "~2.2",
+        "sensiolabs/ansi-to-html": "~1.0"
     },
     "require-dev": {
         "symfony/browser-kit": "~2.2",

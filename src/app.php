@@ -18,14 +18,16 @@ use Sismo\Storage\Storage;
 use Sismo\Builder;
 use Symfony\Component\Process\Process;
 use Symfony\Component\HttpFoundation\Response;
+use SensioLabs\AnsiConverter\AnsiToHtmlConverter;
 
 $app = new Application();
 $app->register(new UrlGeneratorServiceProvider());
 $app->register(new TwigServiceProvider(), array(
-    'twig.path'      => __DIR__.'/templates',
+    'twig.path' => __DIR__.'/templates',
 ));
 $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
     $twig->setCache($app['twig.cache.path']);
+    $twig->addGlobal('ansi_to_html', new AnsiToHtmlConverter());
 
     return $twig;
 }));

@@ -92,9 +92,6 @@ class CommitTest extends \PHPUnit_Framework_TestCase
         $commit = new Commit(new Project('Twig'), '7d78d5f7a8c039059046d6c5e1d7f66765bd91c7');
         $commit->setOutput('foo');
         $this->assertEquals('foo', $commit->getOutput());
-
-        $commit->setOutput("\033[1mfoo\033[0m");
-        $this->assertEquals('<strong>foo</strong>', $commit->getDecoratedOutput());
     }
 
     public function testMessage()

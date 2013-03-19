@@ -134,8 +134,7 @@ class Commit
     /**
      * Gets the raw build output.
      *
-     * The output can contain ANSI code characters. The Sismo\AnsiEscapeSequencesConverter
-     * class is able to convert such codes to HTML tags.
+     * The output can contain ANSI code characters.
      *
      * @return string The raw build output
      *
@@ -144,21 +143,6 @@ class Commit
     public function getOutput()
     {
         return $this->output;
-    }
-
-    /**
-     * Gets the build output as HTML.
-     *
-     * This method uses Sismo\AnsiEscapeSequencesConverter to convert ANSI code
-     * characters from the output to HTML tags.
-     *
-     * @return string The build output as HTML
-     *
-     * @see getOutput()
-     */
-    public function getDecoratedOutput()
-    {
-        return AnsiEscapeSequencesConverter::convertToHtml($this->output);
     }
 
     /**

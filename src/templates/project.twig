@@ -21,7 +21,7 @@
 
         {% if commit.isbuilt %}
             <div id="output">
-                <pre>{{ commit.output ? commit.decoratedoutput|raw : 'No output' }}</pre>
+                <pre>{{ commit.output ? ansi_to_html.convert(commit.output)|raw : 'No output' }}</pre>
             </div>
         {% endif %}
 
