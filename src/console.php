@@ -213,6 +213,7 @@ EOF
             $flags = $flags | Sismo::SILENT_BUILD;
         }
 
+        $returnValue = 0;
         foreach ($projects as $project) {
             // out of time?
             if ($input->getOption('timeout') && time() - $start > $input->getOption('timeout')) {
@@ -227,9 +228,10 @@ EOF
             } catch (BuildException $e) {
                 $output->writeln("\n".sprintf('<error>%s</error>', $e->getMessage()));
 
-                return 1;
+                $returnValue = 1;
             }
         }
+        return $returnValue;
     })
 ;
 
