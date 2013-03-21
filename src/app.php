@@ -43,6 +43,7 @@ $app['db.path']     = $app->share(function ($app) {
 
     return $app['data.path'].'/sismo.db';
 });
+$app['build.token'] = getenv('SISMO_BUILD_TOKEN');
 $app['twig.cache.path'] = $app->share(function ($app) { return $app['data.path'].'/cache'; });
 $app['git.path']        = getenv('SISMO_GIT_PATH') ?: 'git';
 $app['git.cmds']        = array();

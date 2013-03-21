@@ -60,7 +60,7 @@ $app->post('/{slug}/build/{token}', function($slug, $token) use ($app) {
     // Boot sismo
     $app['sismo'];
 
-    if (!$server_token = getenv('SISMO_BUILD_TOKEN')) {
+    if (!$server_token = $app['build.token']) {
         throw new NotFoundHttpException('Not found.');
     }
     if ($token != $server_token) {
