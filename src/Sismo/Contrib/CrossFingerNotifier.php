@@ -37,7 +37,7 @@ class CrossFingerNotifier extends Notifier
         }
 
         foreach ($notifiers as $notifier) {
-            if(!$notifier instanceof Notifier) {
+            if (!$notifier instanceof Notifier) {
                 throw new \InvalidArgumentException("Only Sismo\Notifier instance supported");
             }
 

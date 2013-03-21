@@ -48,7 +48,7 @@ class GrowlNotifier extends Notifier
      * Class constructor
      *
      * @param string $application   (optional) Identify an application by a string
-     * @param array  $notifications (optional) Options to configure the 
+     * @param array  $notifications (optional) Options to configure the
      *                               notification channels
      * @param string $password      (optional) Password to protect your Growl client
      *                               for notification spamming
@@ -89,6 +89,7 @@ class GrowlNotifier extends Notifier
         if (is_string($format) && !empty($format)) {
             $this->format = $format;
         }
+
         return $this;
     }
 
@@ -118,6 +119,7 @@ class GrowlNotifier extends Notifier
         } catch (\Net_Growl_Exception $e) {
             return false;
         }
+
         return true;
     }
 

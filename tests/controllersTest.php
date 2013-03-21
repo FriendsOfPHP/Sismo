@@ -143,7 +143,6 @@ class ControllersTest extends WebTestCase
         $token = md5(mt_rand());
         $this->app['build.token'] = $token;
 
-
         $project = new Project('Twig');
 
         $this->app['sismo'] = $this->getMockBuilder('Sismo\Sismo')->disableOriginalConstructor()->getMock();
