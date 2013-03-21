@@ -11,6 +11,7 @@
 
 use Sismo\Project;
 use Symfony\Component\Console\Tester\ApplicationTester;
+use Sismo\BuildException;
 
 class ConsoleTest extends \PHPUnit_Framework_TestCase
 {
@@ -63,6 +64,18 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(0, $tester->run(array('command' => 'build')));
         $this->assertEquals('Building Project "Twig" (into "eb0a19")'.PHP_EOL.PHP_EOL.'Building Project "Silex" (into "eb0a19")', trim($tester->getDisplay()));
+    }
+
+    public function testBuildForProjectsWithBuildExceptions()
+    {
+        $project1 = $this->getMock('Sismo\Project', null, array('Twig'));
+        $project2 = $this->getMock('Sismo\Project', null, array('Silex'));
+
+        $this->app['sismo']->expects($this->once())->method('getProjects')->will($this->returnValue(array($project1, $project2)));
+        $this->app['sismo']->expects($this->exactly(2))->method('build')->will($this->throwException(new BuildException()));
+
+        $tester = new ApplicationTester($this->console);
+        $this->assertEquals(1, $tester->run(array('command' => 'build')));
     }
 
     public function testVerboseBuildForProject()
