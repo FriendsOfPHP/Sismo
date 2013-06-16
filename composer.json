@@ -32,5 +32,6 @@
     },
     "autoload": {
         "psr-0": { "Sismo": "src/" }
-    }
+    },
+    "bin": ["sismo"]
 }
