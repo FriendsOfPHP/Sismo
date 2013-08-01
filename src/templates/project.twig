@@ -12,6 +12,7 @@
             {{ project.shortname }}
             {% if project.subname %}<small> &mdash; {{ project.subname }}</small>{% endif %}
         </a>
+        <img src="{{ path('build_status', { 'slug': project.slug }) }}" />
     </h1>
 
     {% if not commit %}
