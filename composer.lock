@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "44cdb102e6e25881cc81cc3a0fa1ff34",
+    "hash": "7f30f4268e060b7f1a6a31d2cd1f1d6f",
     "packages": [
         {
             "name": "pimple/pimple",
@@ -1026,7 +1026,8 @@
 
     ],
     "platform": {
-        "php": ">=5.3.3"
+        "php": ">=5.3.3",
+        "ext-sqlite3": "*"
     },
     "platform-dev": [
 
