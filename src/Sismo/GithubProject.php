@@ -38,7 +38,7 @@ class GithubProject extends Project
         } elseif (preg_match('#^[a-z0-9_-]+/[a-z0-9_-]+$#i', $this->getRepository())) {
             $this->setUrlPattern(sprintf('https://github.com/%s/commit/%%commit%%', $this->getRepository()));
             parent::setRepository(sprintf('https://github.com/%s.git', $this->getRepository()));
-        } elseif (preg_match('#^git@github.com:[a-z0-9_-]+/[a-z0-9_-]+\.git@?([a-z0-9_-]+)?$#i', $url)) {
+        } elseif (preg_match('#^git@github.com:[a-z0-9_-]+/[a-z0-9_-]+\.git@?([a-z0-9_-]+)?$#i', $this->getRepository())) {
             //Matches the GH SSH Format
             parent::setRepository($url);
         } else {
