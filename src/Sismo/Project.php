@@ -291,13 +291,13 @@ class Project
 
     /**
      * Sets the project repository URL.
-     *
+     * GitHub SSH Urls will have an additional @ in them, so we need to use the LAST element in an exploded @ stack.
      * @param string $url The project repository URL
      */
     public function setRepository($url)
     {
         if (false !== strpos($url, '@')) {
-            list($url, $branch) = explode('@', $url);
+            list($url, $branch) = array_pop(explode('@', $url));
             $this->branch = $branch;
         }
 
