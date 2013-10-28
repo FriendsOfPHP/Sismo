@@ -141,26 +141,6 @@ class IrcNotifier extends Notifier
     }
 
     /**
-     * Sets the server.
-     * E.g. irc.quakenet.org or irc.freenode.org
-     * @param string $server The server to set.
-     */
-    private function setServer($server)
-    {
-        $this->server = (string) $server;
-    }
-
-    /**
-     * Sets the port.
-     * E.g. 6667
-     * @param integer $port The port to set.
-     */
-    private function setPort($port)
-    {
-        $this->port = (int) $port;
-    }
-
-    /**
      * Join a channel or array of channels
      * @param string|array $channel the channel(s) to join
      */
