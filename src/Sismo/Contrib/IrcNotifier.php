@@ -59,9 +59,13 @@ class IrcNotifier extends Notifier
 
     /**
      * Example:
-     *   $irc = new Sismo\Contrib\IrcNotifier('irc.freenode.com', '6667', 'sismo-bot', '#mychannel');
+     *   // basic usage
+     *   $irc = new Sismo\Contrib\IrcNotifier('#mychannel');
+     *
+     *   // more advanced usage
+     *   $irc = new Sismo\Contrib\IrcNotifier('#mychannel', 'sismo-bot', 'chat.mysite.com', '6668');
      */
-    public function __construct($server, $port, $nick, $channel, $format = '[%STATUS%] %name% %short_sha% -- %message% by %author%')
+    public function __construct($channel, $nick = 'Sismo', $server = 'irc.freenode.com', $port = 6667, $format = '[%STATUS%] %name% %short_sha% -- %message% by %author%')
     {
         $this->server = $server;
         $this->port = $port;
