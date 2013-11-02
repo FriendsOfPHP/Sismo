@@ -89,7 +89,7 @@ class IrcNotifier extends Notifier
 
     private function say($channel, $message)
     {
-        $this->sendData('PRIVMSG ' . $channel. ' :' . $message);
+        $this->sendData(sprintf('PRIVMSG %s :%s', $channel, $message));
     }
 
     /**
@@ -101,8 +101,9 @@ class IrcNotifier extends Notifier
         if (!$this->isConnected()) {
             throw new \RuntimeException('Unable to connect to server via fsockopen with server: "' . $this->server . '" and port: "' . $this->port . '".');
         }
-        $this->sendData('USER ' . $this->nick . ' Sismo ' . $this->nick. ' :' . $this->nick);
-        $this->sendData('NICK ' . $this->nick);
+        // USER username hostname servername :realname
+        $this->sendData(sprintf('USER %s Sismo Sismo :%s', $this->nick, $this->nick));
+        $this->sendData(sprintf('NICK %s', $this->nick));
     }
 
     /**
@@ -151,7 +152,7 @@ class IrcNotifier extends Notifier
     private function join($channel)
     {
         foreach ((array) $channel as $chan) {
-            $this->sendData('join ' . $chan);
+            $this->sendData(sprintf('JOIN %s', $chan));
         }
     }
 
