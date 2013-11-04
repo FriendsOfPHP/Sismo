@@ -25,36 +25,10 @@ use Sismo\Commit;
  */
 class IrcNotifier extends Notifier
 {
-    /**
-     * The server you want to connect to.
-     * @var string
-     */
     private $server;
-
-    /**
-     * The port of the server you want to connect to.
-     * @var integer
-     */
     private $port;
-
-    /**
-     * The name of the bot
-     * @var string
-     */
     private $nick;
-
-    /**
-     * The channel(s) or username(s) the bot should notify
-     * This can be a comma-delimited array
-     * @var string
-     */
     private $channel;
-
-    /**
-     * Message format with predefined place holders
-     * @var string
-     * @see Sismo\Notifier\Notifier::getPlaceholders() for known place holders
-     */
     private $format;
 
     /**
@@ -92,9 +66,6 @@ class IrcNotifier extends Notifier
         $this->sendData(sprintf('PRIVMSG %s :%s', $channel, $message));
     }
 
-    /**
-     * Establishs the connection to the server.
-     */
     private function connect()
     {
         $this->socket = fsockopen($this->server, $this->port);
@@ -106,9 +77,6 @@ class IrcNotifier extends Notifier
         $this->sendData(sprintf('NICK %s', $this->nick));
     }
 
-    /**
-     * Disconnects from the server.
-     */
     private function disconnect()
     {
         if ($this->socket) {
@@ -118,18 +86,11 @@ class IrcNotifier extends Notifier
         return false;
     }
 
-    /**
-     * Interaction with the server.
-     * For example, send commands or some other data to the server.
-     */
     private function sendData($data)
     {
         return fwrite($this->socket, $data . "\r\n");
     }
 
-    /**
-     * Check wether the connection exists.
-     */
     private function isConnected()
     {
         if (is_resource($this->socket)) {
@@ -139,9 +100,6 @@ class IrcNotifier extends Notifier
         return false;
     }
 
-    /**
-     * Join a channel or array of channels
-     */
     private function join($channel)
     {
         foreach ((array) $channel as $chan) {
@@ -149,9 +107,6 @@ class IrcNotifier extends Notifier
         }
     }
 
-    /**
-     * Close the connection.
-     */
     public function __destruct()
     {
         $this->disconnect();
