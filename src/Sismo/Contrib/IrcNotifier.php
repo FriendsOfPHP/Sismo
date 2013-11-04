@@ -108,8 +108,6 @@ class IrcNotifier extends Notifier
 
     /**
      * Disconnects from the server.
-     *
-     * @return boolean True if the connection was closed. False otherwise.
      */
     private function disconnect()
     {
@@ -123,18 +121,14 @@ class IrcNotifier extends Notifier
     /**
      * Interaction with the server.
      * For example, send commands or some other data to the server.
-     *
-     * @return int|boolean the number of bytes written, or FALSE on error.
      */
     private function sendData($data)
     {
-        fwrite($this->socket, $data . "\r\n");
+        return fwrite($this->socket, $data . "\r\n");
     }
 
     /**
      * Check wether the connection exists.
-     *
-     * @return boolean True if the connection exists. False otherwise.
      */
     private function isConnected()
     {
@@ -147,7 +141,6 @@ class IrcNotifier extends Notifier
 
     /**
      * Join a channel or array of channels
-     * @param string|array $channel the channel(s) to join
      */
     private function join($channel)
     {
