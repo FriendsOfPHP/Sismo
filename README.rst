@@ -38,7 +38,9 @@ Note that Sismo needs at least PHP 5.3.3 to run.
 Configuration
 -------------
 
-By default, Sismo reads its configuration from ``~/.sismo/config.php``::
+By default, Sismo reads its configuration from ``~/.sismo/config.php``:
+
+.. code-block:: php
 
     <?php
 
@@ -114,7 +116,7 @@ configuration:
 The ``build`` command is quite powerful and has many options. Learn more by
 appending ``--help``:
 
-.. code-block:: text
+.. code-block:: bash
 
     $ php sismo.php build --help
 
@@ -133,9 +135,9 @@ project as ``.git/hooks/post-commit`` and make sure it's executable:
 If you are running Sismo (with the single PHP file) with PHP 5.4.0, you can
 use the Sismo build-in web server:
 
-.. code-block:: text
+.. code-block:: bash
 
-    php sismo.php run localhost:9000
+    $ php sismo.php run localhost:9000
 
 And then open the browser and point it to http://localhost:9000/sismo.php
 
@@ -202,14 +204,18 @@ tool in a crontab entry:
 
 For GitHub projects, and other systems that support post-receive URL hooks,
 you can set up Sismo to build automatically when a new revision is pushed.
-You need to set an environment variable in your Apache configuration::
+You need to set an environment variable in your Apache configuration:
+
+.. code-block:: apache
 
     # in a .htaccess or httpd.conf Apache configuration file
 
     SetEnv SISMO_BUILD_TOKEN "YOUR_TOKEN"
 
 You can also set an environment variable in your config file
-(``~/.sismo/config.php``)::
+(``~/.sismo/config.php``):
+
+.. code-block:: php
 
     putenv('SISMO_BUILD_TOKEN=YOUR_TOKEN');
 
@@ -231,7 +237,9 @@ Adding a Notifier
 
 Sismo comes with the most common notifiers but you can create new ones very
 easily: extend the `Sismo\Notifier\Notifier` abstract class and implement the
-`notify()` method::
+`notify()` method:
+
+.. code-block:: php
 
     public function notify(Commit $commit)
     {
@@ -247,7 +255,9 @@ Use Sismo with composer
 
 If a majority of yours projects use `composer`_, you can configure Sismo
 to install dependency before running `phpunit`. Add the following code
-to your config file::
+to your config file:
+
+.. code-block:: php
 
     Sismo\Project::setDefaultCommand('if [ -f composer.json ]; then composer install --dev; fi && phpunit');
 
