@@ -304,8 +304,7 @@ class Project
 	    if (!empty($elements[3])) {
 	    	$this->branch = $elements[3];
 	    }
-
-        } else {
+    } else {
 	        if (false !== strpos($url, '@')) {
         		list($url, $branch) = explode('@', $url);
            		$this->branch = $branch;
