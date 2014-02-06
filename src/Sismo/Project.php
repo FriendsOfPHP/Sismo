@@ -296,22 +296,23 @@ class Project
      */
     public function setRepository($url)
     {
-	//If we have a URL that is an SSH URL - we will split it down into its elements via preg_match
-	//If not, we'll explode it on an @ to get the branch
-	if (preg_match('#^(([a-z0-9_-]+)?@[^:]+:[a-z0-9_-]+/[a-z0-9_-]+\.git)@?([a-z0-9_-]+)?$#i',$url,$elements) === 1) {
+    //If we have a URL that is an SSH URL - we will split it down into its elements via preg_match
+    //If not, we'll explode it on an @ to get the branch
+    if (preg_match('#^(([a-z0-9_-]+)?@[^:]+:[a-z0-9_-]+/[a-z0-9_-]+\.git)@?([a-z0-9_-]+)?$#i',$url,$elements) === 1) {
 
-	    $this->repository = $elements[1];
-	    if (!empty($elements[3])) {
-	    	$this->branch = $elements[3];
-	    }
+        $this->repository = $elements[1];
+        if (!empty($elements[3])) {
+            $this->branch = $elements[3];
+        }
     } else {
-	        if (false !== strpos($url, '@')) {
-        		list($url, $branch) = explode('@', $url);
-           		$this->branch = $branch;
-        	}
+            if (false !== strpos($url, '@')) {
+                list($url, $branch) = explode('@', $url);
+                   $this->branch = $branch;
+            }
 
-        	$this->repository = $url;
-	}
+            $this->repository = $url;
+    }
+
         return $this;
     }
 
