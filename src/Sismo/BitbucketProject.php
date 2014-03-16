@@ -30,7 +30,7 @@ class BitbucketProject extends Project
             foreach (explode("\n", $process->getOutput()) as $line) {
                 $parts = explode("\t", $line);
                 if ('origin' == $parts[0] && preg_match('#(?:\:|/|@)bitbucket.org(?:\:|/)(.*?)/(.*?)\.git#', $parts[1], $matches)) {
-                    $this->setUrlPattern(sprintf('https://bitbucket.org/%s/%s/changeset/%%commit%%', $matches[1], $matches[2]));
+                    $this->setUrlPattern(sprintf('https://bitbucket.org/%s/%s/commits/%%commit%%', $matches[1], $matches[2]));
 
                     break;
                 }
@@ -38,7 +38,7 @@ class BitbucketProject extends Project
         } elseif (preg_match('#^[a-z0-9_.-]+/[a-z0-9_.-]+$#i', $this->getRepository())) {
             $repo = preg_split('/\//', $this->getRepository());
 
-            $this->setUrlPattern(sprintf('https://bitbucket.org/%s/changeset/%%commit%%', $this->getRepository()));
+            $this->setUrlPattern(sprintf('https://bitbucket.org/%s/commits/%%commit%%', $this->getRepository()));
             $this->setBitBucketRepository( sprintf('git@bitbucket.org:/%s.git', $this->getRepository()) );
         } else {
             throw new \InvalidArgumentException(sprintf('URL "%s" does not look like a BitBucket repository.', $this->getRepository()));
