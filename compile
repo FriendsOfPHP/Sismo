@@ -93,6 +93,7 @@ $classes = array (
     'Symfony\Component\HttpKernel\Exception\FlattenException',
     'Symfony\Component\HttpKernel\HttpKernel',
     'Symfony\Component\HttpKernel\KernelEvents',
+    'Symfony\Component\Process\Exception\RuntimeException',
     'Symfony\Component\Process\ProcessBuilder',
     'Symfony\Component\Process\Process',
     'Symfony\Component\Routing\Exception\InvalidParameterException',
