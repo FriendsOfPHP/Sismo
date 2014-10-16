@@ -12,6 +12,7 @@
 namespace Sismo;
 
 use Symfony\Component\Process\Process;
+use Symfony\Component\Yaml\Yaml;
 
 // @codeCoverageIgnoreStart
 /**
@@ -51,6 +52,11 @@ class Builder
 
     public function build()
     {
+        if (file_exists($this->buildDir.'/sismo.yml')) {
+            echo 'Using sismo.yml';
+            return $this->buildFromYaml();
+        }
+
         // use existing sh script if available
         if (!file_exists($this->buildDir.'/sismo-run-tests.sh')) {
             file_put_contents($this->buildDir.'/sismo-run-tests.sh', str_replace(array("\r\n", "\r"), "\n", $this->project->getCommand()));
@@ -142,5 +148,51 @@ class Builder
 
         return $process;
     }
+
+    /**
+     * @param Process $process
+     * @throws BuildException
+     */
+    private function runProcess(Process $process)
+    {
+        $process->run();
+        if (!$process->isSuccessful()) {
+            throw new BuildException('Failure on : '.$process->getCommandLine());
+        }
+    }
+
+    /**
+     * @return Process
+     * @throws BuildException
+     */
+    private function buildFromYaml()
+    {
+        $config = Yaml::parse($this->buildDir.'/sismo.yml');
+
+        if (!is_array($config)) {
+            throw new BuildException('sismo.yml config invalid');
+        }
+
+        if (!isset($config['tests']) || !is_array($config['tests'])) {
+            throw new BuildException('sismo.yml config has no tests');
+        }
+
+        $globalProcess = new Process('Global Process', $this->buildDir);
+
+        if (isset($config['composer']) && $config['composer']) {
+            $process = new Process('composer install', $this->buildDir);
+            $this->runProcess($process);
+            $globalProcess->addOutput($process->getOutput().PHP_EOL);
+        }
+
+        if (isset($config['tests']['codeception'])) {
+            $process = new Process('codecept run', $this->buildDir);
+            $this->runProcess($process);
+            $globalProcess->addOutput($process->getOutput().PHP_EOL);
+        }
+
+        return $globalProcess;
+    }
+
 }
 // @codeCoverageIgnoreEnd
