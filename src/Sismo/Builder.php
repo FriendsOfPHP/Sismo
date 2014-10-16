@@ -51,7 +51,12 @@ class Builder
 
     public function build()
     {
-        file_put_contents($this->buildDir.'/sismo-run-tests.sh', str_replace(array("\r\n", "\r"), "\n", $this->project->getCommand()));
+        // use existing sh script if available
+        if (!file_exists($this->buildDir.'/sismo-run-tests.sh')) {
+            file_put_contents($this->buildDir.'/sismo-run-tests.sh', str_replace(array("\r\n", "\r"), "\n", $this->project->getCommand()));
+        } else {
+            echo 'Using existing sismo-run-tests.sh';
+        }
 
         $process = new Process('sh sismo-run-tests.sh', $this->buildDir);
         $process->setTimeout(3600);
