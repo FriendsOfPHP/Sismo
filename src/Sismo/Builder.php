@@ -54,6 +54,7 @@ class Builder
     {
         if (file_exists($this->buildDir.'/sismo.yml')) {
             echo 'Using sismo.yml';
+
             return $this->buildFromYaml();
         }
 
@@ -193,6 +194,5 @@ class Builder
 
         return $globalProcess;
     }
-
 }
 // @codeCoverageIgnoreEnd
