@@ -28,6 +28,11 @@ class GithubProjectTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $project->getBranch());
         $this->assertEquals('https://github.com/fabpot/Twig.git', $project->getRepository());
         $this->assertEquals('https://github.com/fabpot/Twig/commit/%commit%', $project->getUrlPattern());
+
+        $project = new GithubProject('Twig', 'git@github.com:fabpot/Twig.git@foo');
+        $this->assertEquals('foo', $project->getBranch());
+        $this->assertEquals('https://github.com/fabpot/Twig.git', $project->getRepository());
+        $this->assertEquals('https://github.com/fabpot/Twig/commit/%commit%', $project->getUrlPattern());
     }
 
     public function localRepositoryProvider()
