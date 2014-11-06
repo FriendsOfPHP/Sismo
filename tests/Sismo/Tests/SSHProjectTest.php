@@ -18,7 +18,7 @@ class SSHProjectTest extends \PHPUnit_Framework_TestCase
     public function sshRepositoryProvider()
     {
         return array(
-            array('git@github.com:fabpot/Twig.git'),
+            array('git@github.com:twigphp/Twig.git'),
             array('git@git.assembla.com:Twig.git'),
             array('ssh://git@git.example.com:Twig.git'),
         );

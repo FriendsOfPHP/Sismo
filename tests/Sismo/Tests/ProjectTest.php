@@ -178,11 +178,11 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
     {
         $project = new Project('Twig Local');
 
-        $project->setRepository('https://github.com/fabpot/Twig.git');
-        $this->assertEquals('https://github.com/fabpot/Twig.git', $project->getRepository());
+        $project->setRepository('https://github.com/twigphp/Twig.git');
+        $this->assertEquals('https://github.com/twigphp/Twig.git', $project->getRepository());
 
-        $project->setRepository('https://github.com/fabpot/Twig.git@feat');
-        $this->assertEquals('https://github.com/fabpot/Twig.git', $project->getRepository());
+        $project->setRepository('https://github.com/twigphp/Twig.git@feat');
+        $this->assertEquals('https://github.com/twigphp/Twig.git', $project->getRepository());
         $this->assertEquals('feat', $project->getBranch());
     }
 
@@ -213,8 +213,8 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
     {
         $project = new Project('Twig Local');
 
-        $project->setUrlPattern('https://github.com/fabpot/Twig/commit/%commit%');
-        $this->assertEquals('https://github.com/fabpot/Twig/commit/%commit%', $project->getUrlPattern());
+        $project->setUrlPattern('https://github.com/twigphp/Twig/commit/%commit%');
+        $this->assertEquals('https://github.com/twigphp/Twig/commit/%commit%', $project->getUrlPattern());
     }
 
     /**

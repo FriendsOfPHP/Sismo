@@ -45,7 +45,7 @@ class BitbucketProjectTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetRepositoryThrowsAnExceptionIfRepositoryIsNotAGithubOne()
     {
-        $project = new BitbucketProject('Twig', 'fabpot/Twig/foobar');
+        $project = new BitbucketProject('Twig', 'twigphp/Twig/foobar');
     }
 
     public function localRepositoryProvider()

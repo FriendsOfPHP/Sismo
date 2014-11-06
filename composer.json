@@ -12,7 +12,7 @@
         },
         {
             "name": "Sismo Community",
-            "homepage": "https://github.com/fabpot/sismo/contributors"
+            "homepage": "https://github.com/FriendsOfPhp/sismo/contributors"
         }
     ],
     "require": {

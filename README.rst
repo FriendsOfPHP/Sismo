@@ -61,7 +61,7 @@ By default, Sismo reads its configuration from ``~/.sismo/config.php``:
     $projects[] = new Sismo\GithubProject('Twig (Local)', '/Users/fabien/Twig', $notifier);
 
     // add a remote Github repository
-    $projects[] = new Sismo\GithubProject('Twig', 'fabpot/Twig', $notifier);
+    $projects[] = new Sismo\GithubProject('Twig', 'twigphp/Twig', $notifier);
 
     // add a project with custom settings
     $sf2 = new Sismo\Project('Symfony');

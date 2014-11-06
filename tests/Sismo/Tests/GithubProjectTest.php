@@ -19,22 +19,22 @@ class GithubProjectTest extends \PHPUnit_Framework_TestCase
 {
     public function testSetRepository()
     {
-        $project = new GithubProject('Twig', 'fabpot/Twig');
+        $project = new GithubProject('Twig', 'twigphp/Twig');
         $this->assertEquals('master', $project->getBranch());
-        $this->assertEquals('https://github.com/fabpot/Twig.git', $project->getRepository());
-        $this->assertEquals('https://github.com/fabpot/Twig/commit/%commit%', $project->getUrlPattern());
+        $this->assertEquals('https://github.com/twigphp/Twig.git', $project->getRepository());
+        $this->assertEquals('https://github.com/twigphp/Twig/commit/%commit%', $project->getUrlPattern());
 
-        $project = new GithubProject('Twig', 'fabpot/Twig@foo');
+        $project = new GithubProject('Twig', 'twigphp/Twig@foo');
         $this->assertEquals('foo', $project->getBranch());
-        $this->assertEquals('https://github.com/fabpot/Twig.git', $project->getRepository());
-        $this->assertEquals('https://github.com/fabpot/Twig/commit/%commit%', $project->getUrlPattern());
+        $this->assertEquals('https://github.com/twigphp/Twig.git', $project->getRepository());
+        $this->assertEquals('https://github.com/twigphp/Twig/commit/%commit%', $project->getUrlPattern());
     }
 
     public function localRepositoryProvider()
     {
         return array(
-            array('https://github.com/fabpot/Twig.git'),
-            array('git@github.com:fabpot/Twig.git'),
+            array('https://github.com/twigphp/Twig.git'),
+            array('git@github.com:twigphp/Twig.git'),
         );
     }
 
@@ -44,7 +44,7 @@ class GithubProjectTest extends \PHPUnit_Framework_TestCase
     public function testSetRepositoryLocal($url)
     {
         $fs = new Filesystem();
-        $repository = sys_get_temp_dir().'/sismo/fabpot/Twig';
+        $repository = sys_get_temp_dir().'/sismo/twigphp/Twig';
         $fs->remove($repository);
         $fs->mkdir($repository);
 
@@ -54,7 +54,7 @@ class GithubProjectTest extends \PHPUnit_Framework_TestCase
         $project = new GithubProject('Twig', $repository);
         $this->assertEquals('master', $project->getBranch());
         $this->assertEquals($repository, $project->getRepository());
-        $this->assertEquals('https://github.com/fabpot/Twig/commit/%commit%', $project->getUrlPattern());
+        $this->assertEquals('https://github.com/twigphp/Twig/commit/%commit%', $project->getUrlPattern());
 
         $fs->remove($repository);
     }
@@ -64,6 +64,6 @@ class GithubProjectTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetRepositoryThrowsAnExceptionIfRepositoryIsNotAGithubOne()
     {
-        $project = new GithubProject('Twig', 'fabpot/Twig/foobar');
+        $project = new GithubProject('Twig', 'twigphp/Twig/foobar');
     }
 }
