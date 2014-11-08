@@ -29,6 +29,7 @@ h1 {
     font-size: 30px;
     margin-top: 30px;
     margin-bottom: 10px;
+    display: inline-block;
 }
 
 h1 a {
@@ -212,6 +213,42 @@ footer a {
     font-size: 22px;
     vertical-align: bottom;
     border: 3px solid #ccc;
+}
+
+.build-status {
+    display: inline-block;
+}
+
+.build-status a {
+    background: url(../images/parameter.png) no-repeat right top;
+    display: block;
+    width: 32px;
+    height: 32px;
+}
+
+.build-status ul {
+    font-size: 16px;
+    background-color: #182d33;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    display: none;
+}
+
+.build-status ul li {
+    padding: 10px 5px;
+    text-align: right;
+}
+
+.build-status input {
+    padding: 6px;
+    color: #555555;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+}
+
+.build-status:hover ul {
+    display: block;
 }
 
 .ansi_color_fg_black   { color: black; }

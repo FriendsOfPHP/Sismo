@@ -10,6 +10,7 @@
  */
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -55,6 +56,22 @@ $app->get('/{slug}/{sha}', function($slug, $sha) use ($app) {
         'commit'  => $commit,
     ));
 })->bind('commit');
+
+$app->get('/{slug}/build/status', function($slug) use ($app) {
+    if (!$app['sismo']->hasProject($slug)) {
+        throw new NotFoundHttpException(sprintf('Project "%s" not found.', $slug));
+    }
+
+    $latestCommit = $app['sismo']->getProject($slug)->getLatestCommit();
+    $status = $latestCommit ? $latestCommit->getStatusCode() : 'unknow' ;
+
+    $image = __DIR__ . "/../web/images/build-$status.png";
+    if (is_file($image)) {
+        return new BinaryFileResponse($image);
+    } else {
+        throw new NotFoundHttpException(sprintf('Status image "%s" not found.', $status));
+    }
+})->bind('build_status');
 
 $app->post('/{slug}/build/{token}', function($slug, $token) use ($app) {
     // Boot sismo

@@ -12,6 +12,17 @@
             {{ project.shortname }}
             {% if project.subname %}<small> &mdash; {{ project.subname }}</small>{% endif %}
         </a>
+
+        <div class="build-status"><a href="#" title="Build status"> </a>
+            {% set projectUrl = url('project', { 'slug': project.slug }) %}
+            {% set imageUrl = url('build_status', { 'slug': project.slug }) %}
+
+            <ul>
+                <li><label for="image">Image</label>: <input name="image" value="{{ imageUrl }}" /></li>
+                <li><label for="html">HTML</label>: <input name="html" value="<a href=&quot;{{ projectUrl }}&quot;><img alt=&quot;Build status&quot; src=&quot;{{ imageUrl }}&quot; /></a>" /></li>
+                <li><label for="markdown">Markdown</label>: <input name="markdown" value="[![Build Status]({{ imageUrl }})]({{ projectUrl }})" /></li>
+            </ul>
+        </div>
     </h1>
 
     {% if not commit %}

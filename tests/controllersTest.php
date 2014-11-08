@@ -146,8 +146,8 @@ class ControllersTest extends WebTestCase
         $project = new Project('Twig');
 
         $this->app['sismo'] = $this->getMockBuilder('Sismo\Sismo')->disableOriginalConstructor()->getMock();
-        $this->app['sismo']->expects($this->once())->method('hasProject')->will($this->returnValue(true));
-        $this->app['sismo']->expects($this->once())->method('getProject')->will($this->returnValue($project));
+        $this->app['sismo']->expects($this->exactly(2))->method('hasProject')->will($this->returnValue(true));
+        $this->app['sismo']->expects($this->exactly(2))->method('getProject')->will($this->returnValue($project));
         $this->app['sismo']->expects($this->once())->method('build');
 
         $storage = $this->app['storage'];
@@ -163,6 +163,10 @@ class ControllersTest extends WebTestCase
 
         $this->assertEquals('Triggered build for project "twig".', $crawler->filter('p')->text());
 
+        $client = $this->createClient();
+        $client->request('GET', '/twig/build/status');
+        $response = $client->getResponse();
+        $this->assertEquals('image/png', $response->headers->get('Content-Type'));
     }
 
     public function testBuildPageTokenNotSet()
