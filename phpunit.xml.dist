@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
+         bootstrap="vendor/autoload.php"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          processIsolation="false"
+         stopOnError="false"
          stopOnFailure="false"
-         syntaxCheck="false"
-         bootstrap="vendor/autoload.php"
+         syntaxCheck="true"
+         strict="true"
+         verbose="true"
 >
     <testsuites>
         <testsuite name="Sismo Test Suite">
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>
-
     <filter>
-        <whitelist>
-            <directory>./src/</directory>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./src</directory>
         </whitelist>
     </filter>
 </phpunit>
