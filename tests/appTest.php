@@ -11,7 +11,7 @@
 
 use Symfony\Component\Filesystem\Filesystem;
 
-class AppTest extends \PHPUnit_Framework_TestCase
+class appTest extends \PHPUnit_Framework_TestCase
 {
     private $app;
 

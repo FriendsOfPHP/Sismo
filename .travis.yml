@@ -1,8 +1,8 @@
 language: php
 
-before_script: composer install --dev
-
 php:
-  - 5.3
-  - 5.4
+    - 5.3
+    - 5.4
 
+install:
+    - travis_retry composer install --no-interaction --prefer-source

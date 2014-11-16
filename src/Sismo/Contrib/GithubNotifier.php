@@ -40,8 +40,8 @@ class GithubNotifier extends Notifier
     protected $targetUrlPattern = null;
 
     /**
-     * @param string $apikey personal API key
-     * @param string $repo repository name, e.g. fabpot/Sismo
+     * @param string $apikey           personal API key
+     * @param string $repo             repository name, e.g. fabpot/Sismo
      * @param string $targetUrlPattern status target URL pattern, e.g. http://sismo/%slug%/%sha%
      */
     public function __construct($apikey, $repo, $targetUrlPattern = null)
@@ -53,7 +53,7 @@ class GithubNotifier extends Notifier
     }
 
     /**
-     * @param string $context
+     * @param  string $context
      * @return $this
      */
     public function setContext($context)
@@ -64,7 +64,7 @@ class GithubNotifier extends Notifier
     }
 
     /**
-     * @param string $description
+     * @param  string $description
      * @return $this
      */
     public function setDescription($description)
@@ -75,7 +75,7 @@ class GithubNotifier extends Notifier
     }
 
     /**
-     * @param string $host
+     * @param  string $host
      * @return $this
      */
     public function setHost($host)
@@ -86,7 +86,7 @@ class GithubNotifier extends Notifier
     }
 
     /**
-     * @param string $targetUrlPattern
+     * @param  string $targetUrlPattern
      * @return $this
      */
     public function setTargetUrlPattern($targetUrlPattern)
@@ -116,7 +116,7 @@ class GithubNotifier extends Notifier
     }
 
     /**
-     * @param Commit $commit
+     * @param  Commit $commit
      * @return string
      */
     protected function getStatusEndpointUrl(Commit $commit)
@@ -125,7 +125,7 @@ class GithubNotifier extends Notifier
     }
 
     /**
-     * @param Commit $commit
+     * @param  Commit $commit
      * @return string
      */
     protected function getGitHubState(Commit $commit)
@@ -156,7 +156,7 @@ class GithubNotifier extends Notifier
     /**
      * @param $url
      * @param $data
-     * @param array $headers
+     * @param  array $headers
      * @return bool
      */
     protected function request($url, $data, array $headers = array())

@@ -46,7 +46,7 @@ class AndroidPushC2DMNotifier extends Notifier
      * @param string $service
      */
     public function __construct($username, $password, $deviceRegistrationId, $messageFormat = '',
-                                $source = 'Company-AppName-Version', $msgType = 'SismoNotifierMsgType', $service='ac2dm')
+                                $source = 'Company-AppName-Version', $msgType = 'SismoNotifierMsgType', $service = 'ac2dm')
     {
         $this->authCode             = $this->getGoogleAuthCodeHelper($username, $password, $source, $service);
         $this->deviceRegistrationId = $deviceRegistrationId;
@@ -58,11 +58,11 @@ class AndroidPushC2DMNotifier extends Notifier
     {
         $message = $this->format($this->messageFormat, $commit);
 
-        $headers = array('Authorization: GoogleLogin auth=' . $this->authCode);
+        $headers = array('Authorization: GoogleLogin auth='.$this->authCode);
         $data = array(
             'registration_id' => $this->deviceRegistrationId,
             'collapse_key'    => $this->msgType,
-            'data.message'    => $message
+            'data.message'    => $message,
         );
 
         $ch = curl_init();
@@ -89,7 +89,7 @@ class AndroidPushC2DMNotifier extends Notifier
         return true;
     }
 
-    public function getGoogleAuthCodeHelper($username, $password, $source='Company-AppName-Version', $service='ac2dm')
+    public function getGoogleAuthCodeHelper($username, $password, $source = 'Company-AppName-Version', $service = 'ac2dm')
     {
         $ch = curl_init();
         if (!$ch) {
@@ -97,11 +97,11 @@ class AndroidPushC2DMNotifier extends Notifier
         }
 
         curl_setopt($ch, CURLOPT_URL, "https://www.google.com/accounts/ClientLogin");
-        $postFields = "accountType=" . urlencode('HOSTED_OR_GOOGLE')
-            . "&Email=" . urlencode($username)
-            . "&Passwd=" . urlencode($password)
-            . "&source=" . urlencode($source)
-            . "&service=" . urlencode($service);
+        $postFields = "accountType=".urlencode('HOSTED_OR_GOOGLE')
+            ."&Email=".urlencode($username)
+            ."&Passwd=".urlencode($password)
+            ."&source=".urlencode($source)
+            ."&service=".urlencode($service);
         curl_setopt($ch, CURLOPT_HEADER, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
@@ -128,6 +128,5 @@ class AndroidPushC2DMNotifier extends Notifier
 
         return $matches[2];
     }
-
 }
 // @codeCoverageIgnoreEnd

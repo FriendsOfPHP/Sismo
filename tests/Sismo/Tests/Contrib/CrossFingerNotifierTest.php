@@ -59,7 +59,7 @@ class CrossFingerNotifierTest extends \PHPUnit_Framework_TestCase
 
         $project->setCommits(array(
             $commit2,
-            $commit3
+            $commit3,
         ));
         //a failed commit with a sucessfull predecessor should be notified
         $this->assertTrue($m->invoke($notifier, $commit));
@@ -88,7 +88,7 @@ class CrossFingerNotifierTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($notifier->notify($failedCommit));
 
         $project->setCommits(array(
-            $successCommit
+            $successCommit,
         ));
         //a success commit should not call notify on real notifier
         $this->assertFalse($notifier->notify($successCommit));

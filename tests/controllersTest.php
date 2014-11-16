@@ -13,7 +13,7 @@ use Silex\WebTestCase;
 use Sismo\Project;
 use Symfony\Component\Filesystem\Filesystem;
 
-class ControllersTest extends WebTestCase
+class controllersTest extends WebTestCase
 {
     protected $baseDir;
 
@@ -162,12 +162,11 @@ class ControllersTest extends WebTestCase
         $crawler = $client->request('POST', sprintf('/twig/build/%s', urlencode($token)));
 
         $this->assertEquals('Triggered build for project "twig".', $crawler->filter('p')->text());
-
     }
 
     public function testBuildPageTokenNotSet()
     {
-        $this->app['build.token'] = NULL;
+        $this->app['build.token'] = null;
 
         $client = $this->createClient();
         $crawler = $client->request('POST', '/twig/build/foo');
@@ -194,6 +193,5 @@ class ControllersTest extends WebTestCase
         $crawler = $client->request('POST', sprintf('/foobar/build/%s', urlencode($token)));
 
         $this->assertEquals('Project "foobar" not found.', $crawler->filter('p')->text());
-
     }
 }

@@ -25,7 +25,7 @@ $app->register(new UrlGeneratorServiceProvider());
 $app->register(new TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/templates',
 ));
-$app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
+$app['twig'] = $app->share($app->extend('twig', function ($twig, $app) {
     $twig->setCache($app['twig.cache.path']);
     $twig->addGlobal('ansi_to_html', new AnsiToHtmlConverter());
 

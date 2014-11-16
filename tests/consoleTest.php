@@ -13,7 +13,7 @@ use Sismo\Project;
 use Symfony\Component\Console\Tester\ApplicationTester;
 use Sismo\BuildException;
 
-class ConsoleTest extends \PHPUnit_Framework_TestCase
+class consoleTest extends \PHPUnit_Framework_TestCase
 {
     protected $app;
     protected $console;
