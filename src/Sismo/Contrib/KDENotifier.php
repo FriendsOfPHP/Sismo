@@ -21,7 +21,6 @@ use Sismo\Commit;
  */
 class KDENotifier extends Notifier
 {
-
     protected $titleFormat;
     protected $messageFormat;
 

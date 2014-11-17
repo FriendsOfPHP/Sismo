@@ -49,12 +49,12 @@ class GrowlNotifier extends Notifier
      *
      * @param string $application   (optional) Identify an application by a string
      * @param array  $notifications (optional) Options to configure the
-     *                               notification channels
+     *                              notification channels
      * @param string $password      (optional) Password to protect your Growl client
-     *                               for notification spamming
+     *                              for notification spamming
      * @param array  $options       (optional) Options to configure the Growl comm.
-     *                               Choose either UDP or GNTP protocol,
-     *                               host URL, and more ...
+     *                              Choose either UDP or GNTP protocol,
+     *                              host URL, and more ...
      */
     public function __construct($application = 'sismo', $notifications = array(),
         $password = '', $options = array()
@@ -65,7 +65,7 @@ class GrowlNotifier extends Notifier
             // default notifications (channels Success and Fail are enabled)
             array(
                 self::NOTIFY_SUCCESS => array(),
-                self::NOTIFY_FAILURE => array()
+                self::NOTIFY_FAILURE => array(),
             ),
             // custom notifications
             $notifications
@@ -115,13 +115,11 @@ class GrowlNotifier extends Notifier
                 $this->format($this->format, $commit),
                 $notifications[$name]
             );
-
         } catch (\Net_Growl_Exception $e) {
             return false;
         }
 
         return true;
     }
-
 }
 // @codeCoverageIgnoreEnd

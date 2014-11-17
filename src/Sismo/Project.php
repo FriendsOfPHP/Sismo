@@ -238,7 +238,7 @@ class Project
      */
     public function getShortName()
     {
-        list($name, ) = explode('(', $this->name);
+        list($name) = explode('(', $this->name);
 
         return trim($name);
     }

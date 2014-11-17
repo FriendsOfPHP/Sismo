@@ -39,7 +39,7 @@ class BitbucketProject extends Project
             $repo = preg_split('/\//', $this->getRepository());
 
             $this->setUrlPattern(sprintf('https://bitbucket.org/%s/commits/%%commit%%', $this->getRepository()));
-            $this->setBitBucketRepository( sprintf('git@bitbucket.org:/%s.git', $this->getRepository()) );
+            $this->setBitBucketRepository(sprintf('git@bitbucket.org:/%s.git', $this->getRepository()));
         } else {
             throw new \InvalidArgumentException(sprintf('URL "%s" does not look like a BitBucket repository.', $this->getRepository()));
         }

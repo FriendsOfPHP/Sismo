@@ -174,7 +174,7 @@ END
      * Initializes the options that control wallpaper design
      *
      * @param array $userOptions The options given by the user,
-     *                            which override default values
+     *                           which override default values
      */
     private function initializeImageOptions($userOptions)
     {
@@ -191,7 +191,7 @@ END
             'text_color'         => '#CCCCCC',
             'success_color'      => '#267326',
             'failure_color'      => '#B30F00',
-            'font_size'          => 10
+            'font_size'          => 10,
         ), $userOptions);
 
         $this->set('max_number_bars', ($this->get('image_height') - $this->get('vertical_padding') - (2 * $this->get('font_size')) - (2 * $this->get('vertical_gutter'))) / ($this->get('bar_height') + $this->get('vertical_gutter')));
@@ -239,7 +239,7 @@ END
         if (!file_exists($this->log)) {
             $data = array(
                 'last_update' => null,
-                'projects'    => array()
+                'projects'    => array(),
             );
 
             file_put_contents($this->log, serialize($data));
@@ -878,13 +878,18 @@ END
 
         // expand shorthand notation (#36A -> #3366AA)
         if (3 == strlen($hex)) {
-            $hex = $hex{0}.$hex{0}.$hex{1}.$hex{1}.$hex{2}.$hex{2};
+            $hex = $hex{0}
+            .$hex{0}
+            .$hex{1}
+            .$hex{1}
+            .$hex{2}
+            .$hex{2};
         }
 
         return array(
             hexdec(substr($hex, 0, 2)),
             hexdec(substr($hex, 2, 2)),
-            hexdec(substr($hex, 4, 2))
+            hexdec(substr($hex, 4, 2)),
         );
     }
 }

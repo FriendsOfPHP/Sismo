@@ -70,7 +70,7 @@ class IrcNotifier extends Notifier
     {
         $this->socket = fsockopen($this->server, $this->port);
         if (!$this->isConnected()) {
-            throw new \RuntimeException('Unable to connect to server via fsockopen with server: "' . $this->server . '" and port: "' . $this->port . '".');
+            throw new \RuntimeException('Unable to connect to server via fsockopen with server: "'.$this->server.'" and port: "'.$this->port.'".');
         }
         // USER username hostname servername :realname
         $this->sendData(sprintf('USER %s Sismo Sismo :%s', $this->nick, $this->nick));
@@ -88,7 +88,7 @@ class IrcNotifier extends Notifier
 
     private function sendData($data)
     {
-        return fwrite($this->socket, $data . "\r\n");
+        return fwrite($this->socket, $data."\r\n");
     }
 
     private function isConnected()

@@ -13,11 +13,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-$app->get('/', function() use ($app) {
+$app->get('/', function () use ($app) {
     return $app['twig']->render('projects.twig', array('projects' => $app['sismo']->getProjects()));
 })->bind('projects');
 
-$app->get('/{slug}', function($slug) use ($app) {
+$app->get('/{slug}', function ($slug) use ($app) {
     if (!$app['sismo']->hasProject($slug)) {
         throw new NotFoundHttpException(sprintf('Project "%s" not found.', $slug));
     }
@@ -33,13 +33,13 @@ $app->get('/{slug}', function($slug) use ($app) {
     ));
 })->bind('project');
 
-$app->get('/dashboard/cctray.xml', function() use ($app) {
+$app->get('/dashboard/cctray.xml', function () use ($app) {
     $content = $app['twig']->render('ccmonitor.twig.xml', array('projects' => $app['sismo']->getProjects()));
 
     return new Response($content, 200, array('content-type' => 'text/xml'));
 })->bind('ccmonitor');
 
-$app->get('/{slug}/{sha}', function($slug, $sha) use ($app) {
+$app->get('/{slug}/{sha}', function ($slug, $sha) use ($app) {
     if (!$app['sismo']->hasProject($slug)) {
         throw new NotFoundHttpException(sprintf('Project "%s" not found.', $slug));
     }
@@ -56,7 +56,7 @@ $app->get('/{slug}/{sha}', function($slug, $sha) use ($app) {
     ));
 })->bind('commit');
 
-$app->post('/{slug}/build/{token}', function($slug, $token) use ($app) {
+$app->post('/{slug}/build/{token}', function ($slug, $token) use ($app) {
     // Boot sismo
     $app['sismo'];
 
@@ -64,7 +64,7 @@ $app->post('/{slug}/build/{token}', function($slug, $token) use ($app) {
         throw new NotFoundHttpException('Not found.');
     }
     if ($token != $server_token) {
-        throw new AccessDeniedHttpException;
+        throw new AccessDeniedHttpException();
     }
     if (!$app['sismo']->hasProject($slug)) {
         throw new NotFoundHttpException(sprintf('Project "%s" not found.', $slug));

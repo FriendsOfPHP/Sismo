@@ -37,7 +37,6 @@ use Sismo\Commit;
  */
 class TwitterNotifier extends Notifier
 {
-
     protected $consumerKey;
     protected $consumerSecret;
     protected $accessToken;

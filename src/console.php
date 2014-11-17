@@ -231,6 +231,7 @@ EOF
                 $returnValue = 1;
             }
         }
+
         return $returnValue;
     })
 ;
@@ -238,7 +239,7 @@ EOF
 $console
     ->register('run')
     ->setDefinition(array(
-        new InputArgument('address', InputArgument::OPTIONAL, 'Address:port', 'localhost:9000')
+        new InputArgument('address', InputArgument::OPTIONAL, 'Address:port', 'localhost:9000'),
     ))
     ->setDescription('Runs Sismo with PHP built-in web server')
     ->setHelp(<<<EOF
@@ -257,10 +258,10 @@ EOF
             throw new \Exception('This feature only runs with PHP 5.4.0 or higher.');
         }
 
-        $sismo = __DIR__ . '/sismo.php';
+        $sismo = __DIR__.'/sismo.php';
         while (!file_exists($sismo)) {
             $dialog = $console->getHelperSet()->get('dialog');
-            $sismo = $dialog->ask($output, sprintf('<comment>I cannot find "%s". What\'s the absoulte path of "sismo.php"?</comment> ', $sismo), __DIR__ . '/sismo.php');
+            $sismo = $dialog->ask($output, sprintf('<comment>I cannot find "%s". What\'s the absoulte path of "sismo.php"?</comment> ', $sismo), __DIR__.'/sismo.php');
         }
 
         $output->writeln(sprintf("Sismo running on <info>%s</info>\n", $input->getArgument('address')));
