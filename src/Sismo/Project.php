@@ -72,17 +72,17 @@ class Project
     /**
      * Toggles the building status flag.
      *
-     * @param Boolean $bool The build status flag
+     * @param bool $bool The build status flag
      */
     public function setBuilding($bool)
     {
-        $this->building = (Boolean) $bool;
+        $this->building = (bool) $bool;
     }
 
     /**
      * Returns true if the project is currently being built.
      *
-     * @return Boolean true if the project is currently being built, false otherwise
+     * @return bool true if the project is currently being built, false otherwise
      */
     public function isBuilding()
     {
