@@ -145,6 +145,7 @@ $classes = array (
     'Sismo\SSHProject',
     'Sismo\Sismo',
     'Sismo\Storage\Storage',
+    'Sismo\Storage\PdoStorage',
     'SensioLabs\AnsiConverter\AnsiToHtmlConverter',
     'SensioLabs\AnsiConverter\Theme\Theme',
 );
