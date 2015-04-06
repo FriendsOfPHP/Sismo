@@ -33,6 +33,9 @@
         "symfony/dom-crawler": "~2.2.0",
         "symfony/class-loader": "~2.2"
     },
+    "suggest": {
+        "jolicode/jolinotif": "Use the best notifier available on your system (Mac, Linux or Windows)"
+    },
     "autoload": {
         "psr-0": { "Sismo": "src/" }
     },
