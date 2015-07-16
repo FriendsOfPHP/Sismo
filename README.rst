@@ -253,8 +253,8 @@ project by calling `getProject()`_.
 Use Sismo with composer
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-If a majority of yours projects use `composer`_, you can configure Sismo
-to install dependency before running `phpunit`. Add the following code
+If a majority of your projects use `composer`_, you can configure Sismo
+to install dependencies before running `phpunit`. Add the following code
 to your config file:
 
 .. code-block:: php
