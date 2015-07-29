@@ -259,7 +259,7 @@ to your config file:
 
 .. code-block:: php
 
-    Sismo\Project::setDefaultCommand('if [ -f composer.json ]; then composer install --dev; fi && phpunit');
+    Sismo\Project::setDefaultCommand('if [ -f composer.json ]; then composer install; fi && phpunit');
 
 .. _Sismo:        http://sismo.sensiolabs.org/
 .. _sismo.php:    http://sismo.sensiolabs.org/get/sismo.php
