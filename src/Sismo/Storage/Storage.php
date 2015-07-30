@@ -86,7 +86,7 @@ class Storage implements StorageInterface
         }
 
         // related commits
-        $stmt = $this->db->prepare('SELECT sha, author, date, build_date, message, status, output FROM `commit` WHERE slug = :slug ORDER BY build_date DESC LIMIT 100');
+        $stmt = $this->db->prepare('SELECT sha, author, date, build_date, message, status, output FROM `commit` WHERE slug = :slug ORDER BY `status` = "building" DESC, build_date DESC LIMIT 100');
         $stmt->bindValue(':slug', $project->getSlug(), SQLITE3_TEXT);
 
         if (false === $results = $stmt->execute()) {
