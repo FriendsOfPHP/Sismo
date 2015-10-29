@@ -11,13 +11,13 @@
 
 namespace Sismo\Contrib;
 
-use Sismo\Notifier\Notifier;
-use Sismo\Commit;
 use Psr\Log\LoggerInterface;
-use Monolog\Logger;
+use Sismo\Commit;
+use Sismo\Notifier\Notifier;
 
 /**
  * Notifies builds via Monolog or any other PSR logger.
+ * Logger must have info log level.
  *
  * Here is a usage example of Monolog with Slack handler:
  *
@@ -29,7 +29,11 @@ use Monolog\Logger;
  *
  * $slack_handler = new SlackHandler(
  *   'slack_code',
- *   '#channel'
+ *   '#channel',
+ *   'Monolog',
+ *   'true',
+ *   'null',
+ *    Logger::INFO
  * );
  *
  * $monolog = new Monolog\Logger('sismo', [$slack_handler]);
@@ -37,7 +41,7 @@ use Monolog\Logger;
  *
  * @author Marsel Arduanov <arduanov@gmail.com>
  */
-class MonologNotifier extends Notifier
+class LoggerNotifier extends Notifier
 {
     protected $logger;
     protected $messageFormat;
@@ -52,15 +56,6 @@ class MonologNotifier extends Notifier
     {
         $this->logger = $logger;
         $this->messageFormat = $messageFormat;
-
-        /*
-         * set info level for monolog handlers
-         */
-        if ($logger instanceof Logger) {
-            foreach ($logger->getHandlers() as $handler) {
-                $handler->setLevel(Logger::INFO);
-            }
-        }
     }
 
     /**
@@ -69,8 +64,7 @@ class MonologNotifier extends Notifier
     public function notify(Commit $commit)
     {
         $message = $this->format($this->messageFormat, $commit);
-        $status = $this->format('%status_code%', $commit);
 
-        return ($status == 'success') ? $this->logger->info($message) : $this->logger->critical($message);
+        return ($commit->getStatusCode() == 'success') ? $this->logger->info($message) : $this->logger->critical($message);
     }
 }
