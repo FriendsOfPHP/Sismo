@@ -11,10 +11,10 @@
 
 namespace Sismo\Contrib;
 
-use Sismo\Notifier\Notifier,
-    Sismo\Commit,
-    Psr\Log\LoggerInterface,
-    Monolog\Logger;
+use Sismo\Notifier\Notifier;
+use Sismo\Commit;
+use Psr\Log\LoggerInterface;
+use Monolog\Logger;
 
 /**
  * Notifies builds via Monolog or any other PSR logger.
@@ -46,14 +46,14 @@ class MonologNotifier extends Notifier
      * Constructor.
      *
      * @param LoggerInterface $logger
-     * @param string $messageFormat
+     * @param string          $messageFormat
      */
     public function __construct(LoggerInterface $logger, $messageFormat = '')
     {
         $this->logger = $logger;
         $this->messageFormat = $messageFormat;
 
-        /**
+        /*
          * set info level for monolog handlers
          */
         if ($logger instanceof Logger) {
@@ -70,6 +70,7 @@ class MonologNotifier extends Notifier
     {
         $message = $this->format($this->messageFormat, $commit);
         $status = $this->format('%status_code%', $commit);
+
         return ($status == 'success') ? $this->logger->info($message) : $this->logger->critical($message);
     }
 }

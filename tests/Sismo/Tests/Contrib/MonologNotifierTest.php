@@ -32,7 +32,7 @@ class MonologNotifierTest extends \PHPUnit_Framework_TestCase
 
         $project->setCommits(array(
             $failedCommit,
-            $successCommit
+            $successCommit,
         ));
 
         $logger = $this->getMock('Psr\Log\NullLogger');
@@ -49,7 +49,7 @@ class MonologNotifierTest extends \PHPUnit_Framework_TestCase
 
     public function testMonologNotify()
     {
-        if(!class_exists('Monolog\Logger')){
+        if (!class_exists('Monolog\Logger')) {
             return;
         }
         $project = new Project('Twig');
@@ -65,7 +65,7 @@ class MonologNotifierTest extends \PHPUnit_Framework_TestCase
 
         $project->setCommits(array(
             $failedCommit,
-            $successCommit
+            $successCommit,
         ));
 
         $handler = $this->getMock('Monolog\Handler\TestHandler');
@@ -88,5 +88,4 @@ class MonologNotifierTest extends \PHPUnit_Framework_TestCase
         //notify failed commit
         $notifier->notify($failedCommit);
     }
-
 }
