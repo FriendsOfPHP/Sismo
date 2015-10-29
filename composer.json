@@ -34,7 +34,8 @@
         "symfony/class-loader": "~2.2"
     },
     "suggest": {
-        "jolicode/jolinotif": "Use the best notifier available on your system (Mac, Linux or Windows)"
+        "jolicode/jolinotif": "Use the best notifier available on your system (Mac, Linux or Windows)",
+        "monolog/monolog": "Use Monolog handlers as notifiers"
     },
     "autoload": {
         "psr-0": { "Sismo": "src/" }
