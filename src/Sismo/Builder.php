@@ -33,12 +33,12 @@ class Builder
         $this->baseBuildDir = $buildDir;
         $this->gitPath = $gitPath;
         $this->gitCmds = array_replace(array(
-            'clone'    => 'clone --progress --recursive %repo% %dir% --branch %localbranch%',
-            'fetch'    => 'fetch origin',
-            'prepare'  => 'submodule update --init --recursive',
+            'clone' => 'clone --progress --recursive %repo% %dir% --branch %localbranch%',
+            'fetch' => 'fetch origin',
+            'prepare' => 'submodule update --init --recursive',
             'checkout' => 'checkout -q -f %branch%',
-            'reset'    => 'reset --hard %revision%',
-            'show'     => 'show -s --pretty=format:%format% %revision%',
+            'reset' => 'reset --hard %revision%',
+            'show' => 'show -s --pretty=format:%format% %revision%',
         ), $gitCmds);
     }
 
@@ -49,7 +49,7 @@ class Builder
             throw new \RuntimeException(sprintf('The git binary cannot be found (%s).', $this->gitPath));
         }
 
-        $this->project  = $project;
+        $this->project = $project;
         $this->callback = $callback;
         $this->buildDir = $this->baseBuildDir.'/'.$this->getBuildDir($project);
     }
@@ -118,11 +118,11 @@ class Builder
     protected function getGitCommand($command, array $replace = array())
     {
         $replace = array_merge(array(
-            '%repo%'        => escapeshellarg($this->project->getRepository()),
-            '%dir%'         => escapeshellarg($this->buildDir),
-            '%branch%'      => escapeshellarg('origin/'.$this->project->getBranch()),
+            '%repo%' => escapeshellarg($this->project->getRepository()),
+            '%dir%' => escapeshellarg($this->buildDir),
+            '%branch%' => escapeshellarg('origin/'.$this->project->getBranch()),
             '%localbranch%' => escapeshellarg($this->project->getBranch()),
-            '%format%'      => '"%H%n%an%n%ci%n%s%n"',
+            '%format%' => '"%H%n%an%n%ci%n%s%n"',
         ), $replace);
 
         return strtr($this->gitPath.' '.$this->gitCmds[$command], $replace);
@@ -144,3 +144,4 @@ class Builder
     }
 }
 // @codeCoverageIgnoreEnd
+
