@@ -16,7 +16,6 @@ use Sismo\Sismo;
 use Sismo\Project;
 use Sismo\Storage\Storage;
 use Sismo\Builder;
-use Symfony\Component\Process\Process;
 use Symfony\Component\HttpFoundation\Response;
 use SensioLabs\AnsiConverter\AnsiToHtmlConverter;
 
@@ -91,11 +90,6 @@ $app['storage'] = $app->share(function () use ($app) {
 });
 
 $app['builder'] = $app->share(function () use ($app) {
-    $process = new Process(sprintf('%s --version', $app['git.path']));
-    if ($process->run() > 0) {
-        throw new \RuntimeException(sprintf('The git binary cannot be found (%s).', $app['git.path']));
-    }
-
     return new Builder($app['build.path'], $app['git.path'], $app['git.cmds']);
 });
 

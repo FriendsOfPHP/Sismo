@@ -44,6 +44,11 @@ class Builder
 
     public function init(Project $project, $callback = null)
     {
+        $process = new Process(sprintf('%s --version', $this->gitPath));
+        if ($process->run() > 0) {
+            throw new \RuntimeException(sprintf('The git binary cannot be found (%s).', $this->gitPath));
+        }
+
         $this->project  = $project;
         $this->callback = $callback;
         $this->buildDir = $this->baseBuildDir.'/'.$this->getBuildDir($project);
