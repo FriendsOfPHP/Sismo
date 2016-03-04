@@ -16,7 +16,6 @@ use Sismo\Sismo;
 use Sismo\Project;
 use Sismo\Storage\Storage;
 use Sismo\Builder;
-use Symfony\Component\Process\Process;
 use Symfony\Component\HttpFoundation\Response;
 use SensioLabs\AnsiConverter\AnsiToHtmlConverter;
 
@@ -32,22 +31,22 @@ $app['twig'] = $app->share($app->extend('twig', function ($twig, $app) {
     return $twig;
 }));
 
-$app['data.path']   = getenv('SISMO_DATA_PATH') ?: getenv('HOME').'/.sismo/data';
+$app['data.path'] = getenv('SISMO_DATA_PATH') ?: getenv('HOME').'/.sismo/data';
 $app['config.file'] = getenv('SISMO_CONFIG_PATH') ?: getenv('HOME').'/.sismo/config.php';
 $app['config.storage.file'] = getenv('SISMO_STORAGE_PATH') ?: getenv('HOME').'/.sismo/storage.php';
-$app['build.path']  = $app->share(function ($app) { return $app['data.path'].'/build'; });
-$app['db.path']     = $app->share(function ($app) {
+$app['build.path'] = $app->share(function ($app) { return $app['data.path'].'/build'; });
+$app['db.path'] = $app->share(function ($app) {
     if (!is_dir($app['data.path'])) {
         mkdir($app['data.path'], 0777, true);
     }
 
     return $app['data.path'].'/sismo.db';
 });
-$app['build.token']     = getenv('SISMO_BUILD_TOKEN');
+$app['build.token'] = getenv('SISMO_BUILD_TOKEN');
 $app['twig.cache.path'] = $app->share(function ($app) { return $app['data.path'].'/cache'; });
-$app['git.path']        = getenv('SISMO_GIT_PATH') ?: 'git';
-$app['git.cmds']        = array();
-$app['db.schema']       = <<<EOF
+$app['git.path'] = getenv('SISMO_GIT_PATH') ?: 'git';
+$app['git.cmds'] = array();
+$app['db.schema'] = <<<EOF
 CREATE TABLE IF NOT EXISTS project (
     slug        TEXT,
     name        TEXT,
@@ -91,11 +90,6 @@ $app['storage'] = $app->share(function () use ($app) {
 });
 
 $app['builder'] = $app->share(function () use ($app) {
-    $process = new Process(sprintf('%s --version', $app['git.path']));
-    if ($process->run() > 0) {
-        throw new \RuntimeException(sprintf('The git binary cannot be found (%s).', $app['git.path']));
-    }
-
     return new Builder($app['build.path'], $app['git.path'], $app['git.cmds']);
 });
 

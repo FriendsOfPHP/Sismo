@@ -10,6 +10,7 @@
  */
 
 use Symfony\Component\Filesystem\Filesystem;
+use Sismo\Project;
 
 class appTest extends \PHPUnit_Framework_TestCase
 {
@@ -55,7 +56,7 @@ class appTest extends \PHPUnit_Framework_TestCase
         $this->app['git.path'] = 'gitinvalidcommand';
 
         $this->setExpectedException('\RuntimeException');
-        $builder = $this->app['builder'];
+        $builder = $this->app['builder']->init(new Project('foo'), null);
     }
 
     public function testMissingConfigFile()
