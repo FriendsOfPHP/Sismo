@@ -35,8 +35,6 @@ class AndroidPushC2DMNotifier extends Notifier
     protected $msgType;
 
     /**
-     * Constructor
-     *
      * @param string $username
      * @param string $password
      * @param string $deviceRegistrationId
@@ -67,7 +65,7 @@ class AndroidPushC2DMNotifier extends Notifier
 
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, "https://android.apis.google.com/c2dm/send");
+        curl_setopt($ch, CURLOPT_URL, 'https://android.apis.google.com/c2dm/send');
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_POST, true);
@@ -96,12 +94,12 @@ class AndroidPushC2DMNotifier extends Notifier
             return false;
         }
 
-        curl_setopt($ch, CURLOPT_URL, "https://www.google.com/accounts/ClientLogin");
-        $postFields = "accountType=".urlencode('HOSTED_OR_GOOGLE')
-            ."&Email=".urlencode($username)
-            ."&Passwd=".urlencode($password)
-            ."&source=".urlencode($source)
-            ."&service=".urlencode($service);
+        curl_setopt($ch, CURLOPT_URL, 'https://www.google.com/accounts/ClientLogin');
+        $postFields = 'accountType='.urlencode('HOSTED_OR_GOOGLE')
+            .'&Email='.urlencode($username)
+            .'&Passwd='.urlencode($password)
+            .'&source='.urlencode($source)
+            .'&service='.urlencode($service);
         curl_setopt($ch, CURLOPT_HEADER, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);

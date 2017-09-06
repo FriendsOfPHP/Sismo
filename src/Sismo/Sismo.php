@@ -53,18 +53,18 @@ class Sismo
     public function build(Project $project, $revision = null, $flags = 0, $callback = null)
     {
         // project already has a running build
-        if ($project->isBuilding() && Sismo::FORCE_BUILD !== ($flags & Sismo::FORCE_BUILD)) {
+        if ($project->isBuilding() && self::FORCE_BUILD !== ($flags & self::FORCE_BUILD)) {
             return;
         }
 
         $this->builder->init($project, $callback);
 
-        list($sha, $author, $date, $message) = $this->builder->prepare($revision, Sismo::LOCAL_BUILD !== ($flags & Sismo::LOCAL_BUILD));
+        list($sha, $author, $date, $message) = $this->builder->prepare($revision, self::LOCAL_BUILD !== ($flags & self::LOCAL_BUILD));
 
         $commit = $this->storage->getCommit($project, $sha);
 
         // commit has already been built
-        if ($commit && $commit->isBuilt() && Sismo::FORCE_BUILD !== ($flags & Sismo::FORCE_BUILD)) {
+        if ($commit && $commit->isBuilt() && self::FORCE_BUILD !== ($flags & self::FORCE_BUILD)) {
             return;
         }
 
@@ -82,7 +82,7 @@ class Sismo
 
         $this->storage->updateCommit($commit);
 
-        if (Sismo::SILENT_BUILD !== ($flags & Sismo::SILENT_BUILD)) {
+        if (self::SILENT_BUILD !== ($flags & self::SILENT_BUILD)) {
             foreach ($project->getNotifiers() as $notifier) {
                 $notifier->notify($commit);
             }

@@ -34,7 +34,7 @@ class GithubNotifier extends Notifier
     protected $context = 'fabpot/sismo';
 
     /** @var string */
-    protected $description = "Sismo";
+    protected $description = 'Sismo';
 
     /** @var string */
     protected $targetUrlPattern = null;
@@ -126,7 +126,7 @@ class GithubNotifier extends Notifier
      */
     protected function getStatusEndpointUrl(Commit $commit)
     {
-        return $this->host."/repos/".$this->repo."/statuses/".$commit->getSha();
+        return $this->host.'/repos/'.$this->repo.'/statuses/'.$commit->getSha();
     }
 
     /**
@@ -154,8 +154,8 @@ class GithubNotifier extends Notifier
     protected function getGitHubHeaders()
     {
         return array(
-            "User-Agent: Sismo GitHub notifier",
-            "Authorization: Basic ".base64_encode($this->apikey.":x-oauth-basic"),
+            'User-Agent: Sismo GitHub notifier',
+            'Authorization: Basic '.base64_encode($this->apikey.':x-oauth-basic'),
         );
     }
 

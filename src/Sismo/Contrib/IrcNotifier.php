@@ -16,7 +16,7 @@ use Sismo\Commit;
 
 /**
  * Delivers a connection via socket to the IRC server.
- * Extends Sismo\Notifier\Notifier for notifying users via Irc
+ * Extends Sismo\Notifier\Notifier for notifying users via Irc.
  *
  * @package IRCBot
  * @subpackage Library

@@ -26,8 +26,8 @@ interface StorageInterface
      *
      * @throws \RuntimeException
      *
-     * @param Project $project The project this commit is part of.
-     * @param string  $sha     The hash of the commit to retrieve.
+     * @param Project $project the project this commit is part of
+     * @param string  $sha     the hash of the commit to retrieve
      *
      * @return Commit
      */
@@ -36,13 +36,13 @@ interface StorageInterface
     /**
      * Initiate, create and save a new commit.
      *
-     * @param Project   $project The project of the new commit.
-     * @param string    $sha     The hash of the commit.
-     * @param string    $author  The name of the author of the new commit.
+     * @param Project   $project the project of the new commit
+     * @param string    $sha     the hash of the commit
+     * @param string    $author  the name of the author of the new commit
      * @param \DateTime $date    The date the new commit was created originally (e.g. by external resources).
-     * @param string    $message The commit message.
+     * @param string    $message the commit message
      *
-     * @return Commit The newly created commit.
+     * @return Commit the newly created commit
      */
     public function initCommit(Project $project, $sha, $author, \DateTime $date, $message);
 
@@ -51,7 +51,7 @@ interface StorageInterface
      *
      * If the project is already available, the information of the existing project will be updated.
      *
-     * @param Project $project The project to create or update.
+     * @param Project $project the project to create or update
      */
     public function updateProject(Project $project);
 

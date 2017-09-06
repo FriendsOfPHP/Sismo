@@ -253,7 +253,6 @@ You can also customize the default address and port the web server listens to:
 EOF
     )
     ->setCode(function (InputInterface $input, OutputInterface $output) use ($console) {
-
         if (version_compare(PHP_VERSION, '5.4.0') < 0) {
             throw new \Exception('This feature only runs with PHP 5.4.0 or higher.');
         }
