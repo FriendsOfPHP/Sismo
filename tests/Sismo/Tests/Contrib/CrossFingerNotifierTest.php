@@ -19,7 +19,7 @@ use Sismo\Project;
 class CrossFingerNotifierTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function testConstruct()
     {
@@ -77,7 +77,7 @@ class CrossFingerNotifierTest extends \PHPUnit_Framework_TestCase
         $successCommit->setMessage('Bar');
         $successCommit->setStatusCode('success');
 
-        $baseNotifier  = $this->getMock('Sismo\Notifier\Notifier');
+        $baseNotifier = $this->getMock('Sismo\Notifier\Notifier');
         $baseNotifier->expects($this->once())
             ->method('notify')
             ->will($this->returnValue('foo'));

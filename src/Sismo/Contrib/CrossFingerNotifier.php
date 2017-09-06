@@ -67,7 +67,7 @@ class CrossFingerNotifier extends Notifier
 
     /**
      * Determines if a build needs to be notify
-     * based on his status and his predecessor's one
+     * based on his status and his predecessor's one.
      *
      * @param Commit $commit The commit to analyse
      *

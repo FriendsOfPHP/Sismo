@@ -54,7 +54,7 @@ class Commit
     /**
      * Returns true if the commit is being built.
      *
-     * @return Boolean true of the commit is being built, false otherwise
+     * @return bool true of the commit is being built, false otherwise
      */
     public function isBuilding()
     {
@@ -64,7 +64,7 @@ class Commit
     /**
      * Returns true if the commit has already been built.
      *
-     * @return Boolean true of the commit has already been built, false otherwise
+     * @return bool true of the commit has already been built, false otherwise
      */
     public function isBuilt()
     {
@@ -74,7 +74,7 @@ class Commit
     /**
      * Returns true if the commit was built successfully.
      *
-     * @return Boolean true of the commit was built successfully, false otherwise
+     * @return bool true of the commit was built successfully, false otherwise
      */
     public function isSuccessful()
     {

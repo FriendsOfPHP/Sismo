@@ -61,7 +61,7 @@ class WallpaperNotifier extends Notifier
     }
 
     /**
-     * Generates a wallpaper with the latest data and updates desktop background
+     * Generates a wallpaper with the latest data and updates desktop background.
      *
      * @param array $data Array with the latest build history per project
      */
@@ -98,7 +98,7 @@ class WallpaperNotifier extends Notifier
                 // plot a bar for each project build
                 imageFilledRectangle($this->image, $x1, $y1, $x2, $y2, $color);
             }
-            $numProject++;
+            ++$numProject;
         }
 
         $this->addTextToImage(
@@ -171,7 +171,7 @@ END
     }
 
     /**
-     * Initializes the options that control wallpaper design
+     * Initializes the options that control wallpaper design.
      *
      * @param array $userOptions The options given by the user,
      *                           which override default values
@@ -878,12 +878,12 @@ END
 
         // expand shorthand notation (#36A -> #3366AA)
         if (3 == strlen($hex)) {
-            $hex = $hex{0}
-            .$hex{0}
-            .$hex{1}
-            .$hex{1}
-            .$hex{2}
-            .$hex{2};
+            $hex = $hex[0]
+            .$hex[0]
+            .$hex[1]
+            .$hex[1]
+            .$hex[2]
+            .$hex[2];
         }
 
         return array(

@@ -77,10 +77,10 @@ class MailNotifier extends Notifier
      * @param array|string $to
      * @param string       $subject
      * @param string       $message
-     * @param string       $headers Additional headers to send.
-     * @param string       $params  Additional params for the mailer in use.
+     * @param string       $headers additional headers to send
+     * @param string       $params  additional params for the mailer in use
      *
-     * @return bool Whether the mail has been sent.
+     * @return bool whether the mail has been sent
      */
     protected function sendEmail($to, $subject, $message, $headers = '', $params = '')
     {

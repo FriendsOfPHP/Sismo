@@ -18,7 +18,7 @@ require_once 'Net/Growl/Autoload.php';
 
 // @codeCoverageIgnoreStart
 /**
- * Notifies builds via a Growl (Mac or Windows, but not Linux)
+ * Notifies builds via a Growl (Mac or Windows, but not Linux).
  *
  * Requires PEAR::Net_Growl package
  *
@@ -38,8 +38,10 @@ class GrowlNotifier extends Notifier
     private $growl;
 
     /**
-     * Message format with predefined place holders
+     * Message format with predefined place holders.
+     *
      * @var string
+     *
      * @see Sismo\Notifier\Notifier::getPlaceholders() for known place holders
      */
     private $format;
@@ -77,11 +79,12 @@ class GrowlNotifier extends Notifier
     }
 
     /**
-     * Defines the new message format
+     * Defines the new message format.
      *
      * @param string $format The message format with predefined place holders
      *
      * @return $this
+     *
      * @see Sismo\Notifier\Notifier::getPlaceholders() for known place holders
      */
     public function setMessageFormat($format)
@@ -94,7 +97,7 @@ class GrowlNotifier extends Notifier
     }
 
     /**
-     * Notify a project commit
+     * Notify a project commit.
      *
      * @param Sismo\Commit $commit The latest project commit
      *
